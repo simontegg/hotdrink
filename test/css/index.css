@@ -1,0 +1,18 @@
+#sources label,
+#sources textarea {
+  display: block;
+}
+
+#arrows {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+img.arrow {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+

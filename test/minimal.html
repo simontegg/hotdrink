@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Sarge - Minimal Example</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<script type="text/javascript" src="js/prototype.js"></script>
+<script type="text/javascript" src="js/hotdrink.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+
+function loader() {
+  /* Sources. */
+  var sheet = $F("sheet");
+  hotdrink.bind_dialog(sheet);
+}
+
+/* ]]> */
+</script>
+</head>
+<body onload="loader();">
+
+<form id="layout">
+  <label>Celsius : <input type="text" id="celsius" /></label>
+  <label>Fahrenheit : <input type="text" id="fahrenheit"/></label>
+  <button type="button" id="result" command="Ok">Ok</button>
+</form>
+
+<textarea id="sheet" style="display:none">
+sheet temperature {
+  interface : {
+    celsius : 0;
+    fahrenheit;
+  }
+  logic : {
+    relate {
+      celsius <== (fahrenheit - 32) * 5 / 9;
+      fahrenheit <== (celsius * 9 / 5) + 32;
+    }
+  }
+  output : {
+    result <== celsius;
+  }
+}
+</textarea>
+
+</body>
+</html>
+
