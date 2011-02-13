@@ -1,4 +1,7 @@
 <?php
+// Issue: although x and y are init with integer values, the type of them changes
+// when inputs come from text fields, resulting in x + y being string concatenation.
+
 $sheet = <<<EOS
 sheet calulator {
   interface: {

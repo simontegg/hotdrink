@@ -1,4 +1,7 @@
 <?php
+// How to populate presets into model and layout?
+// One way is to use PHP to populate them. better way?
+
 $sheet = <<<EOS
 sheet preset {
   constant : {
@@ -18,7 +21,7 @@ sheet preset {
   logic: {
     relate {
       string_value, number_value <== preset == 100 ? ["",""] : [preset_data[preset].string_value, preset_data[preset].number_value];
-      preset <== (string_value == preset_data[preset].string_value && number_value == preset_data[preset].number_value) ? preset : 100;
+      preset <== (preset != 100 && string_value == preset_data[preset].string_value && number_value == preset_data[preset].number_value) ? preset : 100;
     }
   }
 

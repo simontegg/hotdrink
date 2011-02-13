@@ -1,37 +1,41 @@
 <?php
-$sheet = <<<EOS
 // ISSUES
-// while I'm changing value of max, it changes min value too soon
-// value is interpreted as string. "9" > "10"... changing into value=9, min=10 still works...
+// 1. while changing the value of max, it affects other values too soon. 
+//    e.g. when 200 is typed for max the 'value' will change instantly to be 2 
+// 2. values are interpreted as string type, and lexicographic comparison is done.
+//    e.g. "9" > "10", so value=9, min=10 can occur 
+
+$sheet = <<<EOS
 sheet dialog
 {
-  input: {
-  }
-  
   interface: {
     value: 50;
-    min_value: 0;
-    max_value: 100;
+    min: 0;
+    max: 100;
   }
 
   logic: {
     relate {
-      value <== value > min_value ? value : min_value;
-      min_value <== value < min_value ? value : min_value;
+// use (+var) to do numeric comparison
+      value <== (+value) > (+min) ? value : min;
+      min <== (+value) < (+min) ? value : min;
+//      value <== value > min ? value : min;
+//      min <== value < min ? value : min;
     }
     relate {
-      value <== value < max_value ? value : max_value;
-      max_value <== value > max_value ? value : max_value;
+      value <== (+value) < (+max) ? value : max;
+      max <== (+value) > (+max) ? value : max;
+//      value <== value < max ? value : max;
+//      max <== value > max ? value : max;
     }
   }
   
   output: { 
-    result <== { value: value, min: min_value, max: max_value };
+    result <== { value: value, min: min, max: max };
   }
   
   invariant: {
-    check_min <== min_value != empty && min_value != "" && min_value > 0;
-    //check_max <== max_value != empty && max_value != "" && max_value > 0;
+    check_min <== min != empty && min != "" && (+min) >= 0;
   }
 }
 EOS;
@@ -44,9 +48,15 @@ $layout = <<<EOS
 </style>
 
 <form id="dialog">
-<label>Value : <input type="text" id="value"/></label>
-<label>Minumum Value : <input type="text" id="min_value" /></label>
-<label>Maximum Value : <input type="text" id="max_value" /></label>
+<table><tr>
+<td>Minumum</td><td>Value</td><td>Maximum</td>
+</tr>
+<tr>
+<td><input type="text" id="min" size="8" /></td>
+<td><input type="text" id="value" size="8"/></td>
+<td><input type="text" id="max" size="8"/></td>
+</tr>
+</table>
 <button type="button" id="result">OK</button>
 </form>
 EOS;
