@@ -1,10 +1,6 @@
 <?php
 // enablement/disablement example
 
-// how to use boolean variable for radio button or select input?
-
-//Issue: multi-checkbox is not disabled properly, here 'q3'
-
 $sheet = <<<EOS
 sheet survey {
 
@@ -34,7 +30,7 @@ sheet survey {
   }
   
   invariant: {
-    // OK is enabled if q1 is answered and q2 is answered for those who answerd no for q1
+    // OK is enabled if q1 is Yes or (q1 is No and q2 is answered)
     must_be <== q1 != empty && ( q1 == "true" || (q2 != empty && (q2 != "other" || q2_other != "")));
   }
 }
@@ -51,33 +47,17 @@ $layout = <<<EOS
 
 <form id="dialog">
 <label>1. Are you using online social networking services?</label>
-<!--
-<input type="radio" name="q1" value="true">Yes</input>
+<input type="radio" name="q1" id="q1" value="true">Yes</input>
 <input type="radio" name="q1" value="false">No</input>
--->
-<select id="q1">
-  <option value="">Choose</option>
-  <option value="true">Yes</option>
-  <option value="false">No</option>
-</select>
 <br>
 
 <br>
 
 <label>2. If you answered No for the question 1, what is your reason?</label>
-<!--
-<input type="radio" name="q2" value="privacy">Privacy Concern</input><br>
+<input type="radio" name="q2" id="q2" value="privacy">Privacy Concern</input><br>
 <input type="radio" name="q2" value="not_effective">Not effective for networking</input><br>
 <input type="radio" name="q2" value="not_necessary">Not necessary</input><br>
 <input type="radio" name="q2" value="other">Other</input>
--->
-<select id="q2">
-  <option value="">Choose</option>
-  <option value="privacy">Privacy Concern</option>
-  <option value="not_effective">Not effective for networking</option>
-  <option value="not_necessary">Not necessary</option>
-  <option value="other">Other</option>
-</select>
 <input type="text" id="q2_other"/><br>
 
 <br>
@@ -95,7 +75,7 @@ $layout = <<<EOS
 <br>
 
 <label>4. Do you use Facebook? If yes, what is your favorite feature of Facebook?</label>
-<input type="checkbox" id="q4_flag">Yes</input>
+<input type="checkbox" id="q4_flag">Yes</input> 
 <select id="q4_reason">
   <option value="">Choose</option>
   <option value="searching">Searching Friends</option>
