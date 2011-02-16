@@ -13,8 +13,8 @@ sheet dialog
 
   logic: {
     relate {
-      value, max_value <== my_first_method(value, min_value, max_value);
-      value, min_value <== my_second_method(value, min_value, max_value);
+      value, max <== my_first_method(value, min, max);
+      value, min <== my_second_method(value, min, max);
     }
   }
   
