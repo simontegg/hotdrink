@@ -45,6 +45,7 @@ $examples = array(
     "grouped_options" => "Grouped options",
     "hello" => "Hello",
     "minmax" => "Min-max",
+    "enforced_minmax" => "Enforced min-max",
     "preset" => "Preset",
     "resize_image" => "Resize image",
     "save_image" => "Save image",
