@@ -2,7 +2,7 @@
 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Sarge - Test</title>
+<title>Hotdrink - Test</title>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
 <link type="text/css" rel="stylesheet" href="css/index.css" />
 <link type="text/css" rel="stylesheet" href="css/context_menu.css" />
@@ -36,9 +36,6 @@ var select_page = function (elt) {
 <body onload="loader();">
 <script type="text/javascript" src="js/context_menu.js"></script>
 <!--script type="text/javascript">enableDebug();</script-->
-<div id="arrows"></div>
-<div id="view"></div>
-<div id="sources">
 <?php
 $examples = array(
     "addressform" => "Address form",
@@ -62,10 +59,14 @@ $layout = "";
 
 if (array_key_exists("eg", $_GET)) {
   $eg = $_GET["eg"];
+  $eg_file = "examples/".$eg.".php";
   if (array_key_exists($eg, $examples)) {
-    include "examples/".$eg.".php";
+    include $eg_file;
     $eg_display_name = $examples[$eg];
     //echo "Loaded \"".$eg_display_name."\" example.<br />";
+  } elseif (file_exists($eg_file)) {
+    include $eg_file;
+    $eg_display_name = $eg;
   } else {
     //echo "\"".$eg."\" example not found.<br />";
   }
@@ -74,11 +75,12 @@ if (array_key_exists("eg", $_GET)) {
 }
 
 ?>
-  <label>Choose example: 
-    <select onchange="select_page(this);">
-      <option value="index.php" <?php echo ($eg == null) ? ("selected=\"selected\"") : ("") ?> >
-      (none)
-      </option>
+<div id="menu">
+<label>Choose example: 
+  <select onchange="select_page(this);">
+    <option value="index.php" <?php echo ($eg == null) ? ("selected=\"selected\"") : ("") ?> >
+    (none)
+    </option>
 <?php
 foreach ($examples as $key => $value) {
   echo "<option value=\"index.php?eg=$key\"";
@@ -88,21 +90,22 @@ foreach ($examples as $key => $value) {
   echo "</option>\n";
 }
 ?>
-    </select>
-  </label>
+  </select>
+</label>
+</div>
+
+<div id="arrows"></div>
+<div id="view_container">
+<label>View
+<div id="view"></div>
+</label>
+</div>
+<div id="sources">
   <label>Sheet
-<textarea id="sheet" rows="24" cols="80">
-<?php
-echo htmlspecialchars($sheet);
-?>
-</textarea>
+    <textarea id="sheet" rows="24" cols="80"><?php echo htmlspecialchars($sheet);?></textarea>
   </label>
   <label>Layout
-<textarea id="layout" rows="24" cols="80">
-<?php
-echo htmlspecialchars($layout);
-?>
-</textarea>
+    <textarea id="layout" rows="24" cols="80"><?php echo htmlspecialchars($layout);?></textarea>
   </label>
 </div>
 </body>

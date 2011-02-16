@@ -9,7 +9,7 @@ sheet screen
   
   interface: {
     /* pixels and resolution are properties. */
-    pixels: 100; // <== Math.round(pixels)?
+    pixels: 100;
     resolution: 72;
     inches;
     file_size; // prediction

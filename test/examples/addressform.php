@@ -7,31 +7,35 @@ function trim(str) {
 
 /* zip to city is pseudo logic. It may utilize external web service API. */
 // http://www.mongabay.com/igapo/zip_codes/index.htm
-var zip_to_city_data = {
-        10001: ["NY", "New York"],
-        73301: ["TX", "Austin"],
-        77001: ["TX", "Houston"],
-        77840: ["TX", "College Station"],
-        77841: ["TX", "College Station"],
-        77842: ["TX", "College Station"],
-        77843: ["TX", "College Station"],
-        77844: ["TX", "College Station"],
-        77845: ["TX", "College Station"],
-        94101: ["CA", "San Francisco"],
-        94301: ["CA", "Palo Alto"],
-        95101: ["CA", "San Jose"]
+var us_zip_to_city_data = {
+    10001: ["NY", "New York"],
+    73301: ["TX", "Austin"],
+    77001: ["TX", "Houston"],
+    77840: ["TX", "College Station"],
+    77841: ["TX", "College Station"],
+    77842: ["TX", "College Station"],
+    77843: ["TX", "College Station"],
+    77844: ["TX", "College Station"],
+    77845: ["TX", "College Station"],
+    94101: ["CA", "San Francisco"],
+    94301: ["CA", "Palo Alto"],
+    95101: ["CA", "San Jose"]
 };
 
 //zip_to_city is expensive function(due to outgoing call)
-function zip_to_city(zip) {
+function us_zip_to_city(zip) {
+  // don't invoke until 5 digits are given
+  if(zip.length < 5) return [null,null];
+  if(!(zip in us_zip_to_city_data)) return [null,null];
 
-    // don't invoke until 5 digits are given
-    if(zip.length < 5) return null;
-    if(!(zip in zip_to_city_data)) return null;
+  // fire external invocation to get the mapping
+  //return {state: zip_to_city_data[zip][0], city: zip_to_city_data[zip][1]};
+  return us_zip_to_city_data[zip];
+}
 
-    // fire external invocation to get the mapping
-    //return {state: zip_to_city_data[zip][0], city: zip_to_city_data[zip][1]};
-    return zip_to_city_data[zip];
+function ca_zip_to_city(zip) {
+  // dummy for now
+  return [null,null];
 }
 </script>
 
@@ -39,6 +43,7 @@ function zip_to_city(zip) {
 <?php
 
 // how can I express that when state value has changed clear the city value?
+// how to avoid duplicate typing in output?
 
 $sheet = <<<EOS
 sheet address
@@ -51,32 +56,48 @@ sheet address
     city: "";
     street_address1: "";
     street_address2: "";
-    phone: "";
+    phone1: "";
+    phone2: "";
+    phone3: "";
   }
   
   logic: {
-    t1 <== (country == "US") ? zip_to_city(zip) : empty;
+    is_us <== country == "US";
+    is_ca <== country == "CA";
+    us_state,us_city <== is_us ? us_zip_to_city(zip) : [empty,empty];
+    ca_province,ca_city <== is_ca ? ca_zip_to_city(zip) : [empty,empty];
+    
     relate {
-        state, city <== (t1 == empty) ? [state, city] : t1;
+        // clear state if US is not selected
+        state <== is_us ? (us_state != empty ? us_state : state) : "";
     }
+    relate {
+        // clear province if CA is not selected
+        province <== is_ca ? (ca_province != empty ? ca_province : province) : "";
+    }
+    relate {
+        city <== is_us ? (us_city != empty ? us_city : city) : 
+          (is_ca ? (ca_city != empty ? ca_city : city) : city);
+    }
+    phone <== phone1 + phone2 + phone3;
   }
   
   output: {
-  // Better way to pass outputs (while considering enablement of widgets)?
-    result <== (country == "US") ? { country: country, zip: zip, state: state, city: city, 
-    street_address: [street_address1, street_address2], phone: phone }
-    : (country == "CA") ? {country: country, province: province, zip: zip, city: city, street_address: [street_address1, street_address2], phone: phone }
-    : {}
+    result <== (country == "US") ? 
+      { country: country, zip: zip, state: state, city: city, street_address: [street_address1, street_address2], phone: phone }
+    : ((country == "CA") ? 
+        {country: country, province: province, zip: zip, city: city, street_address: [street_address1, street_address2], phone: phone }
+        : {})
     ;
   }
   
   invariant: {
-    not_empty <== state != "" && city != "" && street_address1 != "" && phone != "";
+    not_empty <== state != "" && city != "" && street_address1 != "" && phone1 != "" && phone2 != "" && phone3 != "";
   }
 }
 EOS;
 
-// * how can I make either state or province shown?
+// * how can I make either state or province displayed?
  
 $layout = <<<EOS
 <style type="text/css">
@@ -186,7 +207,7 @@ $layout = <<<EOS
     </tr>
     <tr>
         <td><label>Phone :</label></td>
-        <td><input type="text" id="phone"/> (Required)</td>
+        <td><input type="text" id="phone1" size=3/>-<input type="text" id="phone2" size=4/>-<input type="text" id="phone3" size=4/> (Required)</td>
     </tr>
 </table>
 </fieldset>
@@ -196,4 +217,3 @@ $layout = <<<EOS
 EOS;
 
 ?>
-
