@@ -41,10 +41,19 @@ var select_page = function (elt) {
 <div id="sources">
 <?php
 $examples = array(
+    "addressform" => "Address form",
+    "alert" => "Alert",
+    "calculator" => "Calculator",
+    "debug" => "Debug",
+    "grouped_options" => "Grouped options",
+    "hello" => "Hello",
+    "minmax" => "Min-max",
+    "preset" => "Preset",
     "resize_image" => "Resize image",
     "save_image" => "Save image",
-    "grouped_options" => "Grouped options",
-    "debug" => "Test"
+    "screen" => "Screen",
+    "surveyform" => "Survey form",
+    "temperature" => "Temperature"
   );
 
 $eg = null;
