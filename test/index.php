@@ -46,6 +46,7 @@ $examples = array(
     "hello" => "Hello",
     "minmax" => "Min-max",
     "enforced_minmax" => "Enforced min-max",
+    "multi_view" => "Multi-element widgets",
     "preset" => "Preset",
     "resize_image" => "Resize image",
     "save_image" => "Save image",
