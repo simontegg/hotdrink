@@ -23,6 +23,9 @@ sheet dialog
   }
   
   invariant: {
+    /* If min is 0, it will fail comparison to empty string, but if min is
+    empty string, it will pass comparison to 0. What combination of tests will
+    allow 0 for min, but not the empty string? Requires type check I think. */
     check_min <== min != empty && min != "" && (+min) >= 0;
   }
 }
