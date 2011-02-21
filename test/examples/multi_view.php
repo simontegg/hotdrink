@@ -26,7 +26,7 @@ $layout = <<<EOS
 <label>B-1 : <input type="checkbox" id="b" name="b" value="1" /></label>
 <label>B-2 : <input type="checkbox" name="b" value="2" /></label>
 <label>B-3 : <input type="checkbox" name="b" value="3" /></label>
-<label>C : <input type="radio" name="c" value="yes" />Yes <input type="radio" name="c" value="no" />No</label>
+<label>C : <input type="radio" id="c" name="c" value="yes" />Yes <input type="radio" name="c" value="no" />No</label>
 
 <button type="button" id="result">OK</button>
 </form>
