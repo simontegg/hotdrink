@@ -35,8 +35,9 @@ SOURCES:=\
 	controller/factory.js \
 	controller/behavior/value.js \
 	controller/behavior/enablement.js \
-	controller/find/html.js \
-	controller/bind/html.js \
+	controller/behavior/view/html/find.js \
+	controller/behavior/view/html/value.js \
+	controller/behavior/view/html/enablement.js \
 	controller.js \
 	parser/parsec.js \
 	parser/expr_parser.js \
