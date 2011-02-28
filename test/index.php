@@ -48,6 +48,7 @@ $examples = array(
     "enforced_minmax" => "Enforced min-max",
     "multi_view" => "Multi-element widgets",
     "preset" => "Preset",
+    "radio" => "Radio buttons",
     "resize_image" => "Resize image",
     "save_image" => "Save image",
     "screen" => "Screen",

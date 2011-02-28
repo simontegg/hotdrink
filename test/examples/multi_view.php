@@ -8,8 +8,8 @@ sheet test {
     b : []; // multiple checkbox
     c : "yes"; // radio
   }
-  output:{
-    result <== (x == false) ? "nothing" : {a:a, b:b, c:c};
+  output : {
+    result <== (x == false) ? "nothing" : {a : a, b : b, c : c};
   }
 }
 EOS;
