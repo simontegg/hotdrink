@@ -18,10 +18,8 @@ $layout = <<<EOS
 
 <form id="dialog">
 <fieldset>
-<label>theValue :
   <input type="radio" id="theValue" name="theValueGroup" value="a" />A
   <input type="radio" name="theValueGroup" value="b" />B
-</label>
 </fieldset>
 <button type="button" id="result">OK</button>
 </form>

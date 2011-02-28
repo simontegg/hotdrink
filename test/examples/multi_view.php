@@ -21,12 +21,12 @@ $layout = <<<EOS
 </style>
 
 <form id="form">
-<label>X : <input type="checkbox" id="x"> Enable/Disable all below</input>
-<label>A : <input type="checkbox" id="a"></input>
+<label>X : <input type="checkbox" id="x"> Enable/Disable all below</input></label>
+<label>A : <input type="checkbox" id="a"></input></label>
 <label>B-1 : <input type="checkbox" id="b" name="b" value="1" /></label>
 <label>B-2 : <input type="checkbox" name="b" value="2" /></label>
 <label>B-3 : <input type="checkbox" name="b" value="3" /></label>
-<label>C : <input type="radio" id="c" name="c" value="yes" />Yes <input type="radio" name="c" value="no" />No</label>
+<div>C : <input type="radio" id="c" name="c" value="yes" />Yes <input type="radio" name="c" value="no" />No</div>
 
 <button type="button" id="result">OK</button>
 </form>
