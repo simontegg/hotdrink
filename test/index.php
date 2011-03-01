@@ -5,8 +5,6 @@
 <title>Hotdrink - Test</title>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
 <link type="text/css" rel="stylesheet" href="css/index.css" />
-<link type="text/css" rel="stylesheet" href="css/context_menu.css" />
-<link type="text/css" rel="stylesheet" href="css/pm.css" />
 <script type="text/javascript" src="js/flapjax.js"></script>
 <script type="text/javascript" src="js/flapjax_ext.js"></script>
 <script type="text/javascript" src="js/prototype.js"></script>
@@ -16,9 +14,14 @@
 
 function loader() {
   /* Sources. */
-  var sheetB = $B("sheet").calmB(1000);
-  var layoutB = $B("layout").calmB(1000);
-  liftB(hotdrink.open_dialog, sheetB, layoutB);
+  var adamB = $B("adam").calmB(1000);
+  var htmlB = $B("html").calmB(1000);
+  liftB(function (adam, html) {
+    hotdrink.openDialog({
+      adam : adam,
+      html : html
+    });
+  }, adamB, htmlB);
 }
 
 var select_page = function (elt) {
@@ -105,10 +108,10 @@ foreach ($examples as $key => $value) {
 </div>
 <div id="sources">
   <label>Sheet
-    <textarea id="sheet" rows="24" cols="80"><?php echo htmlspecialchars($sheet);?></textarea>
+    <textarea id="adam" rows="24" cols="80"><?php echo htmlspecialchars($sheet);?></textarea>
   </label>
   <label>Layout
-    <textarea id="layout" rows="24" cols="80"><?php echo htmlspecialchars($layout);?></textarea>
+    <textarea id="html" rows="24" cols="80"><?php echo htmlspecialchars($layout);?></textarea>
   </label>
 </div>
 </body>
