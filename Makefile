@@ -13,7 +13,7 @@ unhide=$(dir $1)$(patsubst .%,%,$(notdir $1))
 INCDIRS:=
 LIBDIRS:=
 
-SRCDIR:=.
+SRCDIR:=lib
 #SOURCES:=$(shell find $(SRCDIR) -name '*.js' -print)
 SOURCES:=\
 	utility/prototype-form-ex.js \
@@ -60,13 +60,13 @@ DOCDIR:=doc
 RELEASE_FLAGS:=
 DEBUG_FLAGS:=-DDEBUG
 
-#BUILD_FLAGS:=$(DEBUG_FLAGS)
-BUILD_FLAGS:=$(RELEASE_FLAGS)
+BUILD_FLAGS:=$(DEBUG_FLAGS)
+#BUILD_FLAGS:=$(RELEASE_FLAGS)
 
 # Change the path to the YUI Compressor as necessary:
-YUIC:=java -jar $(HOME)/local/bin/yuicompressor-2.4.2.jar --type js
+#YUIC:=java -jar $(HOME)/local/bin/yuicompressor-2.4.2.jar --type js
 # If you do not have the YUI Compressor installed:
-#YUIC:=cat
+YUIC:=cat
 
 M4:=m4
 M4FLAGS:=-P $(BUILD_FLAGS)
@@ -106,15 +106,18 @@ $(OBJDIR)/% :
 ##################################################
 # cleaning
 
-.PHONY : clean clean-obj clean-exe
+.PHONY : clean clean-obj clean-exe clean-doc
 
-clean : clean-obj clean-exe
+clean : clean-obj clean-exe clean-doc
 
 clean-exe :
 	-rm -f $(MAIN)
 
 clean-obj :
 	-rm -rf $(OBJDIR)
+
+clean-doc :
+	-rm -rf $(DOCDIR)
 
 ##################################################
 # secondary expansion
