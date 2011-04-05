@@ -36,7 +36,7 @@ sheet image_resize {
 }
 EOS;
 
-$layout = <<<EOS
+$html = <<<EOS
 <style type="text/css">
 #ResizeImage { border: 1px solid black; padding: 1em; margin: 1em; }
 #ResizeImage fieldset label { display: block; margin: .5em; }
@@ -77,7 +77,7 @@ $trees = <<<EOS
             "options" : {
               "readonly" : true,
               "label" : "Initial width",
-              "value" : 1500,
+              "value" : 2100,
               "units" : "px"
             }
           },
@@ -86,8 +86,10 @@ $trees = <<<EOS
             "type" : "number",
             "options" : {
               "label" : "Absolute width",
-              "value" : 1500,
-              "units" : "px"
+              "value" : 2100,
+              "units" : "px",
+              "id" : "absolute_width",
+              "bindValue" : "absolute_width"
             }
           },
 
@@ -96,7 +98,9 @@ $trees = <<<EOS
             "options" : {
               "label" : "Relative width",
               "value" : "100",
-              "units" : "%"
+              "units" : "%",
+              "id" : "relative_width",
+              "bindValue" : "relative_width"
             }
           }
         ]
@@ -111,7 +115,7 @@ $trees = <<<EOS
             "options" : {
               "readonly" : true,
               "label" : "Initial height",
-              "value" : 2100,
+              "value" : 1500,
               "units" : "px"
             }
           },
@@ -120,8 +124,10 @@ $trees = <<<EOS
             "type" : "number",
             "options" : {
               "label" : "Absolute height",
-              "value" : 2100,
-              "units" : "px"
+              "value" : 1500,
+              "units" : "px",
+              "id" : "absolute_height",
+              "bindValue" : "absolute_height"
             }
           },
 
@@ -130,10 +136,25 @@ $trees = <<<EOS
             "options" : {
               "label" : "Relative height",
               "value" : "100",
-              "units" : "%"
+              "units" : "%",
+              "id" : "relative_height",
+              "bindValue" : "relative_height"
             }
           }
         ]
+      }
+    ]
+  },
+
+  {
+    "type" : "row",
+    "options" : {},
+    "children" : [
+      {
+        "type" : "checkbox",
+        "options" : {
+          "label" : "Preserve proportions"
+        }
       }
     ]
   }
