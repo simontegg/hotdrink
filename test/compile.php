@@ -18,7 +18,7 @@ function loader() {
   var treesB = $B("trees").calmB(1000);
 
   var factory = new hotdrink.controller.Factory();
-  hotdrink.controller.view.html.registerWidgetsForBuild(factory);
+  hotdrink.controller.view.html.registerWidgetsForCompile(factory);
 
   liftB(function (trees) {
     try {
@@ -26,13 +26,7 @@ function loader() {
     } catch (e) {
       trees = [];
     }
-    var root = [ {
-      type : "column",
-      options : {},
-      children : trees
-    } ];
-    factory.buildAndBind(root);
-    $("html").update(root[0].box.box);
+    $("html").update(factory.compile(trees));
   }, treesB);
 }
 
@@ -95,12 +89,12 @@ if (array_key_exists("eg", $_GET)) {
 <div id="menu">
 <label>Choose example: 
   <select onchange="selectPage(this);">
-    <option value="build.php" <?php echo ($eg == null) ? ("selected=\"selected\"") : ("") ?> >
+    <option value="compile.php" <?php echo ($eg == null) ? ("selected=\"selected\"") : ("") ?> >
     (none)
     </option>
 <?php
 foreach ($examples as $key => $value) {
-  echo "<option value=\"build.php?eg=$key\"";
+  echo "<option value=\"compile.php?eg=$key\"";
   if ($eg == $key) echo " selected=\"selected\"";
   echo ">\n";
   echo "$value\n";
@@ -112,7 +106,7 @@ foreach ($examples as $key => $value) {
 </div>
 
 <label>HTML
-<div id="html" class="eve"></div>
+<div id="html"></div>
 </label>
 <div id="sources">
   <label>Eve

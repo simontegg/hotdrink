@@ -36,6 +36,7 @@ SOURCES:=\
 	controller/behavior/value.js \
 	controller/behavior/enablement.js \
 	controller/view/html/build.js \
+	controller/view/html/compile.js \
 	controller/view/html/value.js \
 	controller/view/html/enablement.js \
 	controller.js \
