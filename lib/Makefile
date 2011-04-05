@@ -35,7 +35,7 @@ SOURCES:=\
 	controller/factory.js \
 	controller/behavior/value.js \
 	controller/behavior/enablement.js \
-	controller/view/html/find.js \
+	controller/view/html/build.js \
 	controller/view/html/value.js \
 	controller/view/html/enablement.js \
 	controller.js \
@@ -60,13 +60,13 @@ DOCDIR:=doc
 RELEASE_FLAGS:=
 DEBUG_FLAGS:=-DDEBUG
 
-#BUILD_FLAGS:=$(DEBUG_FLAGS)
-BUILD_FLAGS:=$(RELEASE_FLAGS)
+BUILD_FLAGS:=$(DEBUG_FLAGS)
+#BUILD_FLAGS:=$(RELEASE_FLAGS)
 
 # Change the path to the YUI Compressor as necessary:
-YUIC:=java -jar $(HOME)/local/bin/yuicompressor-2.4.2.jar --type js
+#YUIC:=java -jar $(HOME)/local/bin/yuicompressor-2.4.2.jar --type js
 # If you do not have the YUI Compressor installed:
-#YUIC:=cat
+YUIC:=cat
 
 M4:=m4
 M4FLAGS:=-P $(BUILD_FLAGS)

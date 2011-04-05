@@ -62,70 +62,82 @@ $layout = <<<EOS
 </form>
 EOS;
 
-$layout_ast = <<<EOS
-{
-  type : "column",
-  halign : "right",
-  children : [
-    {
-      type : "row",
-      valign : "center",
-      children : [
-        {
-          type : "column",
-          children : [
-            {
-              type : "string",
-              value : "string_1"
-            },
-            {
-              type : "number",
-              label : "Absolute Height",
-              value : "absolute_height"
-            },
-            {
-              type : "number",
-              label : "Relative Height",
-              value : "relative_height"
+$trees = <<<EOS
+[
+  {
+    "type" : "row",
+    "options" : {},
+    "children" : [
+      {
+        "type" : "column",
+        "options" : {},
+        "children" : [
+          {
+            "type" : "number",
+            "options" : {
+              "readonly" : true,
+              "label" : "Initial width",
+              "value" : 1500,
+              "units" : "px"
             }
-          ]
-        },
-        {
-          type : "checkbox",
-          label : "Preserve Proportions",
-          value : "preserve_ratio"
-        },
-        {
-          type : "column",
-          children : [
-            {
-              type : "string",
-              value : "string_2"
-            },
-            {
-              type : "number",
-              label : "Absolute Width",
-              value : "absolute_width"
-            },
-            {
-              type : "number",
-              label : "Relative Width",
-              value : "relative_width"
+          },
+
+          {
+            "type" : "number",
+            "options" : {
+              "label" : "Absolute width",
+              "value" : 1500,
+              "units" : "px"
             }
-          ]
-        }
-      ]
-    },
-    {
-      type : "button",
-      label : "Resize",
-      command : {
-        name : "resize",
-        parameters : "result"
+          },
+
+          {
+            "type" : "number",
+            "options" : {
+              "label" : "Relative width",
+              "value" : "100",
+              "units" : "%"
+            }
+          }
+        ]
+      },
+
+      {
+        "type" : "column",
+        "options" : {},
+        "children" : [
+          {
+            "type" : "number",
+            "options" : {
+              "readonly" : true,
+              "label" : "Initial height",
+              "value" : 2100,
+              "units" : "px"
+            }
+          },
+
+          {
+            "type" : "number",
+            "options" : {
+              "label" : "Absolute height",
+              "value" : 2100,
+              "units" : "px"
+            }
+          },
+
+          {
+            "type" : "number",
+            "options" : {
+              "label" : "Relative height",
+              "value" : "100",
+              "units" : "%"
+            }
+          }
+        ]
       }
-    }
-  ]
-}
+    ]
+  }
+]
 EOS;
 
 ?>
