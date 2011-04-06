@@ -64,6 +64,7 @@ EOS;
 
 $trees = <<<EOS
 [
+
   {
     "type" : "row",
     "options" : {},
@@ -77,8 +78,9 @@ $trees = <<<EOS
             "options" : {
               "readonly" : true,
               "label" : "Initial width",
-              "value" : 2100,
-              "units" : "px"
+              "units" : "px",
+              "id" : "initial_width",
+              "bindValue" : "initial_width"
             }
           },
 
@@ -86,7 +88,6 @@ $trees = <<<EOS
             "type" : "number",
             "options" : {
               "label" : "Absolute width",
-              "value" : 2100,
               "units" : "px",
               "id" : "absolute_width",
               "bindValue" : "absolute_width"
@@ -97,7 +98,6 @@ $trees = <<<EOS
             "type" : "number",
             "options" : {
               "label" : "Relative width",
-              "value" : "100",
               "units" : "%",
               "id" : "relative_width",
               "bindValue" : "relative_width"
@@ -115,8 +115,9 @@ $trees = <<<EOS
             "options" : {
               "readonly" : true,
               "label" : "Initial height",
-              "value" : 1500,
-              "units" : "px"
+              "units" : "px",
+              "id" : "initial_height",
+              "bindValue" : "initial_height"
             }
           },
 
@@ -124,7 +125,6 @@ $trees = <<<EOS
             "type" : "number",
             "options" : {
               "label" : "Absolute height",
-              "value" : 1500,
               "units" : "px",
               "id" : "absolute_height",
               "bindValue" : "absolute_height"
@@ -135,7 +135,6 @@ $trees = <<<EOS
             "type" : "number",
             "options" : {
               "label" : "Relative height",
-              "value" : "100",
               "units" : "%",
               "id" : "relative_height",
               "bindValue" : "relative_height"
@@ -153,11 +152,29 @@ $trees = <<<EOS
       {
         "type" : "checkbox",
         "options" : {
-          "label" : "Preserve proportions"
+          "label" : "Preserve proportions",
+          "id" : "preserve_ratio",
+          "bindValue" : "preserve_ratio"
         }
       }
     ]
   }
+
+  {
+    "type" : "row",
+    "options" : {},
+    "children" : [
+      {
+        "type" : "commandButton",
+        "options" : {
+          "label" : "Resize",
+          "id" : "result",
+          "bindValue" : "result"
+        }
+      }
+    ]
+  }
+
 ]
 EOS;
 

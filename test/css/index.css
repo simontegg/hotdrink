@@ -1,5 +1,27 @@
-#sources label,
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+}
+
+#view_container {
+  margin: 1em 0;
+}
+
+#sources {
+  margin: 1em 0;
+}
+
+#sources label {
+  display: block;
+  float: left;
+  width: 50%;
+}
+
 #sources textarea {
+  height: 800px;
+  width: 100%;
   display: block;
 }
 
