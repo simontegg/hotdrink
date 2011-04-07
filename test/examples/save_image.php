@@ -29,7 +29,7 @@ sheet save_image_file {
 }
 EOS;
 
-$layout = <<<EOS
+$html = <<<EOS
 <style type="text/css">
 #SaveImage { border: 1px solid black; padding: 1em; margin: 1em; }
 #SaveImage fieldset label { display: block; margin: .5em; }
@@ -51,6 +51,61 @@ $layout = <<<EOS
 
 <button type="button" id="result" command="save_image" >Save</button>
 </form>
+EOS;
+
+$trees = <<<EOS
+[
+  {
+    "type" : "text",
+    "options" : {
+      "label" : "File name",
+      "id" : "file_name",
+      "bindValue" : "file_name"
+    }
+  },
+
+  {
+    "type" : "dropdown",
+    "options" : {
+      "label" : "Save as type",
+      "items" : [
+        { "name" : "Bitmap (.bmp)", "value" : "bmp" },
+        { "name" : "JPEG (.jpeg)", "value" : "jpeg" }
+      ],
+      "id" : "file_type",
+      "bindValue" : "file_type"
+    }
+  },
+
+  {
+    "type" : "number",
+    "options" : {
+      "label" : "Compression ratio",
+      "units" : "%",
+      "id" : "compression_ratio",
+      "bindValue" : "compression_ratio"
+    }
+  },
+
+  {
+    "type" : "number",
+    "options" : {
+      "label" : "Image quality",
+      "units" : "%",
+      "id" : "image_quality",
+      "bindValue" : "image_quality"
+    }
+  },
+
+  {
+    "type" : "commandButton",
+    "options" : {
+      "label" : "Save",
+      "id" : "result",
+      "bindValue" : "result"
+    }
+  }
+]
 EOS;
 
 ?>
