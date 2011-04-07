@@ -14,7 +14,7 @@ sheet test {
 }
 EOS;
 
-$layout = <<<EOS
+$html = <<<EOS
 <style type="text/css">
 #form { border: 1px solid black; padding: 1em; margin: 1em; }
 #form label { display: block; }
@@ -30,6 +30,64 @@ $layout = <<<EOS
 
 <button type="button" id="result">OK</button>
 </form>
+EOS;
+
+$trees = <<<EOS
+[
+  {
+    "type" : "checkbox",
+    "options" : {
+      "label" : "X",
+      "id" : "x",
+      "bindValue" : "x"
+    }
+  },
+
+  {
+    "type" : "checkbox",
+    "options" : {
+      "label" : "A",
+      "id" : "a",
+      "bindValue" : "a"
+    }
+  },
+
+  {
+    "type" : "checkboxGroup",
+    "options" : {
+      "label" : "B",
+      "items" : [
+        { "name" : "B-1", "value" : "1" },
+        { "name" : "B-2", "value" : "2" },
+        { "name" : "B-3", "value" : "3" }
+      ],
+      "id" : "b",
+      "bindValue" : "b"
+    }
+  },
+
+  {
+    "type" : "radioGroup",
+    "options" : {
+      "label" : "C",
+      "items" : [
+        { "name" : "Yes", "value" : "yes" },
+        { "name" : "No", "value" : "no" }
+      ],
+      "id" : "c",
+      "bindValue" : "c"
+    }
+  },
+
+  {
+    "type" : "commandButton",
+    "options" : {
+      "label" : "OK",
+      "id" : "result",
+      "bindValue" : "result"
+    }
+  }
+]
 EOS;
 
 ?>
