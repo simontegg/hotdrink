@@ -13,7 +13,7 @@ unhide=$(dir $1)$(patsubst .%,%,$(notdir $1))
 INCDIRS:=
 LIBDIRS:=
 
-SRCDIR:=.
+SRCDIR:=lib
 #SOURCES:=$(shell find $(SRCDIR) -name '*.js' -print)
 SOURCES:=\
 	utility/prototype-form-ex.js \
@@ -108,15 +108,18 @@ $(OBJDIR)/% :
 ##################################################
 # cleaning
 
-.PHONY : clean clean-obj clean-exe
+.PHONY : clean clean-obj clean-exe clean-doc
 
-clean : clean-obj clean-exe
+clean : clean-obj clean-exe clean-doc
 
 clean-exe :
 	-rm -f $(MAIN)
 
 clean-obj :
 	-rm -rf $(OBJDIR)
+
+clean-doc :
+	-rm -rf $(DOCDIR)
 
 ##################################################
 # secondary expansion
