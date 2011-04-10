@@ -15,22 +15,17 @@
 
 function loader() {
   /* Sources. */
-  var adamB = $B("adam").calmB(1000);
-  var treesB = $B("trees").calmB(1000);
+  var sheetB = $B("sheet").calmB(1000);
+  var layoutB = $B("layout").calmB(1000);
 
   /* Library call. */
-  liftB(function (adam, trees) {
-    if (trees.isJSON()) {
-      trees = trees.evalJSON(true);
-    } else {
-      trees = [];
-    }
+  liftB(function (sheet, layout) {
     hotdrink.openDialog({
-      adam : adam,
-      trees : trees,
+      adam : sheet,
+      eve : layout,
       compile : true
     });
-  }, adamB, treesB);
+  }, sheetB, layoutB);
 }
 
 var select_page = function (elt) {
@@ -71,7 +66,7 @@ $examples = array(
 
 $eg = null;
 $sheet = "";
-$trees = "";
+$layout = "";
 
 if (array_key_exists("eg", $_GET)) {
   $eg = $_GET["eg"];
@@ -117,10 +112,10 @@ foreach ($examples as $key => $value) {
 </div>
 <div id="sources">
   <label>Sheet
-    <textarea id="adam"><?php echo htmlspecialchars($sheet);?></textarea>
+    <textarea id="sheet"><?php echo htmlspecialchars($sheet);?></textarea>
   </label>
-  <label>Trees
-    <textarea id="trees"><?php echo htmlspecialchars($trees);?></textarea>
+  <label>Layout
+    <textarea id="layout"><?php echo htmlspecialchars($layout);?></textarea>
   </label>
 </div>
 </body>
