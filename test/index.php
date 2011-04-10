@@ -54,6 +54,7 @@ $examples = array(
     "alert" => "Alert",
     "calculator" => "Calculator",
     "debug" => "Debug",
+    "form" => "Form",
     "grouped_options" => "Grouped options",
     "hello" => "Hello",
     "minmax" => "Min-max",
