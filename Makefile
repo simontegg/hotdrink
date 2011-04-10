@@ -44,6 +44,7 @@ SOURCES:=\
 	parser/parsec.js \
 	parser/expr_parser.js \
 	parser/model_parser.js \
+    parser/view_parser.js \
 	driver.js
 SOURCES:=$(addprefix $(SRCDIR)/,$(SOURCES))
 
