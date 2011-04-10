@@ -36,7 +36,7 @@ sheet image_resize {
 }
 EOS;
 
-$layout = <<<EOS
+$html = <<<EOS
 <style type="text/css">
 #ResizeImage { border: 1px solid black; padding: 1em; margin: 1em; }
 #ResizeImage fieldset label { display: block; margin: .5em; }
@@ -62,70 +62,120 @@ $layout = <<<EOS
 </form>
 EOS;
 
-$layout_ast = <<<EOS
-{
-  type : "column",
-  halign : "right",
-  children : [
-    {
-      type : "row",
-      valign : "center",
-      children : [
-        {
-          type : "column",
-          children : [
-            {
-              type : "string",
-              value : "string_1"
-            },
-            {
-              type : "number",
-              label : "Absolute Height",
-              value : "absolute_height"
-            },
-            {
-              type : "number",
-              label : "Relative Height",
-              value : "relative_height"
+$trees = <<<EOS
+[
+
+  {
+    "type" : "row",
+    "options" : {},
+    "children" : [
+      {
+        "type" : "column",
+        "options" : {},
+        "children" : [
+          {
+            "type" : "number",
+            "options" : {
+              "readonly" : true,
+              "label" : "Initial width",
+              "units" : "px",
+              "id" : "initial_width",
+              "bindValue" : "initial_width"
             }
-          ]
-        },
-        {
-          type : "checkbox",
-          label : "Preserve Proportions",
-          value : "preserve_ratio"
-        },
-        {
-          type : "column",
-          children : [
-            {
-              type : "string",
-              value : "string_2"
-            },
-            {
-              type : "number",
-              label : "Absolute Width",
-              value : "absolute_width"
-            },
-            {
-              type : "number",
-              label : "Relative Width",
-              value : "relative_width"
+          },
+
+          {
+            "type" : "number",
+            "options" : {
+              "label" : "Absolute width",
+              "units" : "px",
+              "id" : "absolute_width",
+              "bindValue" : "absolute_width"
             }
-          ]
-        }
-      ]
-    },
-    {
-      type : "button",
-      label : "Resize",
-      command : {
-        name : "resize",
-        parameters : "result"
+          },
+
+          {
+            "type" : "number",
+            "options" : {
+              "label" : "Relative width",
+              "units" : "%",
+              "id" : "relative_width",
+              "bindValue" : "relative_width"
+            }
+          }
+        ]
+      },
+
+      {
+        "type" : "column",
+        "options" : {},
+        "children" : [
+          {
+            "type" : "number",
+            "options" : {
+              "readonly" : true,
+              "label" : "Initial height",
+              "units" : "px",
+              "id" : "initial_height",
+              "bindValue" : "initial_height"
+            }
+          },
+
+          {
+            "type" : "number",
+            "options" : {
+              "label" : "Absolute height",
+              "units" : "px",
+              "id" : "absolute_height",
+              "bindValue" : "absolute_height"
+            }
+          },
+
+          {
+            "type" : "number",
+            "options" : {
+              "label" : "Relative height",
+              "units" : "%",
+              "id" : "relative_height",
+              "bindValue" : "relative_height"
+            }
+          }
+        ]
       }
-    }
-  ]
-}
+    ]
+  },
+
+  {
+    "type" : "row",
+    "options" : {},
+    "children" : [
+      {
+        "type" : "checkbox",
+        "options" : {
+          "label" : "Preserve proportions",
+          "id" : "preserve_ratio",
+          "bindValue" : "preserve_ratio"
+        }
+      }
+    ]
+  },
+
+  {
+    "type" : "row",
+    "options" : {},
+    "children" : [
+      {
+        "type" : "commandButton",
+        "options" : {
+          "label" : "Resize",
+          "id" : "result",
+          "bindValue" : "result"
+        }
+      }
+    ]
+  }
+
+]
 EOS;
 
 ?>

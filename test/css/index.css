@@ -1,18 +1,27 @@
-#sources label,
-#sources textarea {
-  display: block;
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
 }
 
-#arrows {
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 10;
+#view_container {
+  margin: 1em 0;
 }
-img.arrow {
-	display: none;
-	position: absolute;
-	top: 0;
-	left: 0;
+
+#sources {
+  margin: 1em 0;
+}
+
+#sources label {
+  display: block;
+  float: left;
+  width: 50%;
+}
+
+#sources textarea {
+  height: 800px;
+  width: 100%;
+  display: block;
 }
 

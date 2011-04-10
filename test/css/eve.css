@@ -1,0 +1,54 @@
+.eve {
+  font: 80% Verdana, sans-serif;
+}
+
+.eve p {
+  margin: 0;
+  padding: 0;
+}
+
+.eve td {
+  vertical-align: top;
+}
+
+.eve input[type="radio"], .eve input[type="checkbox"] {
+  display: inline-block;
+  margin-top: -.35em;
+  margin-bottom: .35em;
+  padding-top: 0;
+}
+
+table.column {
+  border: 1px solid black;
+  margin: .27em;
+  padding: .27em;
+}
+
+td.label {
+  text-align: right;
+  padding-right: .27em;
+}
+
+td.widget {
+  text-align: left;
+}
+
+span.number {
+  font-size: 86%;
+}
+
+span.units {
+  padding-left: .27em;
+  float: right;
+}
+
+td.box {
+  text-align: center;
+}
+
+ul.checkboxGroup, ul.radioGroup {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+

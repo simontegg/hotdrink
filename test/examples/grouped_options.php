@@ -57,7 +57,7 @@ $methods = <<<EOS
 }
 EOS;
 
-$layout = <<<EOS
+$html = <<<EOS
 <style type="text/css">
 #ResizeImage { border: 1px solid black; padding: 1em; margin: 1em; }
 #ResizeImage fieldset label { display: block; margin: .5em; }
@@ -75,6 +75,55 @@ $layout = <<<EOS
 <button type="button" id="result" command="show" >Command</button>
 
 </form>
+EOS;
+
+$trees = <<<EOS
+[
+  {
+    "type" : "checkbox",
+    "options" : {
+      "label" : "All",
+      "id" : "all",
+      "bindValue" : "all"
+    }
+  },
+
+  {
+    "type" : "checkbox",
+    "options" : {
+      "label" : "A",
+      "id" : "a",
+      "bindValue" : "a"
+    }
+  },
+
+  {
+    "type" : "checkbox",
+    "options" : {
+      "label" : "B",
+      "id" : "b",
+      "bindValue" : "b"
+    }
+  },
+
+  {
+    "type" : "checkbox",
+    "options" : {
+      "label" : "C",
+      "id" : "c",
+      "bindValue" : "c"
+    }
+  },
+
+  {
+    "type" : "commandButton",
+    "options" : {
+      "label" : "Command",
+      "id" : "result",
+      "bindValue" : "result"
+    }
+  }
+]
 EOS;
 
 ?>

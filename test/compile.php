@@ -15,25 +15,22 @@
 
 function loader() {
   /* Sources. */
-  var adamB = $B("adam").calmB(1000);
   var treesB = $B("trees").calmB(1000);
 
-  /* Library call. */
-  liftB(function (adam, trees) {
-    if (trees.isJSON()) {
+  var factory = new hotdrink.controller.Factory();
+  hotdrink.controller.view.html.registerWidgetsForCompile(factory);
+
+  liftB(function (trees) {
+    try {
       trees = trees.evalJSON(true);
-    } else {
+    } catch (e) {
       trees = [];
     }
-    hotdrink.openDialog({
-      adam : adam,
-      trees : trees,
-      compile : true
-    });
-  }, adamB, treesB);
+    $("html").update(factory.compile(trees));
+  }, treesB);
 }
 
-var select_page = function (elt) {
+var selectPage = function (elt) {
   //assert(elt.tagName.toLowerCase() === "select");
   var url = elt.options[elt.selectedIndex].readAttribute("value");
   if (url != null) {
@@ -54,7 +51,6 @@ $examples = array(
     "alert" => "Alert",
     "calculator" => "Calculator",
     "debug" => "Debug",
-    "form" => "Form",
     "grouped_options" => "Grouped options",
     "hello" => "Hello",
     "minmax" => "Min-max",
@@ -70,7 +66,6 @@ $examples = array(
   );
 
 $eg = null;
-$sheet = "";
 $trees = "";
 
 if (array_key_exists("eg", $_GET)) {
@@ -93,13 +88,13 @@ if (array_key_exists("eg", $_GET)) {
 ?>
 <div id="menu">
 <label>Choose example: 
-  <select onchange="select_page(this);">
-    <option value="index.php" <?php echo ($eg == null) ? ("selected=\"selected\"") : ("") ?> >
+  <select onchange="selectPage(this);">
+    <option value="compile.php" <?php echo ($eg == null) ? ("selected=\"selected\"") : ("") ?> >
     (none)
     </option>
 <?php
 foreach ($examples as $key => $value) {
-  echo "<option value=\"index.php?eg=$key\"";
+  echo "<option value=\"compile.php?eg=$key\"";
   if ($eg == $key) echo " selected=\"selected\"";
   echo ">\n";
   echo "$value\n";
@@ -110,17 +105,12 @@ foreach ($examples as $key => $value) {
 </label>
 </div>
 
-<div id="view_container">
-<label>View
-<div id="view"></div>
+<label>HTML
+<div id="html"></div>
 </label>
-</div>
 <div id="sources">
-  <label>Sheet
-    <textarea id="adam"><?php echo htmlspecialchars($sheet);?></textarea>
-  </label>
-  <label>Trees
-    <textarea id="trees"><?php echo htmlspecialchars($trees);?></textarea>
+  <label>Eve
+    <textarea id="trees" rows="24" cols="80"><?php echo htmlspecialchars($trees);?></textarea>
   </label>
 </div>
 </body>
