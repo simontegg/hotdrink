@@ -62,6 +62,37 @@ $html = <<<EOS
 </form>
 EOS;
 
+$layout = <<<EOS
+row {
+  column {
+    number (readonly, label : "Initial width",
+            value : initial_width, units : "px");
+    number (label : "Absolute width",
+            value : absolute_width, units : "px");
+    number (label : "Relative width",
+            value : relative_width, units : "%");
+  }
+
+  column {
+    number (readonly, label : "Initial height",
+            value : initial_height, units : "px");
+    number (label : "Absolute height",
+            value : absolute_height, units : "px");
+    number (label : "Relative height",
+            value : relative_height, units : "%");
+  }
+}
+
+row {
+  checkbox (label : "Preserve proportions",
+            value : preserve_ratio);
+}
+
+row {
+  commandButton (label : "Resize", value : "result");
+}
+EOS;
+
 $trees = <<<EOS
 [
 
