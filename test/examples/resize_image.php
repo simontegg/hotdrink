@@ -63,6 +63,8 @@ $html = <<<EOS
 EOS;
 
 $layout = <<<EOS
+view {
+
 row {
   column {
     number (readonly, label : "Initial width",
@@ -89,7 +91,9 @@ row {
 }
 
 row {
-  commandButton (label : "Resize", value : "result");
+  commandButton (label : "Resize", value : result);
+}
+
 }
 EOS;
 
