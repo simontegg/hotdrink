@@ -6,6 +6,57 @@ sheet form {
 EOS;
 
 $html = <<<EOS
+text (label : "Text");
+text (readonly, label : "Readonly text", value : "This is a string of text.");
+text (label : "Multi-line text", lines : 5);
+number (label : "Number", units : "units");
+checkbox (label : "Checkbox");
+checkboxGroup (
+  label : "Checkbox group,
+  items : [
+    { name : "one", value : 1 },
+    { name : "two", value : 2 },
+    { name : "three", value : 3 }
+  ]);
+radioGroup (
+  label : "Radio group",
+  items : [
+    { "name" : "Yes", "value" : "yes" },
+    { "name" : "No", "value" : "no" }
+  ]);
+dropdown (
+  label : "Drop-down",
+  items : [
+    { "name" : "one", "value" : 1 },
+    { "name" : "two", "value" : 2 },
+    { "name" : "three", "value" : 3 },
+    { "name" : "four", "value" : 4 },
+    { "name" : "five", "value" : 5 },
+    { "name" : "six", "value" : 6 }
+  ]);
+selectOne (
+  label : "Select one",
+  size : 4,
+  items : [
+    { "name" : "one", "value" : 1 },
+    { "name" : "two", "value" : 2 },
+    { "name" : "three", "value" : 3 },
+    { "name" : "four", "value" : 4 },
+    { "name" : "five", "value" : 5 },
+    { "name" : "six", "value" : 6 }
+  ]);
+selectMany (
+  label : "Select many",
+  size : 5,
+  items : [
+    { "name" : "one", "value" : 1 },
+    { "name" : "two", "value" : 2 },
+    { "name" : "three", "value" : 3 },
+    { "name" : "four", "value" : 4 },
+    { "name" : "five", "value" : 5 },
+    { "name" : "six", "value" : 6 }
+  ]);
+commandButton (label : "OK");
 EOS;
 
 $trees = <<<EOS
@@ -77,12 +128,12 @@ $trees = <<<EOS
     "options" : {
       "label" : "Drop-down",
       "items" : [
-        { "name" : "one", "value" : "1" },
-        { "name" : "two", "value" : "2" },
-        { "name" : "three", "value" : "3" },
-        { "name" : "four", "value" : "4" },
-        { "name" : "five", "value" : "5" },
-        { "name" : "six", "value" : "6" }
+        { "name" : "one", "value" : 1 },
+        { "name" : "two", "value" : 2 },
+        { "name" : "three", "value" : 3 },
+        { "name" : "four", "value" : 4 },
+        { "name" : "five", "value" : 5 },
+        { "name" : "six", "value" : 6 }
       ]
     }
   },
@@ -93,12 +144,12 @@ $trees = <<<EOS
       "label" : "Select one",
       "size" : 4,
       "items" : [
-        { "name" : "one", "value" : "1" },
-        { "name" : "two", "value" : "2" },
-        { "name" : "three", "value" : "3" },
-        { "name" : "four", "value" : "4" },
-        { "name" : "five", "value" : "5" },
-        { "name" : "six", "value" : "6" }
+        { "name" : "one", "value" : 1 },
+        { "name" : "two", "value" : 2 },
+        { "name" : "three", "value" : 3 },
+        { "name" : "four", "value" : 4 },
+        { "name" : "five", "value" : 5 },
+        { "name" : "six", "value" : 6 }
       ]
     }
   },
@@ -109,12 +160,12 @@ $trees = <<<EOS
       "label" : "Select many",
       "size" : 5,
       "items" : [
-        { "name" : "one", "value" : "1" },
-        { "name" : "two", "value" : "2" },
-        { "name" : "three", "value" : "3" },
-        { "name" : "four", "value" : "4" },
-        { "name" : "five", "value" : "5" },
-        { "name" : "six", "value" : "6" }
+        { "name" : "one", "value" : 1 },
+        { "name" : "two", "value" : 2 },
+        { "name" : "three", "value" : 3 },
+        { "name" : "four", "value" : 4 },
+        { "name" : "five", "value" : 5 },
+        { "name" : "six", "value" : 6 }
       ]
     }
   },
