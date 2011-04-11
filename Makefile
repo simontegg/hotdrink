@@ -57,9 +57,8 @@ SOURCES:=\
 	driver.js
 SOURCES:=$(addprefix $(SRCDIR)/,$(SOURCES))
 
-#THIRD_PARTY_SOURCES:=\
-	#third_party/prototype.js
-#THIRD_PARTY_SOURCES:=$(addprefix $(SRCDIR)/,$(THIRD_PARTY_SOURCES))
+THIRD_PARTY_SOURCES:=\
+	test/js/prototype.js
 
 # macros are defined in headers
 HEADERS:=\
@@ -109,6 +108,10 @@ debug :
 syntax : $(OBJECTS)
 	cat $^ > /tmp/$@
 	$(COMPILER) /tmp/$@ > /dev/null
+
+package : $(MAIN)
+	cat $(THIRD_PARTY_SOURCES) $(MAIN) > /tmp/$@
+	$(COMPILER) /tmp/$@ > $(MAIN).plus
 
 ##################################################
 # objects
