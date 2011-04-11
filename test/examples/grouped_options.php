@@ -83,8 +83,7 @@ $trees = <<<EOS
     "type" : "checkbox",
     "options" : {
       "label" : "All",
-      "id" : "all",
-      "bindValue" : "all"
+      "value" : "all"
     }
   },
 
@@ -92,8 +91,7 @@ $trees = <<<EOS
     "type" : "checkbox",
     "options" : {
       "label" : "A",
-      "id" : "a",
-      "bindValue" : "a"
+      "value" : "a"
     }
   },
 
@@ -101,8 +99,7 @@ $trees = <<<EOS
     "type" : "checkbox",
     "options" : {
       "label" : "B",
-      "id" : "b",
-      "bindValue" : "b"
+      "value" : "b"
     }
   },
 
@@ -110,8 +107,7 @@ $trees = <<<EOS
     "type" : "checkbox",
     "options" : {
       "label" : "C",
-      "id" : "c",
-      "bindValue" : "c"
+      "value" : "c"
     }
   },
 
@@ -119,8 +115,7 @@ $trees = <<<EOS
     "type" : "commandButton",
     "options" : {
       "label" : "Command",
-      "id" : "result",
-      "bindValue" : "result"
+      "value" : "result"
     }
   }
 ]
