@@ -65,34 +65,34 @@ EOS;
 $layout = <<<EOS
 view {
 
-row {
-  column {
-    number (readonly, label : "Initial width",
-            value : initial_width, units : "px");
-    number (label : "Absolute width",
-            value : absolute_width, units : "px");
-    number (label : "Relative width",
-            value : relative_width, units : "%");
+  row {
+    column {
+      number (readonly, label : "Initial width",
+              value : initial_width, units : "px");
+      number (label : "Absolute width",
+              value : absolute_width, units : "px");
+      number (label : "Relative width",
+              value : relative_width, units : "%");
+    }
+
+    column {
+      number (readonly, label : "Initial height",
+              value : initial_height, units : "px");
+      number (label : "Absolute height",
+              value : absolute_height, units : "px");
+      number (label : "Relative height",
+              value : relative_height, units : "%");
+    }
   }
 
-  column {
-    number (readonly, label : "Initial height",
-            value : initial_height, units : "px");
-    number (label : "Absolute height",
-            value : absolute_height, units : "px");
-    number (label : "Relative height",
-            value : relative_height, units : "%");
+  row {
+    checkbox (label : "Preserve proportions",
+              value : preserve_ratio);
   }
-}
 
-row {
-  checkbox (label : "Preserve proportions",
-            value : preserve_ratio);
-}
-
-row {
-  commandButton (label : "Resize", value : result);
-}
+  row {
+    commandButton (label : "Resize", value : result);
+  }
 
 }
 EOS;
@@ -114,8 +114,7 @@ $trees = <<<EOS
               "readonly" : true,
               "label" : "Initial width",
               "units" : "px",
-              "id" : "initial_width",
-              "bindValue" : "initial_width"
+              "value" : "initial_width"
             }
           },
 
@@ -124,8 +123,7 @@ $trees = <<<EOS
             "options" : {
               "label" : "Absolute width",
               "units" : "px",
-              "id" : "absolute_width",
-              "bindValue" : "absolute_width"
+              "value" : "absolute_width"
             }
           },
 
@@ -134,8 +132,7 @@ $trees = <<<EOS
             "options" : {
               "label" : "Relative width",
               "units" : "%",
-              "id" : "relative_width",
-              "bindValue" : "relative_width"
+              "value" : "relative_width"
             }
           }
         ]
@@ -151,8 +148,7 @@ $trees = <<<EOS
               "readonly" : true,
               "label" : "Initial height",
               "units" : "px",
-              "id" : "initial_height",
-              "bindValue" : "initial_height"
+              "value" : "initial_height"
             }
           },
 
@@ -161,8 +157,7 @@ $trees = <<<EOS
             "options" : {
               "label" : "Absolute height",
               "units" : "px",
-              "id" : "absolute_height",
-              "bindValue" : "absolute_height"
+              "value" : "absolute_height"
             }
           },
 
@@ -171,8 +166,7 @@ $trees = <<<EOS
             "options" : {
               "label" : "Relative height",
               "units" : "%",
-              "id" : "relative_height",
-              "bindValue" : "relative_height"
+              "value" : "relative_height"
             }
           }
         ]
@@ -188,8 +182,7 @@ $trees = <<<EOS
         "type" : "checkbox",
         "options" : {
           "label" : "Preserve proportions",
-          "id" : "preserve_ratio",
-          "bindValue" : "preserve_ratio"
+          "value" : "preserve_ratio"
         }
       }
     ]
@@ -203,8 +196,7 @@ $trees = <<<EOS
         "type" : "commandButton",
         "options" : {
           "label" : "Resize",
-          "id" : "result",
-          "bindValue" : "result"
+          "value" : "result"
         }
       }
     ]
