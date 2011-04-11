@@ -49,9 +49,6 @@ SOURCES:=\
 	controller/view/html/text.js \
 	controller/view/html/compile.js \
 	controller/view/html/build.js \
-	controller/view/html/find.js \
-	controller/view/html/value.js \
-	controller/view/html/enablement.js \
 	controller.js \
 	parser/parsec.js \
 	parser/expr_parser.js \
