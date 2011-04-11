@@ -59,8 +59,7 @@ $trees = <<<EOS
     "type" : "text",
     "options" : {
       "label" : "File name",
-      "id" : "file_name",
-      "bindValue" : "file_name"
+      "value" : "file_name"
     }
   },
 
@@ -72,8 +71,7 @@ $trees = <<<EOS
         { "name" : "Bitmap (.bmp)", "value" : "bmp" },
         { "name" : "JPEG (.jpeg)", "value" : "jpeg" }
       ],
-      "id" : "file_type",
-      "bindValue" : "file_type"
+      "value" : "file_type"
     }
   },
 
@@ -82,8 +80,7 @@ $trees = <<<EOS
     "options" : {
       "label" : "Compression ratio",
       "units" : "%",
-      "id" : "compression_ratio",
-      "bindValue" : "compression_ratio"
+      "value" : "compression_ratio"
     }
   },
 
@@ -92,8 +89,7 @@ $trees = <<<EOS
     "options" : {
       "label" : "Image quality",
       "units" : "%",
-      "id" : "image_quality",
-      "bindValue" : "image_quality"
+      "value" : "image_quality"
     }
   },
 
@@ -101,8 +97,7 @@ $trees = <<<EOS
     "type" : "commandButton",
     "options" : {
       "label" : "Save",
-      "id" : "result",
-      "bindValue" : "result"
+      "value" : "result"
     }
   }
 ]
