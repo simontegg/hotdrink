@@ -35,6 +35,18 @@ SOURCES:=\
 	controller/factory.js \
 	controller/behavior/value.js \
 	controller/behavior/enablement.js \
+	controller/view/html/common.js \
+	controller/view/html/row.js \
+	controller/view/html/column.js \
+	controller/view/html/checkbox.js \
+	controller/view/html/checkboxGroup.js \
+	controller/view/html/commandButton.js \
+	controller/view/html/dropdown.js \
+	controller/view/html/number.js \
+	controller/view/html/radioGroup.js \
+	controller/view/html/selectMany.js \
+	controller/view/html/selectOne.js \
+	controller/view/html/text.js \
 	controller/view/html/compile.js \
 	controller/view/html/build.js \
 	controller/view/html/find.js \
@@ -44,7 +56,7 @@ SOURCES:=\
 	parser/parsec.js \
 	parser/expr_parser.js \
 	parser/model_parser.js \
-    parser/view_parser.js \
+	parser/view_parser.js \
 	driver.js
 SOURCES:=$(addprefix $(SRCDIR)/,$(SOURCES))
 
