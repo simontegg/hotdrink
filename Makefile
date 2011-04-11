@@ -76,7 +76,8 @@ BUILD_FLAGS:=$(DEBUG_FLAGS)
 #BUILD_FLAGS:=$(RELEASE_FLAGS)
 
 # Change the path to the YUI Compressor as necessary:
-#YUIC:=java -jar $(HOME)/local/bin/yuicompressor-2.4.2.jar --type js
+COMPILER:=java -jar $(HOME)/local/bin/yuicompressor-2.4.2.jar --type js
+#YUIC:=$(COMPILER)
 # If you do not have the YUI Compressor installed:
 YUIC:=cat
 
@@ -91,7 +92,7 @@ OBJECTS:=$(SOURCES:$(SRCDIR)/%=$(OBJDIR)/%)
 ##################################################
 # targets
 
-.PHONY : all doc debug
+.PHONY : all doc debug syntax
 
 all : $(MAIN)
 
@@ -104,6 +105,10 @@ doc :
 
 debug :
 #	@echo "OBJECTS:=$(OBJECTS)"
+
+syntax : $(OBJECTS)
+	cat $^ > /tmp/$@
+	$(COMPILER) /tmp/$@ > /dev/null
 
 ##################################################
 # objects
