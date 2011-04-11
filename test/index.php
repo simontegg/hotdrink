@@ -20,6 +20,9 @@ function loader() {
 
   /* Library call. */
   liftB(function (adam, trees) {
+    if (adam === "") {
+      adam = "sheet dummy {}";
+    }
     if (trees.isJSON()) {
       trees = trees.evalJSON(true);
     } else {
@@ -27,8 +30,7 @@ function loader() {
     }
     hotdrink.openDialog({
       adam : adam,
-      trees : trees,
-      compile : true
+      trees : trees
     });
   }, adamB, treesB);
 }
