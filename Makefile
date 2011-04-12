@@ -24,6 +24,7 @@ SOURCES:=\
 	concept/model/value.js \
 	concept/view/ast.js \
 	concept/view/behavior.js \
+	concept/view/constructor.js \
 	concept/view/controller.js \
 	graph/cgraph.js \
 	graph/sgraph.js \
@@ -36,6 +37,7 @@ SOURCES:=\
 	controller/factory.js \
 	controller/behavior/value.js \
 	controller/behavior/enablement.js \
+	controller/view/html.js \
 	controller/view/html/common.js \
 	controller/view/html/row.js \
 	controller/view/html/column.js \
