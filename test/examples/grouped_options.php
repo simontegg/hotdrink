@@ -77,48 +77,14 @@ $html = <<<EOS
 </form>
 EOS;
 
-$trees = <<<EOS
-[
-  {
-    "type" : "checkbox",
-    "options" : {
-      "label" : "All",
-      "value" : "all"
-    }
-  },
-
-  {
-    "type" : "checkbox",
-    "options" : {
-      "label" : "A",
-      "value" : "a"
-    }
-  },
-
-  {
-    "type" : "checkbox",
-    "options" : {
-      "label" : "B",
-      "value" : "b"
-    }
-  },
-
-  {
-    "type" : "checkbox",
-    "options" : {
-      "label" : "C",
-      "value" : "c"
-    }
-  },
-
-  {
-    "type" : "commandButton",
-    "options" : {
-      "label" : "Command",
-      "value" : "result"
-    }
-  }
-]
+$layout = <<<EOS
+view {
+    checkbox (label : "All", value : all);
+    checkbox (label : "A", value : a);
+    checkbox (label : "B", value : b);
+    checkbox (label : "C", value : c);
+    commandButton (label : "Command", value : result);
+}
 EOS;
 
 ?>

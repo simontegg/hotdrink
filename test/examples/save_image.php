@@ -53,54 +53,32 @@ $html = <<<EOS
 </form>
 EOS;
 
-$trees = <<<EOS
-[
-  {
-    "type" : "text",
-    "options" : {
-      "label" : "File name",
-      "value" : "file_name"
-    }
-  },
-
-  {
-    "type" : "dropdown",
-    "options" : {
-      "label" : "Save as type",
-      "items" : [
-        { "name" : "Bitmap (.bmp)", "value" : "bmp" },
-        { "name" : "JPEG (.jpeg)", "value" : "jpeg" }
-      ],
-      "value" : "file_type"
-    }
-  },
-
-  {
-    "type" : "number",
-    "options" : {
-      "label" : "Compression ratio",
-      "units" : "%",
-      "value" : "compression_ratio"
-    }
-  },
-
-  {
-    "type" : "number",
-    "options" : {
-      "label" : "Image quality",
-      "units" : "%",
-      "value" : "image_quality"
-    }
-  },
-
-  {
-    "type" : "commandButton",
-    "options" : {
-      "label" : "Save",
-      "value" : "result"
-    }
-  }
-]
+$layout = <<<EOS
+view {
+  text (label : "File name", value : file_name);
+  dropdown (
+    label : "Save as type", 
+    items : [
+      { name : "Bitmap (.bmp)", value : "bmp" },
+      { name : "JPEG (.jpeg)", value : "jpeg" }
+    ],
+    value : file_type
+  );
+  number (   
+    label : "Compression ratio",
+    units : "%",
+    value : compression_ratio
+  );
+  number (
+    label : "Image quality",
+    units : "%",
+    value : image_quality
+  );
+  commandButton (   
+    label : "Save",
+    value : result
+  );
+}
 EOS;
 
 ?>
