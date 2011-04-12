@@ -23,7 +23,7 @@ SOURCES:=\
 	concept/model/value.js \
 	concept/model/behavior.js \
 	concept/view/behavior.js \
-	concept/view/bind.js \
+	concept/view/ast.js \
 	graph/cgraph.js \
 	graph/sgraph.js \
 	graph/solver.js \
