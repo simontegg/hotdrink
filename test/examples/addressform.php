@@ -56,9 +56,7 @@ sheet address
     city: "";
     street_address1: "";
     street_address2: "";
-    phone1: "";
-    phone2: "";
-    phone3: "";
+    phone: "";
   }
   
   logic: {
@@ -79,7 +77,6 @@ sheet address
         city <== is_us ? (us_city != empty ? us_city : city) : 
           (is_ca ? (ca_city != empty ? ca_city : city) : city);
     }
-    phone <== phone1 + phone2 + phone3;
   }
   
   output: {
@@ -92,7 +89,7 @@ sheet address
   }
   
   invariant: {
-    not_empty <== state != "" && city != "" && street_address1 != "" && phone1 != "" && phone2 != "" && phone3 != "";
+    not_empty <== state != "" && city != "" && street_address1 != "" && phone != "";
   }
 }
 EOS;
@@ -248,9 +245,9 @@ view {
   text (label : "City", value : city);
   text (label : "Address Line 1", value : street_address1);
   text (label : "Address Line 2", value : street_address2);
-  //FIXME
-  text (label : "Phone", value : "");
+  text (label : "Phone", value : phone);
   commandButton (label : "OK");
 }
-EOS
+EOS;
+
 ?>

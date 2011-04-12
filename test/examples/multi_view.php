@@ -100,16 +100,16 @@ view {
       { name : "B-1", value : "1" },
       { name : "B-2", value : "2" },
       { name : "B-3", value : "3" }
-    ]//,
-    //value : b
+    ],
+    value : b
   );
   radioGroup (
     label : "C",
     items : [
       { name : "Yes", value : "yes" },
       { name : "No", value : "no" }
-    ]//,
-    //value : c
+    ],
+    value : c
   );
   commandButton (label : "OK", value : result);
 }

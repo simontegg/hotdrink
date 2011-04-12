@@ -64,8 +64,10 @@ view {
   number (label : "Resolution", value : resolution);
   number (label : "Inches", value : inches);
   number (label : "File Size", value : file_size);
-  commandButton (label : "OK", value : result);
-  commandButton (label : "Cancel");
+  row {
+    commandButton (label : "OK", value : result);
+    commandButton (label : "Cancel");
+  }
 }
 EOS;
 

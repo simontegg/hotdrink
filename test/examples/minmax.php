@@ -68,6 +68,7 @@ view {
   number (label : "max", value : max);
   commandButton (label : "OK", value : result);
 }
-EOS
+EOS;
+
 ?>
 

@@ -74,6 +74,7 @@ view {
   number (label : "Number Value", value : number_value);
   commandButton(label : "OK", value : result);
 }
-EOS
+EOS;
+
 ?>
 

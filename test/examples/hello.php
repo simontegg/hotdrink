@@ -40,6 +40,7 @@ view {
   text (label : "Name", value : name);
   commandButton (label : "OK", value : result);
 }
-EOS
+EOS;
+
 ?>
 
