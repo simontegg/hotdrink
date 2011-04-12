@@ -20,10 +20,11 @@ SOURCES:=\
 	utility/debug.js \
 	utility/stdlib.js \
 	utility/namespace.js \
-	concept/model/value.js \
 	concept/model/behavior.js \
-	concept/view/behavior.js \
+	concept/model/value.js \
 	concept/view/ast.js \
+	concept/view/behavior.js \
+	concept/view/controller.js \
 	graph/cgraph.js \
 	graph/sgraph.js \
 	graph/solver.js \
