@@ -2,14 +2,20 @@
 
 $sheet = <<<EOS
 sheet test {
-  interface: {
+  interface : {
     x : true;
     a : false; // single checkbox
     b : []; // multiple checkbox
     c : "yes"; // radio
+    d : true; // radio
   }
+  
+  logic : {
+    xgroup <== x ? {a: a, b: b, c: c} : {};
+  }
+  
   output : {
-    result <== (x == false) ? "nothing" : {a : a, b : b, c : c};
+    result <== {xgroup: xgroup, d: d};
   }
 }
 EOS;
@@ -93,7 +99,9 @@ EOS;
 $layout = <<<EOS
 view {
   checkbox (label : "X", value : x);
+  
   checkbox (label : "A", value : a);
+  
   checkboxGroup (
     label : "B",
     items : [
@@ -103,6 +111,7 @@ view {
     ],
     value : b
   );
+  
   radioGroup (
     label : "C",
     items : [
@@ -111,6 +120,16 @@ view {
     ],
     value : c
   );
+  
+  radioGroup (
+    label : "D",
+    items : [
+      { name : "True", value : true },
+      { name : "False", value : false }
+    ],
+    value : d
+  );
+  
   commandButton (label : "OK", value : result);
 }
 EOS;
