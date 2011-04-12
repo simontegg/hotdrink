@@ -20,7 +20,7 @@ sheet grouped_options
 }
 EOS;
 
-$layout = <<<EOS
+$html = <<<EOS
 <style type="text/css">
 #ResizeImage { border: 1px solid black; padding: 1em; margin: 1em; }
 #ResizeImage fieldset label { display: block; margin: .5em; }
@@ -40,5 +40,20 @@ $layout = <<<EOS
 </form>
 EOS;
 
+$layout = <<<EOS
+view {
+  checkbox (label : "All", value : all);
+  checkboxGroup (
+  	label : "",
+  	items : [
+  	  { name : "A", value : "A" },
+  	  { name : "B", value : "B" },
+  	  { name : "C", value : "C" }
+  	],
+  	value : boxes
+  );
+  commandButton (label : "Command", value : result);
+}
+EOS;
 ?>
 

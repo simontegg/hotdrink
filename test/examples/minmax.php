@@ -40,7 +40,7 @@ sheet dialog
 }
 EOS;
 
-$layout = <<<EOS
+$html = <<<EOS
 
 <style type="text/css">
 #dialog { width: 500px; border: 1px solid black; padding: 1em; margin: 1em; }
@@ -61,5 +61,13 @@ $layout = <<<EOS
 </form>
 EOS;
 
+$layout = <<<EOS
+view {
+  number (label : "min", value : min);
+  number (label : "value", value : value);
+  number (label : "max", value : max);
+  commandButton (label : "OK", value : result);
+}
+EOS
 ?>
 

@@ -99,7 +99,7 @@ EOS;
 
 // * how can I make either state or province displayed?
  
-$layout = <<<EOS
+$html = <<<EOS
 <style type="text/css">
 </style>
 
@@ -216,4 +216,41 @@ $layout = <<<EOS
 </form>
 EOS;
 
+$layout = <<<EOS
+view {
+  dropdown (
+    label : "Country",
+    items : [
+      { name : "United States", value : "US"},
+      { name : "Canada", value : "CA"}
+    ],
+    value : country
+  );
+  text (label : "Zip Code", value : zip);
+  dropdown (
+    label : "State",
+    items : [
+      { name : "Select state", value : "" },
+      { name : "California", value : "CA" },
+      { name : "New York", value : "NY" },
+      { name : "Texas", value : "TX" }
+    ],
+    value : state
+  );
+  dropdown (
+    label : "Province",
+    items : [
+      { name : "Select province", value : "" },
+      { name : "Alberta", value : "AB"}
+    ],
+    value : province
+  );
+  text (label : "City", value : city);
+  text (label : "Address Line 1", value : street_address1);
+  text (label : "Address Line 2", value : street_address2);
+  //FIXME
+  text (label : "Phone", value : "");
+  commandButton (label : "OK");
+}
+EOS
 ?>

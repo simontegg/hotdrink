@@ -17,14 +17,14 @@ sheet calulator {
   }
 
   output: {
-    result <== { z: z };
+    result <== z;
   }
 }
 
 EOS;
 
 
-$layout = <<<EOS
+$html = <<<EOS
 <style type="text/css">
 #dialog fieldset label { display: block; margin: .5em; }
 </style>
@@ -39,5 +39,12 @@ $layout = <<<EOS
 </form>
 EOS;
 
+$layout = <<<EOS
+view {
+  number (label : "x", value : x);
+  number (label : "y", value : y);
+  number (label : "x + y =", value : z);
+}
+EOS
 ?>
 

@@ -68,5 +68,14 @@ my_second_method = function (value, min_value, max_value) {
 </form>
 EOS;
 
+
+$layout = <<<EOS
+view {
+  number (label : "min", value : min);
+  number (label : "value", value : value);
+  number (label : "max", value : max);
+  commandButton (label : "OK", value : result);
+}
+EOS
 ?>
 

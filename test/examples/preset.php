@@ -33,7 +33,7 @@ sheet preset {
 EOS;
 
 
-$layout = <<<EOS
+$html = <<<EOS
 
 <style type="text/css">
 #dialog label { display: block; margin: .5em; }
@@ -58,5 +58,22 @@ $layout = <<<EOS
 </form>
 EOS;
 
+$layout = <<<EOS
+view {
+  dropdown (
+    label : "Preset",
+    items : [
+      { name : "One", value : 0 },
+      { name : "Two", value : 1 },
+      { name : "Three", value : 2 },
+      { name : "User Defined", value : 100 }
+    ],
+    value : preset
+  );
+  text (label : "String Value", value : string_value);
+  number (label : "Number Value", value : number_value);
+  commandButton(label : "OK", value : result);
+}
+EOS
 ?>
 

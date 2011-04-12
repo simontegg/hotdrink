@@ -24,7 +24,7 @@ sheet dialog
 }
 EOS;
 
-$layout = <<<EOS
+$html = <<<EOS
 <style type="text/css">
 #dialog label { display: block; margin: .5em; }
 </style>
@@ -35,5 +35,11 @@ $layout = <<<EOS
 </form>
 EOS;
 
+$layout = <<<EOS
+view {
+  text (label : "Name", value : name);
+  commandButton (label : "OK", value : result);
+}
+EOS
 ?>
 

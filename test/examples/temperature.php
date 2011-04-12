@@ -18,7 +18,7 @@ sheet temperature {
 EOS;
 
 
-$layout = <<<EOS
+$html = <<<EOS
 <style type="text/css">
 #dialog label { display: block; margin: .5em; }
 </style>
@@ -31,6 +31,14 @@ $layout = <<<EOS
 </fieldset>
 <button type="button" id="result">OK</button>
 </form>
+EOS;
+
+$layout = <<<EOS
+view {
+  number (label : "Fahrenheit", value : fahrenheit);
+  number (label : "Celsius", value : celsius);
+  commandButton (label : "OK", value : result);
+}
 EOS;
 
 ?>

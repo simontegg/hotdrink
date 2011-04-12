@@ -37,7 +37,7 @@ sheet screen
 }
 EOS;
 
-$layout = <<<EOS
+$html = <<<EOS
 <style type="text/css">
 #dialog fieldset label { display: block; margin: .5em; }
 </style>
@@ -55,6 +55,18 @@ $layout = <<<EOS
 <button type="button" id="result">OK</button>
 <button type="button" id="cancel">Cancel</button>
 </form>
+EOS;
+
+$layout = <<<EOS
+view {
+  number (label : "Pixel Size", value : pixel_size);
+  number (label : "Pixels", value : pixels);
+  number (label : "Resolution", value : resolution);
+  number (label : "Inches", value : inches);
+  number (label : "File Size", value : file_size);
+  commandButton (label : "OK", value : result);
+  commandButton (label : "Cancel");
+}
 EOS;
 
 ?>
