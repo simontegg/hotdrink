@@ -45,6 +45,7 @@ view {
   number (label : "y", value : y);
   number (label : "x + y =", value : z);
 }
-EOS
+EOS;
+
 ?>
 

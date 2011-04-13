@@ -1,3 +1,22 @@
+<!-- user-defined functions -->
+
+<script type="text/javascript">
+my_min = function (a, b) { return (a < b) ? (a) : (b); };
+my_max = function (a, b) { return (a < b) ? (b) : (a); };
+my_first_method = function (value, min_value, max_value) {
+  var t_max_value = my_max(min_value, max_value);
+  /* Note: t_max_value used here so we don't have to repeat above expression. */
+  var t_value = my_min(my_max(value, min_value), t_max_value);
+  return [t_value, t_max_value];
+}
+my_second_method = function (value, min_value, max_value) {
+  var t_min_value = my_min(min_value, max_value);
+  /* Note: t_min_value used here so we don't have to repeat above expression. */
+  var t_value = my_min(my_max(value, t_min_value), max_value);
+  return [t_value, t_min_value];
+}
+</script>
+
 <?php
 /* This test was built to document issue #3, where user input is protected from
 overwriting but sometimes shouldn't be. */
@@ -76,6 +95,7 @@ view {
   number (label : "max", value : max);
   commandButton (label : "OK", value : result);
 }
-EOS
+EOS;
+
 ?>
 
