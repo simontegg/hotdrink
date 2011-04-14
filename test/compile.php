@@ -58,6 +58,7 @@ $examples = array(
     "multi_view" => "Multi-element widgets",
     "preset" => "Preset",
     "radio" => "Radio buttons",
+    "register" => "Registration form",
     "resize_image" => "Resize image",
     "save_image" => "Save image",
     "screen" => "Screen",
