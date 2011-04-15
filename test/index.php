@@ -54,6 +54,7 @@ $examples = array(
     "form" => "Form",
     "grouped_options" => "Grouped options",
     "hello" => "Hello",
+    "hotel" => "Hotel Booking",
     "minmax" => "Min-max",
     "enforced_minmax" => "Enforced min-max",
     "multi_view" => "Multi-element widgets",
