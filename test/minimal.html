@@ -2,8 +2,9 @@
 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Sarge - Minimal Example</title>
+<title>HotDrink - Minimal Example</title>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/eve.css" />
 <script type="text/javascript" src="js/prototype.js"></script>
 <script type="text/javascript" src="js/hotdrink.js"></script>
 <script type="text/javascript">
@@ -12,7 +13,12 @@
 function loader() {
   /* Sources. */
   var sheet = $F("sheet");
-  hotdrink.bind_dialog(sheet);
+  var layout = $F("layout");
+
+  hotdrink.openDialog({
+    adam : sheet,
+    eve : layout
+  });
 }
 
 /* ]]> */
@@ -20,11 +26,6 @@ function loader() {
 </head>
 <body onload="loader();">
 
-<form id="layout">
-  <label>Celsius : <input type="text" id="celsius" /></label>
-  <label>Fahrenheit : <input type="text" id="fahrenheit"/></label>
-  <button type="button" id="result" command="Ok">Ok</button>
-</form>
 
 <textarea id="sheet" style="display:none">
 sheet temperature {
@@ -43,6 +44,16 @@ sheet temperature {
   }
 }
 </textarea>
+
+<textarea id="layout" style="display:none">
+view {
+  number (label : "Fahrenheit", value : fahrenheit);
+  number (label : "Celsius", value : celsius);
+  commandButton (label : "OK", value : result);
+}
+</textarea>
+
+<div id="view"></div>
 
 </body>
 </html>
