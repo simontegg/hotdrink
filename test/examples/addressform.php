@@ -62,34 +62,40 @@ sheet address
   logic: {
     is_us <== country == "US";
     is_ca <== country == "CA";
-    us_state,us_city <== is_us ? us_zip_to_city(zip) : [empty,empty];
-    ca_province,ca_city <== is_ca ? ca_zip_to_city(zip) : [empty,empty];
+
+    us_state, us_city <== is_us ? us_zip_to_city(zip) : [empty, empty];
+    ca_province, ca_city <== is_ca ? ca_zip_to_city(zip) : [empty, empty];
     
     relate {
-        // clear state if US is not selected
-        state <== is_us ? (us_state != empty ? us_state : state) : "";
+      // map zip to state
+      // clear state if not US
+      state <== is_us ? (us_state != empty ? us_state : state) : "";
     }
     relate {
-        // clear province if CA is not selected
-        province <== is_ca ? (ca_province != empty ? ca_province : province) : "";
+      // map zip to province
+      // clear province if not CA
+      province <== is_ca ? (ca_province != empty ? ca_province : province) : "";
     }
     relate {
-        city <== is_us ? (us_city != empty ? us_city : city) : 
+      // map zip to city  
+      city <== is_us ? (us_city != empty ? us_city : city) : 
           (is_ca ? (ca_city != empty ? ca_city : city) : city);
     }
   }
   
   output: {
-    result <== (country == "US") ? 
+    result <== is_us ? 
       { country: country, zip: zip, state: state, city: city, street_address: [street_address1, street_address2], phone: phone }
-    : ((country == "CA") ? 
+      : (is_ca ? 
         {country: country, province: province, zip: zip, city: city, street_address: [street_address1, street_address2], phone: phone }
-        : {})
-    ;
+        : {});
   }
   
   invariant: {
-    not_empty <== state != "" && city != "" && street_address1 != "" && phone != "";
+    invariant1 <== state != "" || province != ""; 
+    invariant2 <== city != "";
+    invariant3 <== street_address1 != "";
+    invariant4 <== phone != "";
   }
 }
 EOS;
@@ -117,7 +123,7 @@ $html = <<<EOS
     <tr>
         <td><label>State :</label></td>
         <td><select id="state">
-		    <option value="">Select state</option>
+		    <option value="">Select State</option>
 		    <option value="AL">Alabama</option>
 		    <option value="AK">Alaska</option>
 		    <option value="AZ">Arizona</option>
@@ -174,7 +180,7 @@ $html = <<<EOS
     <tr>
         <td><label>Province :</label></td>
         <td><select id="province">
-            <option value="">Select province</option>
+            <option value="">Select Province</option>
             <option value="AB">Alberta</option>
             <option value="BC">British Columbia</option>
             <option value="MB">Manitoba</option>
@@ -227,18 +233,78 @@ view {
   dropdown (
     label : "State",
     items : [
-      { name : "Select state", value : "" },
-      { name : "California", value : "CA" },
-      { name : "New York", value : "NY" },
-      { name : "Texas", value : "TX" }
+	    { name : "Select State", value : "" },
+	    { name : "Alabama", value : "AL" },
+	    { name : "Alaska", value : "AK" },
+	    { name : "Arizona", value : "AZ" },
+	    { name : "Arkansas", value : "AR" },
+	    { name : "California", value : "CA" },
+	    { name : "Colorado", value : "CO" },
+	    { name : "Connecticut", value : "CT" },
+	    { name : "Delaware", value : "DE" },
+	    { name : "District Of Columbia", value : "DC" },
+	    { name : "Florida", value : "FL" },
+	    { name : "Georgia", value : "GA" },
+	    { name : "Hawaii", value : "HI" },
+	    { name : "Idaho", value : "ID" },
+	    { name : "Illinois", value : "IL" },
+	    { name : "Indiana", value : "IN" },
+	    { name : "Iowa", value : "IA" },
+	    { name : "Kansas", value : "KS" },
+	    { name : "Kentucky", value : "KY" },
+	    { name : "Louisiana", value : "LA" },
+	    { name : "Maine", value : "ME" },
+	    { name : "Maryland", value : "MD" },
+	    { name : "Massachusetts", value : "MA" },
+	    { name : "Michigan", value : "MI" },
+	    { name : "Minnesota", value : "MN" },
+	    { name : "Mississippi", value : "MS" },
+	    { name : "Missouri", value : "MO" },
+	    { name : "Montana", value : "MT" },
+	    { name : "Nebraska", value : "NE" },
+	    { name : "Nevada", value : "NV" },
+	    { name : "New Hampshire", value : "NH" },
+	    { name : "New Jersey", value : "NJ" },
+	    { name : "New Mexico", value : "NM" },
+	    { name : "New York", value : "NY" },
+	    { name : "North Carolina", value : "NC" },
+	    { name : "North Dakota", value : "ND" },
+	    { name : "Ohio", value : "OH" },
+	    { name : "Oklahoma", value : "OK" },
+	    { name : "Oregon", value : "OR" },
+	    { name : "Pennsylvania", value : "PA" },
+	    { name : "Rhode Island", value : "RI" },
+	    { name : "South Carolina", value : "SC" },
+	    { name : "South Dakota", value : "SD" },
+	    { name : "Tennessee", value : "TN" },
+	    { name : "Texas", value : "TX" },
+	    { name : "Utah", value : "UT" },
+	    { name : "Vermont", value : "VT" },
+	    { name : "Virginia", value : "VA" },
+	    { name : "Washington", value : "WA" },
+	    { name : "West Virginia", value : "WV" },
+	    { name : "Wisconsin", value : "WI" },
+	    { name : "Wyoming", value : "WY" }
     ],
     value : state
   );
   dropdown (
     label : "Province",
     items : [
-      { name : "Select province", value : "" },
-      { name : "Alberta", value : "AB"}
+      { name : "Select Province", value : "" },
+      { name : "Alberta", value : "AB" },
+      { name : "British Columbia", value : "BC" },
+      { name : "Manitoba", value : "MB" },
+      { name : "New Brunswick", value : "NB" },
+      { name : "Newfoundland and Labrador", value : "NL" },
+      { name : "Nova Scotia", value : "NS" },
+      { name : "Nunavut", value : "NU" },
+      { name : "Northwest Territories", value : "NT" },
+      { name : "Ontario", value : "ON" },
+      { name : "Prince Edward Island", value : "PE" },
+      { name : "Quebec", value : "QC" },
+      { name : "Saskatchewan", value : "SK" },
+      { name : "Yukon", value : "YT" }
     ],
     value : province
   );
@@ -246,7 +312,7 @@ view {
   text (label : "Address Line 1", value : street_address1);
   text (label : "Address Line 2", value : street_address2);
   text (label : "Phone", value : phone);
-  commandButton (label : "OK");
+  commandButton (label : "OK", value : result);
 }
 EOS;
 
