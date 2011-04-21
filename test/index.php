@@ -109,10 +109,9 @@ foreach ($examples as $key => $value) {
 </div>
 
 <div id="view_container">
-<label>View
 <div id="view"></div>
-</label>
 </div>
+
 <div id="sources">
   <label>Sheet
     <textarea id="sheet"><?php echo htmlspecialchars($sheet);?></textarea>
