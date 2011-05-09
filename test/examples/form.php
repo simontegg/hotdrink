@@ -3,7 +3,7 @@
 $sheet = <<<EOS
 sheet form {
   interface : {
-    line : "";
+    line : "This text will be displayed below";
     paragraph : "";
     n : 0;
     check : false;
@@ -34,7 +34,7 @@ $layout = <<<EOS
 view {
 
   text (label : "Text", value : line);
-  text (readonly, label : "Readonly text", value : "This is a string of text.");
+  text (readonly, label : "Readonly text", value : line);
   text (label : "Multi-line text", lines : 5, value : paragraph);
   number (label : "Number", units : "units", value : n);
   checkbox (label : "Checkbox", value : check);
