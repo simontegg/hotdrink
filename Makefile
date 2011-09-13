@@ -24,7 +24,7 @@ SOURCES:=\
 	concept/model/value.js \
 	concept/view/ast.js \
 	concept/view/behavior.js \
-	concept/view/constructor.js \
+	concept/view/builder.js \
 	concept/view/controller.js \
 	graph/cgraph.js \
 	graph/sgraph.js \
@@ -50,7 +50,6 @@ SOURCES:=\
 	controller/view/html/selectMany.js \
 	controller/view/html/selectOne.js \
 	controller/view/html/text.js \
-	controller/view/html/compile.js \
 	controller/view/html/build.js \
 	controller.js \
 	parser/parsec.js \
