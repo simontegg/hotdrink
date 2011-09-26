@@ -25,7 +25,11 @@ function loader() {
     }
     hotdrink.openDialog({
       adam : sheet,
-      eve : layout
+      eve : layout,
+      onCommand : function (data) {
+                    alert("You synthesized these parameters:\n"
+                          + Object.toJSON(data));
+                  }
     });
   }, sheetB, layoutB);
 }
