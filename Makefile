@@ -37,6 +37,7 @@ SOURCES:=\
 	controller/factory.js \
 	controller/behavior/value.js \
 	controller/behavior/enablement.js \
+	controller/view/common.js \
 	controller/view/html.js \
 	controller/view/html/common.js \
 	controller/view/html/row.js \
