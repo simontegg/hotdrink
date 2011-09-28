@@ -21,7 +21,10 @@ function loader() {
   /* Library call. */
   liftB(function (sheet, layout) {
     if (sheet === "") {
-      sheet = "sheet dummy {}";
+      sheet = "sheet {}";
+    }
+    if (layout === "") {
+      layout = "view {}";
     }
     hotdrink.openDialog({
       adam : sheet,

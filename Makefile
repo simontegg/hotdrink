@@ -52,6 +52,8 @@ SOURCES:=\
 	controller/view/html/selectOne.js \
 	controller/view/html/text.js \
 	controller/view/html/build.js \
+	controller/view/dijit/slider.js \
+	controller/view/dijit/build.js \
 	controller.js \
 	parser/parsec.js \
 	parser/expr_parser.js \
