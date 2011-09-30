@@ -1,5 +1,8 @@
 # configuration
-MAIN:=hotdrink.js
+
+TITLE:=hotdrink
+MAIN:=$(TITLE).js
+MAINPLUS:=$(TITLE)-plus.js
 
 ##################################################
 # helper functions
@@ -52,8 +55,6 @@ SOURCES:=\
 	controller/view/html/selectOne.js \
 	controller/view/html/text.js \
 	controller/view/html/build.js \
-	controller/view/dijit/slider.js \
-	controller/view/dijit/build.js \
 	controller.js \
 	parser/parsec.js \
 	parser/expr_parser.js \
@@ -96,7 +97,7 @@ OBJECTS:=$(SOURCES:$(SRCDIR)/%=$(OBJDIR)/%)
 ##################################################
 # targets
 
-.PHONY : all doc debug syntax
+.PHONY : all doc debug syntax plus
 
 all : $(MAIN)
 
@@ -114,9 +115,29 @@ syntax : $(OBJECTS)
 	cat $^ > /tmp/$@
 	$(COMPILER) /tmp/$@ > /dev/null
 
-package : $(MAIN)
+plus : $(MAINPLUS)
+
+$(MAINPLUS) : $(MAIN)
 	cat $(THIRD_PARTY_SOURCES) $(MAIN) > /tmp/$@
-	$(COMPILER) /tmp/$@ > $(MAIN).plus
+	$(COMPILER) /tmp/$@ > $@
+
+##################################################
+# Dijit
+
+.PHONY : dijit
+
+DIJIT_SOURCES:=\
+	controller/view/dijit/slider.js \
+	controller/view/dijit/build.js
+DIJIT_SOURCES:=$(addprefix $(SRCDIR)/,$(DIJIT_SOURCES))
+
+DIJIT_OBJECTS:=$(DIJIT_SOURCES:$(SRCDIR)/%=$(OBJDIR)/%)
+
+dijit : hotdrink-dijit.js
+
+hotdrink-dijit.js : $(DIJIT_OBJECTS)
+	cat $^ > /tmp/$@
+	$(YUIC) /tmp/$@ > $@
 
 ##################################################
 # objects
@@ -136,7 +157,7 @@ $(OBJDIR)/% :
 clean : clean-obj clean-exe clean-doc
 
 clean-exe :
-	-rm -f $(MAIN)
+	-rm -f $(MAIN) $(MAINPLUS)
 
 clean-obj :
 	-rm -rf $(OBJDIR)
@@ -155,5 +176,8 @@ clean-doc :
 # Have to replace default rule because of separate build directory.
 # Unnecessary if make created the directory when writing a file.
 $(OBJECTS) : $(OBJDIR)/% : $(HEADERS) $(SRCDIR)/% | $$(@D)
+	$(M4) $(M4FLAGS) $^ > $@
+
+$(DIJIT_OBJECTS) : $(OBJDIR)/% : $(HEADERS) $(SRCDIR)/% | $$(@D)
 	$(M4) $(M4FLAGS) $^ > $@
 

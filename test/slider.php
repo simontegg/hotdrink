@@ -12,6 +12,7 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.6.1/dojo/dojo.xd.js"></script>
 <script type="text/javascript" src="js/prototype.js"></script>
 <script type="text/javascript" src="js/hotdrink.js"></script>
+<script type="text/javascript" src="js/hotdrink-dijit.js"></script>
 <script type="text/javascript">
 /* <![CDATA[ */
 
