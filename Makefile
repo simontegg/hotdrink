@@ -105,7 +105,7 @@ $(MAIN) : $(OBJECTS)
 	cat $^ > /tmp/$@
 	$(YUIC) /tmp/$@ > $@
 
-doc :
+doc : clean-doc
 	jsdoc -d=$(DOCDIR) $(SOURCES)
 
 debug :
