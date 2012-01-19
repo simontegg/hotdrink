@@ -1,0 +1,91 @@
+# Nothing in me concerns you. You're probably looking for Makefile.js, which
+# provides the public interface to my contents.
+
+include Makefile.common
+
+##################################################
+# optional configuration
+
+RELEASE_FLAGS :=
+DEBUG_FLAGS := -DDEBUG
+
+ifeq "$(origin BUILD_FLAGS)" "undefined"
+  BUILD_FLAGS := $(DEBUG_FLAGS)
+endif
+
+M4 := m4
+M4FLAGS = -P $(BUILD_FLAGS)
+
+# Change the path to the YUI Compressor as necessary:
+COMPILER := java -jar $(HOME)/local/bin/yuicompressor-2.4.2.jar --type js
+#YUIC := $(COMPILER)
+# If you do not have the YUI Compressor installed:
+YUIC := cat
+
+##################################################
+# self configuration (do not touch)
+
+# Headers hold m4 macros, so they are dependencies for all objects
+HEADERS := $(addprefix $(SRCDIR)/,$(HEADERS))
+OBJECTS := $(addprefix $(OBJDIR)/,$(SOURCES))
+SOURCES := $(addprefix $(SRCDIR)/,$(SOURCES))
+
+# For some reason, the stem does not work properly in the order-only
+# prerequisite, so this rule had to be moved to second expansion
+#$(OBJECTS) : $(OBJDIR)/% : $(HEADERS) $(SRCDIR)/% | $(OBJDIR)/$(dir %)
+
+$(OBJDIR)/% :
+	mkdir -p $@
+
+##################################################
+# targets
+
+.PHONY : all
+
+all : $(MAIN)
+#	@$(call watch,SOURCES)
+#	@$(call watch,OBJECTS)
+
+$(MAIN) : $(OBJECTS)
+	cat $^ > /tmp/$@
+	$(YUIC) /tmp/$@ > $@
+
+plus : $(MAINPLUS)
+
+$(MAINPLUS) : $(MAIN)
+	cat $(THIRD_PARTY_SOURCES) $^ > /tmp/$@
+	$(COMPILER) /tmp/$@ > $@
+
+syntax : $(OBJECTS)
+	cat $^ > /tmp/$@
+	$(COMPILER) /tmp/$@ > /dev/null
+
+doc : clean-doc
+	jsdoc -d=$(DOCDIR) $(SOURCES)
+
+##################################################
+# cleaning
+
+.PHONY : clean clean-obj clean-exe clean-doc
+
+clean : clean-obj clean-exe clean-doc
+
+clean-obj :
+	-rm -rf $(OBJDIR)
+
+clean-exe :
+	-rm -f $(MAIN)
+
+clean-doc :
+	-rm -rf $(DOCDIR)
+
+##################################################
+# self configuration (do not touch)
+
+.SECONDEXPANSION:
+
+# Have to replace default rule because of separate build directory.
+# Unnecessary if make created the directory when writing a file.
+$(OBJECTS) : $(OBJDIR)/% : $(HEADERS) $(SRCDIR)/% | $$(@D)
+	$(M4) $(M4FLAGS) $^ > $@
+
