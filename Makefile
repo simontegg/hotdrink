@@ -5,7 +5,7 @@ include Makefile.common
 ##################################################
 # targets
 
-.PHONY : all doc debug syntax plus dijit
+.PHONY : all doc debug syntax plus dijit test
 
 all :
 	@$(call defer,Makefile.lib)
@@ -24,6 +24,9 @@ plus :
 
 dijit :
 	@$(MAKE) -f Makefile.dijit
+
+test :
+	@$(MAKE) -f Makefile.test
 
 ##################################################
 # cleaning

@@ -1,0 +1,29 @@
+# I am a starting template for a JavaScript library Makefile. Copy me!
+
+include Makefile.common
+include Makefile.js
+
+##################################################
+# mandatory configuration
+
+TITLE := hotdrink-test
+
+##################################################
+# optional configuration
+
+MAIN := $(TITLE).js
+MAINPLUS := $(TITLE)-plus.js
+
+SRCDIR := test
+SOURCES := \
+	common/resize_image.js \
+	model/value.js
+
+HEADERS := \
+
+OBJDIR := build
+
+THIRD_PARTY_SOURCES := \
+
+DOCDIR := doc
+
