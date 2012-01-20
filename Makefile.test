@@ -17,6 +17,7 @@ MAINPLUS := $(TITLE)-plus.js
 SRCDIR := test
 SOURCES := \
 	common/resize_image.js \
+	common/adam.js \
 	model/value.js \
 	parser/parser.js
 
