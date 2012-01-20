@@ -1,28 +1,17 @@
 (function() {
 
+  /**
+   * Module definition
+   */
   module("parser-basic", {
 	  setup: function() {
-		  var adam =
-			  ['sheet circle {',
-			   '	interface: {',
-			   '		radius: 10;',
-			   '		diameter;',
-			   '	}',
-			   '	logic: {',
-			   '		relate {',
-			   '			radius <== diameter / 2;',
-			   '			diameter <== radius * 2;',
-			   '		}',
-			   '	}',
-			   '	output: {',
-			   '		result <== radius;',
-			   '	}',
-			   '}'
-			  ].join('\n');
-		  this.result = hotdrink.parser.ModelParser.parse(adam);
+		  this.result = hotdrink.parser.ModelParser.parse(hottest.adam.basic);
 	  }
   });
 
+  /**
+   * Sort through expected methods and decide which is which.
+   */
 	function classifyMethods(methodMap) {
     var methodTypes = {invalid: [], extra: [], d2r: [], r2d: [], r2r: []};
 	  for (var methodId in methodMap) {
@@ -49,75 +38,116 @@
     return methodTypes;
   }
 
+  /**
+   * Test that parse function works and has return value.
+   */
   test("parse function", function() {
-	  ok(this.result != undefined, "parse function should return value");
-	  ok(this.result.cgraph != undefined, "parse function return value should contain cgraph");
-	  ok(this.result.methods != undefined, "parse function return value should contain methods");
+	  ok(this.result != undefined,
+       "parse function should return value");
+	  ok(this.result.cgraph != undefined,
+       "parse function return value should contain cgraph");
+	  ok(this.result.methods != undefined,
+       "parse function return value should contain methods");
   });
 
+  /**
+   * Check the variable nodes found in the CGraph.
+   */
   test("cgraph variables", function() {
 	  var cgraph = this.result.cgraph;
-	  ok(cgraph.variables != undefined, "cgraph should contain variables map");
-	  equal(Object.keys(cgraph.variables).length, 3, "variables map should contain 3 variables");
+	  ok(cgraph.variables != undefined,
+       "cgraph should contain variables map");
+	  equal(Object.keys(cgraph.variables).length, 3,
+          "variables map should contain 3 variables");
+
 	  var radius = cgraph.variables.radius;
-	  ok(radius != undefined, "variable map should include radius");
-	  equal(radius.cellType, "interface", "radius variable should be interface type");
-	  ok(radius.usedBy != undefined, "radius variable should have a usedBy array");
+	  ok(radius != undefined,
+       "variable map should include radius");
+	  equal(radius.cellType, "interface",
+          "radius variable should be interface type");
+	  ok(radius.usedBy != undefined,
+       "radius variable should have a usedBy array");
+
 	  var diameter = cgraph.variables.diameter;
-	  ok(diameter != undefined, "variable map should include diameter");
-	  equal(diameter.cellType, "interface", "diameter variable should be interface type");
-	  ok(diameter.usedBy != undefined, "diameter variable should have a usedBy array");
+	  ok(diameter != undefined,
+       "variable map should include diameter");
+	  equal(diameter.cellType, "interface",
+          "diameter variable should be interface type");
+	  ok(diameter.usedBy != undefined,
+       "diameter variable should have a usedBy array");
+
 	  var result = cgraph.variables.result;
-	  ok(result != undefined, "varaible map should include result");
-	  equal(result.cellType, "output", "result variable should be interface type");
-	  ok(result.usedBy != undefined, "result variable should have a usedBy array");
+	  ok(result != undefined,
+       "varaible map should include result");
+	  equal(result.cellType, "output",
+          "result variable should be interface type");
+	  ok(result.usedBy != undefined,
+       "result variable should have a usedBy array");
   });
 
+  /**
+   * Check the method nodes found in the CGraph.
+   */
   test("cgraph methods", function() {
 	  var cgraph = this.result.cgraph;
-	  ok(cgraph.methods != undefined, "cgraph should contain methods map");
+	  ok(cgraph.methods != undefined,
+       "cgraph should contain methods map");
 
     var methodTypes = classifyMethods(cgraph.methods);
-
-	  equal(methodTypes.invalid.length, 0, "there should be no methods without inputs or outputs array");
-	  equal(methodTypes.d2r.length, 1, "there should be exactly one method for diameter ==> radius");
-	  equal(methodTypes.r2d.length, 1, "there should be exactly one method for radius ==> diameter");
-	  equal(methodTypes.r2r.length, 1, "there should be exactly one method for radius ==> result");
-	  equal(methodTypes.extra.length, 0, "there should be no methods other than the three expected");
+	  equal(methodTypes.invalid.length, 0,
+          "there should be no methods without inputs or outputs array");
+	  equal(methodTypes.d2r.length, 1,
+          "there should be exactly one method for diameter ==> radius");
+	  equal(methodTypes.r2d.length, 1,
+          "there should be exactly one method for radius ==> diameter");
+	  equal(methodTypes.r2r.length, 1,
+          "there should be exactly one method for radius ==> result");
+	  equal(methodTypes.extra.length, 0,
+          "there should be no methods other than the three expected");
 
 	  var diameter = cgraph.variables.diameter;
 	  ok(diameter.usedBy.length == 1 && diameter.usedBy[0] == methodTypes.d2r[0],
 		   "diameter variable should be usedBy diameter ==> radius method");
+
 	  var radius = cgraph.variables.radius;
-	  ok(radius.usedBy.length == 2 &&
-		   ((radius.usedBy[0] == methodTypes.r2d[0] && radius.usedBy[1] == methodTypes.r2r[0]) ||
-			  (radius.usedBy[0] == methodTypes.r2r[0] && radius.usedBy[1] == methodTypes.r2d[0])	 ),
+	  ok(radius.usedBy.length == 2
+		   && (   (radius.usedBy[0] == methodTypes.r2d[0]
+               && radius.usedBy[1] == methodTypes.r2r[0])
+           || (radius.usedBy[0] == methodTypes.r2r[0]
+               && radius.usedBy[1] == methodTypes.r2d[0])),
 		   "radius variable should be usedBy radius ==> diameter && radius ==> result methods")
+
 	  var result = cgraph.variables.result;
-	  ok(result.usedBy.length == 0, "result variable should not be usedBy any methods");
+	  ok(result.usedBy.length == 0,
+       "result variable should not be usedBy any methods");
   });
 
+  /**
+   * Check the constraint nodes found in the CGraph.
+   */
   test("cgraph constraints", function() {
 	  var cgraph = this.result.cgraph;
-	  ok(cgraph.constraints != undefined, "cgraph should contain constraint map");
-
-	  equal(Object.keys(cgraph.constraints).length, 2, "cgraph should have 2 constraints");
+	  ok(cgraph.constraints != undefined,
+       "cgraph should contain constraint map");
+	  equal(Object.keys(cgraph.constraints).length, 2,
+          "cgraph should have 2 constraints");
 
     var methodTypes = classifyMethods(cgraph.methods);
-
     var constraintTypes = {invalid: [], extra: [], logic: [], output: []};
     for (var constraintId in cgraph.constraints) {
       var constraint = cgraph.constraints[constraintId];
       if (constraint.methods == undefined) {
         constraintTypes.invalid.push(constraintId);
       }
-      else if (constraint.methods.length == 2 &&
-               ((constraint.methods[0] == methodTypes.d2r[0] && constraint.methods[1] == methodTypes.r2d[0]) ||
-                (constraint.methods[0] == methodTypes.r2d[0] && constraint.methods[1] == methodTypes.d2r[0]))) {
+      else if (constraint.methods.length == 2
+               && (   (constraint.methods[0] == methodTypes.d2r[0]
+                       && constraint.methods[1] == methodTypes.r2d[0])
+                   || (constraint.methods[0] == methodTypes.r2d[0]
+                       && constraint.methods[1] == methodTypes.d2r[0]))) {
         constraintTypes.logic.push(constraintId);
       }
-      else if (constraint.methods.length == 1 &&
-               constraint.methods[0] == methodTypes.r2r[0]) {
+      else if (constraint.methods.length == 1
+               && constraint.methods[0] == methodTypes.r2r[0]) {
         constraintTypes.output.push(constraintId);
       }
       else {
@@ -125,10 +155,31 @@
       }
     }
 
-    equal(constraintTypes.invalid.length, 0, "there should be no constraints without a method list");
-    equal(constraintTypes.logic.length, 1, "there should be exactly one constraint for radius <==> diameter");
-    equal(constraintTypes.output.length, 1, "there should be exactly one constraint for radius ==> result");
-    equal(constraintTypes.extra.length, 0, "there should be no constraints other than the two expected");
+    equal(constraintTypes.invalid.length, 0,
+          "there should be no constraints without a method list");
+    equal(constraintTypes.logic.length, 1,
+          "there should be exactly one constraint for radius <==> diameter");
+    equal(constraintTypes.output.length, 1,
+          "there should be exactly one constraint for radius ==> result");
+    equal(constraintTypes.extra.length, 0,
+          "there should be no constraints other than the two expected");
+  });
+
+  /**
+   * Test code generated for methods.
+   */
+  test("method definitions", function() {
+    var methods = eval("(" + this.result.methods + ")");
+    ok(methods != undefined,
+       "should be able to evaluate code generated for methods");
+
+    var methodTypes = classifyMethods(this.result.cgraph.methods);
+    ok(methods[methodTypes.d2r[0]] instanceof Function,
+       "should have method for diameter ==> radius");
+    ok(methods[methodTypes.r2d[0]] instanceof Function,
+       "should have method for radius ==> diameter");
+    ok(methods[methodTypes.r2r[0]] instanceof Function,
+       "should have method for radius ==> result");
   });
 
 })();
