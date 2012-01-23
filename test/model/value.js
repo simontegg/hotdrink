@@ -2,7 +2,16 @@
 
   module("value propagation");
 
-  test("resize image", function () {
+  test("hello_world", function () {
+    var model = hotdrink.makeModelController({
+      cgraph : hottest.hello_world.cgraph,
+      methods : hottest.hello_world.methods
+    });
+    equal(model.get("tmp"), "Hello, World!",
+      "issue 2: constant method executed");
+  });
+
+  test("resize_image", function () {
     var model = hotdrink.makeModelController({
       cgraph : hottest.resize_image.cgraph,
       methods : hottest.resize_image.methods

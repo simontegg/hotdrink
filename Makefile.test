@@ -16,9 +16,10 @@ MAINPLUS := $(TITLE)-plus.js
 
 SRCDIR := test
 SOURCES := \
+	common/hello_world.js \
 	common/resize_image.js \
 	common/enforced_minmax.js \
-	model/value.js
+	model/value.js 
 
 HEADERS := \
 
