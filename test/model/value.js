@@ -5,10 +5,7 @@
   test("hello_world", function () {
     expect(1);
 
-    var model = hotdrink.makeModelController({
-      cgraph : hottest.hello_world.cgraph,
-      methods : hottest.hello_world.methods
-    });
+    var model = hottest.hello_world.getModel();
     strictEqual(model.get("tmp"), "Hello, World!",
       "[issue 2] constant method gets executed");
   });
@@ -16,10 +13,7 @@
   test("resize_image", function () {
     expect(9);
 
-    var model = hotdrink.makeModelController({
-      cgraph : hottest.resize_image.cgraph,
-      methods : hottest.resize_image.methods
-    });
+    var model = hottest.resize_image.getModel();
     strictEqual(model.get("initial_width"), 2100,
       "initialized initial_width");
     strictEqual(model.get("absolute_height"), 1500,
@@ -53,10 +47,7 @@
   test("enforced_minmax", function () {
     expect(6);
 
-    var model = hotdrink.makeModelController({
-      cgraph : hottest.enforced_minmax.cgraph,
-      methods : hottest.enforced_minmax.methods
-    });
+    var model = hottest.enforced_minmax.getModel();
     model.set("min", 110);
     model.update();
     strictEqual(model.get("value"), 110,
