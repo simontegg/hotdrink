@@ -8,7 +8,7 @@
       methods : hottest.hello_world.methods
     });
     equal(model.get("tmp"), "Hello, World!",
-      "issue 2: constant method executed");
+      "[issue 2] constant method gets executed");
   });
 
   test("resize_image", function () {
@@ -17,20 +17,20 @@
       methods : hottest.resize_image.methods
     });
     equal(model.get("initial_width"), 2100,
-      "initialized with constant numeric expression");
+      "initialized initial_width");
     equal(model.get("absolute_height"), 1500,
-      "initialized with variable numeric expression");
+      "initialized absolute_height");
     equal(model.get("preserve_ratio"), true,
-      "initialized with constant boolean expression");
+      "initialized preserve_ratio");
     equal(model.get("relative_width"), 100,
-      "initialized with evaluation phase");
+      "initialized relative_width");
 
     model.set("relative_width", 105);
     model.update();
     equal(model.get("relative_height"), 105,
-      "calculate relative height from width");
+      "calculate relative_height from relative_width");
     equal(model.get("absolute_height"), 1575,
-      "calculate absolute height from width");
+      "calculate absolute_height from relative_width");
 
     model.set("preserve_ratio", false);
     model.update();
@@ -70,12 +70,12 @@
     model.set("value", 40);
     model.update();
     equal(model.get("value"), 50,
-      "issue 3: value bounces back above min");
+      "[issue 3] value bounces back above min");
 
     model.set("value", 100);
     model.update();
     equal(model.get("value"), 90,
-      "issue 3: value bounces back below max");
+      "[issue 3] value bounces back below max");
   });
 
 }());
