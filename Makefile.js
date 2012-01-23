@@ -24,6 +24,8 @@ export DOCDIR
 
 DEFERRED_TARGETS := \
 	all \
+	debug \
+	release \
 	plus \
 	syntax \
 	doc \

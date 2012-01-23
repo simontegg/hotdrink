@@ -8,10 +8,7 @@ include Makefile.common
 
 RELEASE_FLAGS :=
 DEBUG_FLAGS := -DDEBUG
-
-ifeq "$(origin BUILD_FLAGS)" "undefined"
-  BUILD_FLAGS := $(DEBUG_FLAGS)
-endif
+BUILD_FLAGS := $(DEBUG_FLAGS)
 
 M4 := m4
 M4FLAGS = -P $(BUILD_FLAGS)
@@ -40,11 +37,17 @@ $(OBJDIR)/% :
 ##################################################
 # targets
 
-.PHONY : all
+.PHONY : all debug release plus syntax doc
 
-all : $(MAIN)
+all : debug
 #	@$(call watch,SOURCES)
 #	@$(call watch,OBJECTS)
+
+debug : BUILD_FLAGS := $(DEBUG_FLAGS)
+debug : $(MAIN)
+
+release : BUILD_FLAGS := $(RELEASE_FLAGS)
+release : $(MAIN)
 
 $(MAIN) : $(OBJECTS)
 	cat $^ > /tmp/$@
