@@ -34,9 +34,9 @@ test :
 ##################################################
 # cleaning
 
-.PHONY : clean clean-obj clean-exe clean-doc
+.PHONY : clean clean-obj clean-exe clean-test clean-doc
 
-clean : clean-obj clean-exe clean-doc
+clean : clean-obj clean-exe
 
 clean-obj :
 	@$(call defer,Makefile.lib)
@@ -45,6 +45,9 @@ clean-obj :
 clean-exe :
 	@$(call defer,Makefile.lib)
 	@$(call defer,Makefile.dijit)
+
+clean-test :
+	@$(call defer,Makefile.test)
 
 clean-doc :
 	@$(call defer,Makefile.lib)
