@@ -18,9 +18,11 @@ SRCDIR := test
 SOURCES := \
 	common/hello_world.js \
 	common/resize_image.js \
+	common/save_image.js \
 	common/enforced_minmax.js \
 	common/grouped_options.js \
-	model/value.js 
+	model/value.js \
+	model/enablement.js 
 
 HEADERS := \
 
