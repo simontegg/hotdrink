@@ -3,6 +3,8 @@
   module("value propagation");
 
   test("hello_world", function () {
+    expect(1);
+
     var model = hotdrink.makeModelController({
       cgraph : hottest.hello_world.cgraph,
       methods : hottest.hello_world.methods
@@ -12,6 +14,8 @@
   });
 
   test("resize_image", function () {
+    expect(9);
+
     var model = hotdrink.makeModelController({
       cgraph : hottest.resize_image.cgraph,
       methods : hottest.resize_image.methods
@@ -47,11 +51,12 @@
   });
 
   test("enforced_minmax", function () {
+    expect(6);
+
     var model = hotdrink.makeModelController({
       cgraph : hottest.enforced_minmax.cgraph,
       methods : hottest.enforced_minmax.methods
     });
-
     model.set("min", 110);
     model.update();
     equal(model.get("value"), 110,
