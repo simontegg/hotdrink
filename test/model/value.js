@@ -74,5 +74,27 @@
       "[issue 3] value bounces back below max");
   });
 
+  test("grouped_options", function () {
+    expect(5);
+
+    var model = hottest.grouped_options.getModel();
+    strictEqual(model.get("all"), false,
+      "initialized all");
+
+    model.set("all", true);
+    model.update();
+    strictEqual(model.get("a"), true,
+      "multi-out method");
+    strictEqual(model.get("b"), true,
+      "multi-out method");
+    strictEqual(model.get("c"), true,
+      "multi-out method");
+
+    model.set("b", false);
+    model.update();
+    strictEqual(model.get("all"), false,
+      "editing a, b, or c changes all");
+  });
+
 }());
 

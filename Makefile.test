@@ -19,6 +19,7 @@ SOURCES := \
 	common/hello_world.js \
 	common/resize_image.js \
 	common/enforced_minmax.js \
+	common/grouped_options.js \
 	model/value.js 
 
 HEADERS := \
