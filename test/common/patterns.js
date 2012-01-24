@@ -1,170 +1,159 @@
 (function () {
 
+  var TentativeTest = function () {
+    this.failed = 0;
+  };
+
+  TentativeTest.prototype = {};
+
+  TentativeTest.prototype.ok = function (result, desc) {
+    if (!result) ++this.failed;
+  };
+
+  TentativeTest.prototype.strictEqual = function (a, b, desc) {
+    if (a !== b) ++this.failed;
+  };
+
+  TentativeTest.prototype.passed = function () {
+    return failed === 0;
+  };
+
   /**
    */
-  function Pattern() {
-  }
+  var Pattern = function () {
+  };
 
-  Pattern.prototype = new Object();
+  var matchProperty = function (key, proof, cand, test) {
+    if (proof instanceof Pattern) {
+      proof.compare(cand, test);
+    } else {
+      test.strictEqual(cand, proof,
+        "property '" + key + "' matches expected value");
+    }
+  };
 
-  Pattern.prototype.compare = function(name, object) {
-    QUnit.ok(false,
-             "incomplete pattern to compare against " + name);
-  }
+  Pattern.prototype = {};
+
+  Pattern.prototype.compare = function (cand, test) {
+    test.ok(false,
+      "incomplete pattern");
+  };
 
   /**
    */
-  function Min(pattern) {
-    this.pattern = new Object();
+  var Min = function (pattern) {
+    this.pattern = {};
     for (var key in pattern) {
       this.pattern[key] = pattern[key];
     }
-  }
+  };
 
   Min.prototype = new Pattern();
 
-  Min.prototype.compare = function(name, object) {
-    object = object || {};
+  Min.prototype.compare = function (cand, test) {
+    cand = cand || {};
     var compare = true;
     for (var key in this.pattern) {
-      if (key in object) {
-        if (this.pattern[key] instanceof Pattern) {
-          this.pattern[key].compare(name + "." + key, object[key]);
-        }
-        else {
-          QUnit.equal(object[key], this.pattern[key],
-                      name + "." + key + " should match expected value");
-        }
+      if (!(key in cand)) {
+        test.ok(false,
+          "candidate has property '" + key + "'");
+        continue;
       }
-      else {
-        QUnit.ok(false,
-                 name + " should contain " + key + " property");
-      }
+
+      matchProperty(key, this.pattern[key], cand[key], test);
     }
-  }
+  };
 
   /**
    */
-  function Exact(pattern) {
+  var Exact = function (pattern) {
     Min.call(this, pattern);
-  }
+  };
 
   Exact.prototype = new Min();
 
-  Exact.prototype.compare = function(name, object) {
-    Min.prototype.compare.call(this, name, object);
+  Exact.prototype.compare = function (cand, test) {
+    Min.prototype.compare.call(this, cand, test);
 
-    var extra = 0;
-    for (var key in object)
-      if (! (key in this.pattern))
-        ++extra;
-    QUnit.equal(extra, 0,
-                name + " should not have any extra properties");
+    for (var key in cand) {
+      if (!(key in this.pattern)) {
+        test.ok(false,
+          "candidate does not have extra property ('" + key + "')");
+      }
+    }
   }
 
   /**
    */
-  function MinSet(pattern) {
-    this.pattern = new Array();
-
+  var MinSet = function (pattern) {
+    this.pattern = {};
     for (var key in pattern) {
       this.pattern[key] = pattern[key];
     }
-  }
+  };
 
   MinSet.prototype = new Pattern();
 
-  MinSet.prototype.compare = function(object) {
-    var clone = new Object();
-    for (var okey in object) {
-      clone[okey] = object[okey];
+  MinSet.prototype.compare = function (cand, test) {
+    var clone = {};
+    for (var ckey in cand) {
+      clone[key] = cand[key];
     }
 
-    this.map = new Object();
-    var compare = true;
+    this.map = {};
     for (var pkey in this.pattern) {
-      if (this.pattern[pkey] instanceof Pattern) {
-        for (var ckey in clone) {
-          if (this.pattern[pkey].compare(clone[ckey])) {
-            this.map[pkey] = ckey;
-            delete clone[ckey];
-            break;
-          }
+      for (ckey in clone) {
+        var ttest = new TentativeTest();
+        matchProperty(ckey, this.pattern[pkey], clone[ckey], ttest);
+        if (ttest.passed()) {
+          this.map[pkey] = ckey;
+          delete clone[ckey];
+          break;
         }
       }
-      else {
-        for (var ckey in clone) {
-          if (this.pattern[pkey] === clone[ckey]) {
-            this.map[pkey] = ckey;
-            delete clone[ckey];
-            break;
-          }
-        }
-      }
-      if (! (pkey in this.map))
-        return false;
+      if (!(pkey in this.map))
+        test.ok(false,
+          "candidate has property matching '" + pkey + "'");
     }
+  };
 
-    return true;
-  }
-
-  MinSet.prototype.keyThatMatched = function(patternKey) {
-    return this.map[patternKey];
-  }
+  MinSet.prototype.keyThatMatched = function(key) {
+    return this.map[key];
+  };
 
   /**
    */
-  function ExactSet(pattern) {
+  var ExactSet = function (pattern) {
     MinSet.call(this, pattern);
-  }
+  };
 
   ExactSet.prototype = new MinSet();
 
-  ExactSet.prototype.compare = function(object) {
-    if (MinSet.prototype.compare.call(this, object)) {
-      var pattern_count = 0;
-      for (var key in this.pattern) {
-        ++pattern_count;
-      }
-      var object_count = 0;
-      for (var key in object) {
-        ++object_count;
-      }
-      return pattern_count == object_count;
-    }
-    else
-      return false;
-  }
+  ExactSet.prototype.compare = function (cand, test) {
+    MinSet.prototype.compare.call(this, cand, test);
 
-  /**
-   */
-  function MinKeys(pattern) {
-    this.keys = new Array();
-    if (pattern instanceof Array) {
-      for (var i = 0; i < pattern.length; ++i)
-        this.keys[i] = pattern[i];
+    var clone = {};
+    for (var ckey in cand) {
+      clone[key] = cand[key];
     }
-    else {
-      for (var key in pattern) {
-        this.keys.push(key);
-      }
+  
+    for (var pkey in this.pattern) {
+      delete clone[this.keyThatMatched(pkey)];
+    }
+
+    for (ckey in clone) {
+      test.ok(false,
+        "candidate does not have extra property ('" + ckey + "')");
     }
   }
 
-  MinKeys.prototype = new Pattern();
+  namespace.open("hottest").patterns = {
+    Pattern: Pattern,
+    Exact: Exact,
+    Min: Min,
+    MinSet: MinSet,
+    ExactSet: ExactSet,
+  };
 
-  MinKeys.prototype.compare = function(object) {
-    for (var i = 0; i < this.pattern.size; ++i) {
-      if (! (this.pattern[i] in object))
-        return false;
-    }
-    return true;
-  }
-
-  patterns = {Pattern: Pattern,
-              Exact: Exact,
-              Min: Min,
-              MinSet: MinSet,
-              ExactSet: ExactSet,
-             };
 })();
+
