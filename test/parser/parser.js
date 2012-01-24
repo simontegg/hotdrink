@@ -13,7 +13,7 @@
    * Sort through expected methods and decide which is which.
    */
 	function classifyMethods(methodMap) {
-    var methodTypes = {invalid: [], extra: [], d2r: [], r2d: [], r2r: []};
+    var methodTypes = {invalid: [], extra: [], d2r: [], r2d: [], a2r: []};
 	  for (var methodId in methodMap) {
 		  var method = methodMap[methodId];
 		  if (method.inputs == undefined || method.outputs == undefined) {
@@ -27,9 +27,13 @@
 				       method.outputs.length == 1 && method.outputs[0] == "diameter"		) {
         methodTypes.r2d.push(methodId);
 		  }
-		  else if (method.inputs.length == 1 && method.inputs[0] == "radius" &&
-				       method.outputs.length == 1 && method.outputs[0] == "result"		) {
-        methodTypes.r2r.push(methodId);
+		  else if (method.inputs.length == 2
+               && (   (method.inputs[0] == "radius"
+                       && method.inputs[1] == "pi")
+                   || (method.inputs[0] == "pi"
+                       && method.inputs[1] == "radius"))
+				       && method.outputs.length == 1 && method.outputs[0] == "result") {
+        methodTypes.a2r.push(methodId);
 		  }
 		  else {
         methodTypes.extra.push(methodId);
@@ -57,14 +61,14 @@
 	  var cgraph = this.result.cgraph;
 	  ok(cgraph.variables != undefined,
        "cgraph should contain variables map");
-	  equal(Object.keys(cgraph.variables).length, 3,
-          "variables map should contain 3 variables");
+	  equal(Object.keys(cgraph.variables).length, 4,
+          "variables map should contain 4 variables");
 
 	  var radius = cgraph.variables.radius;
 	  ok(radius != undefined,
        "variable map should include radius");
-	  equal(radius.cellType, "interface",
-          "radius variable should be interface type");
+	  equal(radius.cellType, "input",
+          "radius variable should be input type");
 	  ok(radius.usedBy != undefined,
        "radius variable should have a usedBy array");
 
@@ -83,6 +87,14 @@
           "result variable should be interface type");
 	  ok(result.usedBy != undefined,
        "result variable should have a usedBy array");
+
+    var pi = cgraph.variables.pi;
+    ok(pi != undefined,
+       "variable map should include pi");
+    equal(pi.cellType, "constant",
+          "pi variable should be constant type");
+    equal(pi.initializer, "3.14",
+          "pi variable should have initializer");
   });
 
   /**
@@ -100,8 +112,8 @@
           "there should be exactly one method for diameter ==> radius");
 	  equal(methodTypes.r2d.length, 1,
           "there should be exactly one method for radius ==> diameter");
-	  equal(methodTypes.r2r.length, 1,
-          "there should be exactly one method for radius ==> result");
+	  equal(methodTypes.a2r.length, 1,
+          "there should be exactly one method for area ==> result");
 	  equal(methodTypes.extra.length, 0,
           "there should be no methods other than the three expected");
 
@@ -112,14 +124,18 @@
 	  var radius = cgraph.variables.radius;
 	  ok(radius.usedBy.length == 2
 		   && (   (radius.usedBy[0] == methodTypes.r2d[0]
-               && radius.usedBy[1] == methodTypes.r2r[0])
-           || (radius.usedBy[0] == methodTypes.r2r[0]
+               && radius.usedBy[1] == methodTypes.a2r[0])
+           || (radius.usedBy[0] == methodTypes.a2r[0]
                && radius.usedBy[1] == methodTypes.r2d[0])),
-		   "radius variable should be usedBy radius ==> diameter && radius ==> result methods")
+		   "radius variable should be usedBy radius ==> diameter && area ==> result methods")
 
 	  var result = cgraph.variables.result;
 	  ok(result.usedBy.length == 0,
        "result variable should not be usedBy any methods");
+
+    var pi = cgraph.variables.pi;
+    ok(pi.usedBy.length == 1 && pi.usedBy[0] == methodTypes.a2r[1],
+       "diameter variable should be usedBy area ==> result method");
   });
 
   /**
@@ -147,7 +163,7 @@
         constraintTypes.logic.push(constraintId);
       }
       else if (constraint.methods.length == 1
-               && constraint.methods[0] == methodTypes.r2r[0]) {
+               && constraint.methods[0] == methodTypes.a2r[0]) {
         constraintTypes.output.push(constraintId);
       }
       else {
@@ -178,8 +194,8 @@
        "should have method for diameter ==> radius");
     ok(methods[methodTypes.r2d[0]] instanceof Function,
        "should have method for radius ==> diameter");
-    ok(methods[methodTypes.r2r[0]] instanceof Function,
-       "should have method for radius ==> result");
+    ok(methods[methodTypes.a2r[0]] instanceof Function,
+       "should have method for area ==> result");
   });
 
 })();

@@ -2,8 +2,13 @@ namespace.open('hottest.adam');
 
 hottest.adam.basic =
  	['sheet circle {',
+   '  constant : {',
+   '    pi: 3.14;',
+   '  }',
+   '  input : {',
+   '    radius: 10;',
+   '  }',
 	 '	interface: {',
-	 '		radius: 10;',
 	 '		diameter;',
 	 '	}',
 	 '	logic: {',
@@ -13,7 +18,7 @@ hottest.adam.basic =
 	 '		}',
 	 '	}',
 	 '	output: {',
-	 '		result <== radius;',
+	 '		result <== pi * radius * radius;',
 	 '	}',
 	 '}'
 	].join('\n');
