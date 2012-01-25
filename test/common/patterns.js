@@ -46,9 +46,6 @@
     }
   };
 
-  var initObjPattern = function (pattern, keyOrder) {
-  };
-
   /**
    */
   var Min = function () {};
@@ -85,11 +82,8 @@
   Min.prototype.compare = function (cand, test, keyMap) {
     keyMap = keyMap || {};
 
-    //for (var key in this.pattern) {
     for (var i = 0; i < this.keyOrder.length; ++i) {
       var key = this.keyOrder[i];
-
-      //if (!this.pattern.hasOwnProperty(key)) continue;
 
       if (!(key in cand)) {
         test.ok(false,
@@ -132,13 +126,10 @@
 
     var clone = Object.clone(cand);
 
-    //for (var pkey in this.pattern) {
     for (var i = 0; i < this.keyOrder.length; ++i) {
       var pkey = this.keyOrder[i];
 
-      //if (!this.pattern.hasOwnProperty(pkey)) continue;
-
-      for (ckey in clone) {
+      for (var ckey in clone) {
         if (!clone.hasOwnProperty(ckey)) continue;
 
         var ttest = new TentativeTest();
@@ -199,7 +190,7 @@
 
   namespace.open("hottest").patterns = {
     Pattern: Pattern,
-    key : function (key) { return Key(key); },
+    key : function (k) { return Key(k); },
     min : buildAssocPattern(Min),
     exact : buildAssocPattern(Exact),
     minSet : buildAssocPattern(MinSet),
