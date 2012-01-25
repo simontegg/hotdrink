@@ -11,11 +11,11 @@
   };
 
   TentativeTest.prototype.strictEqual = function (a, b, desc) {
-    if (a !== b) ++this.failed;
+    this.ok(a === b, desc);
   };
 
   TentativeTest.prototype.passed = function () {
-    return failed === 0;
+    return this.failed === 0;
   };
 
   /**
@@ -44,6 +44,7 @@
   var Min = function (pattern) {
     this.pattern = {};
     for (var key in pattern) {
+      if (!pattern.hasOwnProperty(key)) continue;
       this.pattern[key] = pattern[key];
     }
   };
@@ -54,6 +55,7 @@
     cand = cand || {};
     var compare = true;
     for (var key in this.pattern) {
+      if (!this.pattern.hasOwnProperty(key)) continue;
       if (!(key in cand)) {
         test.ok(false,
           "candidate has property '" + key + "'");
@@ -76,6 +78,7 @@
     Min.prototype.compare.call(this, cand, test);
 
     for (var key in cand) {
+      if (!cand.hasOwnProperty(key)) continue;
       if (!(key in this.pattern)) {
         test.ok(false,
           "candidate does not have extra property ('" + key + "')");
@@ -88,6 +91,7 @@
   var MinSet = function (pattern) {
     this.pattern = {};
     for (var key in pattern) {
+      if (!pattern.hasOwnProperty(key)) continue;
       this.pattern[key] = pattern[key];
     }
   };
@@ -97,12 +101,15 @@
   MinSet.prototype.compare = function (cand, test) {
     var clone = {};
     for (var ckey in cand) {
-      clone[key] = cand[key];
+      if (!cand.hasOwnProperty(ckey)) continue;
+      clone[ckey] = cand[ckey];
     }
 
     this.map = {};
     for (var pkey in this.pattern) {
+      if (!this.pattern.hasOwnProperty(pkey)) continue;
       for (ckey in clone) {
+        if (!clone.hasOwnProperty(ckey)) continue;
         var ttest = new TentativeTest();
         matchProperty(ckey, this.pattern[pkey], clone[ckey], ttest);
         if (ttest.passed()) {
@@ -134,14 +141,17 @@
 
     var clone = {};
     for (var ckey in cand) {
-      clone[key] = cand[key];
+      if (!cand.hasOwnProperty(ckey)) continue;
+      clone[ckey] = cand[ckey];
     }
   
     for (var pkey in this.pattern) {
+      if (!this.pattern.hasOwnProperty(pkey)) continue;
       delete clone[this.keyThatMatched(pkey)];
     }
 
     for (ckey in clone) {
+      if (!clone.hasOwnProperty(ckey)) continue;
       test.ok(false,
         "candidate does not have extra property ('" + ckey + "')");
     }
