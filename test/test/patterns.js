@@ -3,13 +3,14 @@
   module("patterns");
 
   test("patterns.Min", function() {
-    var foo = new hottest.patterns.Min({a: 3, b: 12, c: "hello"});
+    var P = hottest.patterns;
+    var foo = P.min({a: 3, b: 12, c: "hello"});
     foo.compare({a: 3, b: 12, c: "hello"}, QUnit);
     foo.compare({a: 3, b: 12, c: "hello", d: "goodbye"}, QUnit);
     foo.compare({a: 3, c: "hello"}, QUnit);
     foo.compare({a: 3, b: 12, c: "goodbye"}, QUnit);
     foo.compare({a: 3, b: "12", c: "hello"}, QUnit);
-    var goo = new hottest.patterns.Min({
+    var goo = P.min({
       x: 8,
       y: "howdy",
       z: foo
@@ -19,13 +20,14 @@
   });
 
   test("patterns.Exact", function() {
-    var foo = new hottest.patterns.Exact({a: 3, b: 12, c: "hello"}, QUnit);
+    var P = hottest.patterns;
+    var foo = P.exact({a: 3, b: 12, c: "hello"}, QUnit);
     foo.compare({a: 3, b: 12, c: "hello"}, QUnit);
     foo.compare({a: 3, b: 12, c: "hello", d: "goodbye"}, QUnit);
     foo.compare({a: 3, c: "hello"}, QUnit);
     foo.compare({a: 3, b: 12, c: "goodbye"}, QUnit);
     foo.compare({a: 3, b: "12", c: "hello"}, QUnit);
-    var goo = new hottest.patterns.Exact({
+    var goo = P.exact({
       x: 8,
       y: "howdy",
       z: foo
@@ -35,7 +37,8 @@
   });
 
   test("patterns.MinSet", function () {
-    var foo = new hottest.patterns.MinSet(['a', 3, 'goodbye']);
+    var P = hottest.patterns;
+    var foo = P.minSet(['a', 3, 'goodbye']);
     foo.compare(['a', 3, 'goodbye'], QUnit);
     foo.compare([3, 'goodbye', 'a'], QUnit);
     foo.compare({x: 'goodbye', y: 3, z: 'a'}, QUnit);
@@ -44,7 +47,8 @@
   });
 
   test("patterns.ExactSet", function () {
-    var foo = new hottest.patterns.ExactSet(['a', 3, 'goodbye']);
+    var P = hottest.patterns;
+    var foo = P.exactSet(['a', 3, 'goodbye']);
     foo.compare(['a', 3, 'goodbye'], QUnit);
     foo.compare([3, 'goodbye', 'a'], QUnit);
     foo.compare({x: 'goodbye', y: 3, z: 'a'}, QUnit);

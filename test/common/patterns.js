@@ -159,10 +159,10 @@
 
   namespace.open("hottest").patterns = {
     Pattern: Pattern,
-    Exact: Exact,
-    Min: Min,
-    MinSet: MinSet,
-    ExactSet: ExactSet,
+    min : function (pattern) { return new Min(pattern); },
+    exact : function (pattern) { return new Exact(pattern); },
+    minSet : function (pattern) { return new MinSet(pattern); },
+    exactSet : function (pattern) { return new ExactSet(pattern); }
   };
 
 })();
