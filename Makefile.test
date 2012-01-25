@@ -16,13 +16,17 @@ MAINPLUS := $(TITLE)-plus.js
 
 SRCDIR := test
 SOURCES := \
+  common/patterns.js \
+	test/patterns.js \
 	common/hello_world.js \
+	common/circle.js \
 	common/resize_image.js \
 	common/save_image.js \
 	common/enforced_minmax.js \
 	common/grouped_options.js \
 	model/value.js \
-	model/enablement.js 
+	model/enablement.js \
+	parser/model.js
 
 HEADERS := \
 
