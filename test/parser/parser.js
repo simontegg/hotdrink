@@ -5,7 +5,7 @@
    */
   module("parser-basic", {
 	  setup: function() {
-		  this.result = hotdrink.parser.ModelParser.parse(hottest.adam.basic);
+		  this.result = hotdrink.parser.ModelParser.parse(hottest.circle.adam);
 	  }
   });
 
