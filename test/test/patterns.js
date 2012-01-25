@@ -21,7 +21,7 @@
 
   test("patterns.Exact", function() {
     var P = hottest.patterns;
-    var foo = P.exact({a: 3, b: 12, c: "hello"}, QUnit);
+    var foo = P.exact({a: 3, b: 12, c: "hello"});
     foo.compare({a: 3, b: 12, c: "hello"}, QUnit);
     foo.compare({a: 3, b: 12, c: "hello", d: "goodbye"}, QUnit);
     foo.compare({a: 3, c: "hello"}, QUnit);

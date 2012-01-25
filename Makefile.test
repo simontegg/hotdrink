@@ -21,7 +21,7 @@ SOURCES := \
 	common/resize_image.js \
 	common/circle.js \
 	model/value.js \
-	parser/parser.js
+	parser/model.js
 
 HEADERS := \
 

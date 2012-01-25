@@ -18,17 +18,6 @@
     return this.failed === 0;
   };
 
-  var matchProperty = function (key, proof, cand, test, keyMap) {
-    LOG("key = " + key);
-    LOG("keyMap = " + Object.toJSON(keyMap));
-    if (proof instanceof Pattern) {
-      proof.compare(cand, test, keyMap);
-    } else {
-      test.strictEqual(cand, proof,
-        "property '" + key + "' matches expected value");
-    }
-  };
-
   /**
    */
   var Pattern = function () {
@@ -48,32 +37,59 @@
   Key.prototype = new Pattern();
 
   Key.prototype.compare = function (cand, test, keyMap) {
-    if (!keyMap[key]) {
+    if (!keyMap[this.key]) {
       test.ok(false,
-        "error: key '" + key + "' has not been mapped");
+        "error: key '" + this.key + "' has not been mapped");
     } else {
-      test.strictEqual(cand, keyMap[key],
-        "candidate matches key '" + key + "'");
+      test.strictEqual(cand, keyMap[this.key],
+        "candidate matches key '" + this.key + "'");
     }
+  };
+
+  var initObjPattern = function (pattern, keyOrder) {
   };
 
   /**
    */
-  var Min = function (pattern) {
-    this.pattern = {};
-    for (var key in pattern) {
-      if (!pattern.hasOwnProperty(key)) continue;
-      this.pattern[key] = pattern[key];
-    }
-  };
+  var Min = function () {};
 
   Min.prototype = new Pattern();
+
+  Min.prototype.initialize = function (pattern, keyOrder) {
+    this.pattern = pattern;
+
+    /* TODO: Check that the keys in keyOrder exist in pattern? */
+    if (!keyOrder) {
+      /* TODO: Remove this check after we remove Prototype. */
+      if (Object.isArray(pattern)) {
+        keyOrder = [];
+        for (var i = 0; i < pattern.length; ++i) {
+          keyOrder.push(i);
+        }
+      } else {
+        keyOrder = Object.keys(pattern);
+      }
+    }
+    this.keyOrder = keyOrder;
+  };
+
+  var matchProperty = function (key, proof, cand, test, keyMap) {
+    if (proof instanceof Pattern) {
+      proof.compare(cand, test, keyMap);
+    } else {
+      test.strictEqual(cand, proof,
+        "property '" + key + "' matches expected value");
+    }
+  };
 
   Min.prototype.compare = function (cand, test, keyMap) {
     keyMap = keyMap || {};
 
-    for (var key in this.pattern) {
-      if (!this.pattern.hasOwnProperty(key)) continue;
+    //for (var key in this.pattern) {
+    for (var i = 0; i < this.keyOrder.length; ++i) {
+      var key = this.keyOrder[i];
+
+      //if (!this.pattern.hasOwnProperty(key)) continue;
 
       if (!(key in cand)) {
         test.ok(false,
@@ -87,9 +103,7 @@
 
   /**
    */
-  var Exact = function (pattern) {
-    Min.call(this, pattern);
-  };
+  var Exact = function () {};
 
   Exact.prototype = new Min();
 
@@ -109,28 +123,20 @@
 
   /**
    */
-  var MinSet = function (pattern) {
-    this.pattern = {};
-    for (var key in pattern) {
-      if (!pattern.hasOwnProperty(key)) continue;
-      this.pattern[key] = pattern[key];
-    }
-  };
+  var MinSet = function () {};
 
   MinSet.prototype = new Pattern();
 
   MinSet.prototype.compare = function (cand, test, keyMap) {
     keyMap = keyMap || {};
 
-    var clone = {};
-    for (var ckey in cand) {
-      if (!cand.hasOwnProperty(ckey)) continue;
-      clone[ckey] = cand[ckey];
-    }
+    var clone = Object.clone(cand);
 
-    this.map = {};
-    for (var pkey in this.pattern) {
-      if (!this.pattern.hasOwnProperty(pkey)) continue;
+    //for (var pkey in this.pattern) {
+    for (var i = 0; i < this.keyOrder.length; ++i) {
+      var pkey = this.keyOrder[i];
+
+      //if (!this.pattern.hasOwnProperty(pkey)) continue;
 
       for (ckey in clone) {
         if (!clone.hasOwnProperty(ckey)) continue;
@@ -157,9 +163,7 @@
 
   /**
    */
-  var ExactSet = function (pattern) {
-    MinSet.call(this, pattern);
-  };
+  var ExactSet = function () {};
 
   ExactSet.prototype = new MinSet();
 
@@ -168,37 +172,38 @@
 
     MinSet.prototype.compare.call(this, cand, test, keyMap);
 
-    var clone = {};
-    for (var ckey in cand) {
-      if (!cand.hasOwnProperty(ckey)) continue;
-      clone[ckey] = cand[ckey];
-    }
-  
-    for (var pkey in this.pattern) {
-      if (!this.pattern.hasOwnProperty(pkey)) continue;
-      delete clone[keyMap[pkey]];
-    }
+    /* TODO: Remove this check after we remove Prototype. */
+    if (!Object.isArray(cand)) {
+      var clone = Object.clone(cand);
+    
+      for (var pkey in this.pattern) {
+        if (!this.pattern.hasOwnProperty(pkey)) continue;
+        delete clone[keyMap[pkey]];
+      }
 
-    for (ckey in clone) {
-      if (!clone.hasOwnProperty(ckey)) continue;
-      test.ok(false,
-        "error: candidate has extra property ('" + ckey + "')");
+      for (ckey in clone) {
+        if (!clone.hasOwnProperty(ckey)) continue;
+        test.ok(false,
+          "error: candidate has extra property ('" + ckey + "')");
+      }
     }
   }
 
-  var construct = function (Ctor) {
+  var buildAssocPattern = function (Ctor) {
     return function (pattern, keyOrder) {
-      return new Ctor(pattern, keyOrder);
+      var result = new Ctor();
+      Min.prototype.initialize.call(result, pattern, keyOrder);
+      return result;
     }
   };
 
   namespace.open("hottest").patterns = {
     Pattern: Pattern,
-    key : construct(Key),
-    min : construct(Min),
-    exact : construct(Exact),
-    minSet : construct(MinSet),
-    exactSet : construct(ExactSet)
+    key : function (key) { return Key(key); },
+    min : buildAssocPattern(Min),
+    exact : buildAssocPattern(Exact),
+    minSet : buildAssocPattern(MinSet),
+    exactSet : buildAssocPattern(ExactSet)
   };
 
 })();

@@ -27,12 +27,12 @@
       variables : P.exact({
         radius : P.min({
           cellType : "input",
-          usedBy : P.minSet([]),
+          usedBy : P.minSet([P.key("m1"), P.key("m3")]),
           initializer : 10
         }),
         diameter : P.min({
           cellType : "interface",
-          usedBy : P.minSet([])
+          usedBy : P.minSet([P.key("m2")])
         }),
         result : P.min({
           cellType : "output",
@@ -40,7 +40,7 @@
         }),
         pi : P.min({
           cellType : "constant",
-          usedBy : P.minSet([]),
+          usedBy : P.minSet([P.key("m3")]),
           initializer : 3.14
         })
       }),
@@ -59,10 +59,10 @@
         }),
       }),
       constraints : P.exactSet({
-        c1 : P.exact({ methods : P.minSet([]) }),
-        c2 : P.exact({ methods : P.minSet([]) })
+        c1 : P.exact({ methods : P.minSet([P.key("m1"), P.key("m2")]) }),
+        c2 : P.exact({ methods : P.minSet([P.key("m3")]) })
       })
-    });
+    }, ["methods", "variables", "constraints"]);
 
     cgraph.compare(result.cgraph, QUnit);
   });
