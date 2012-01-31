@@ -1,7 +1,7 @@
 (function () {
 
   var getCanBeDisabled = function (model, v) {
-    return model.model.behaviors.get("enablement").variables.get(v).canBeDisabled;
+    return model.model.variables[v].canBeDisabled;
   };
 
   module("enablement");
