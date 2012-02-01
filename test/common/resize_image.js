@@ -15,7 +15,7 @@
       absolute_height : {
         "cellType" : "interface",
         "usedBy" : ["__method_6","__method_9"],
-        "initExpr" : "values.get(\"initial_height\")"
+        "initExpr" : "model.get(\"initial_height\")"
       },
       absolute_width : {
         "cellType" : "interface",
