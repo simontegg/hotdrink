@@ -56,7 +56,7 @@
     }
   };
 
-  var methods = "{ __method_1 : function(E) {return (100-(4*(100-E.eval1(\"image_quality\"))));}, __method_2 : function(E) {return (100-((100-E.eval1(\"compression_ratio\"))/4));}, __method_3 : function(E) {return ((E.eval1(\"file_type\")==\"jpeg\") ? {type : E.eval1(\"file_type\"),name : E.eval1(\"file_name\"),ratio : E.eval1(\"compression_ratio\")} : {type : E.eval1(\"file_type\"),name : E.eval1(\"file_name\")});}, __method_4 : function(E) {return (E.eval1(\"file_name\")!=\"\");} }";
+  var methods = "{ __method_1 : function(model) {return (100-(4*(100-model.get(\"image_quality\"))));}, __method_2 : function(model) {return (100-((100-model.get(\"compression_ratio\"))/4));}, __method_3 : function(model) {return ((model.get(\"file_type\")==\"jpeg\") ? {type : model.get(\"file_type\"),name : model.get(\"file_name\"),ratio : model.get(\"compression_ratio\")} : {type : model.get(\"file_type\"),name : model.get(\"file_name\")});}, __method_4 : function(model) {return (model.get(\"file_name\")!=\"\");} }";
 
   var save_image = {
     getModel : function () {

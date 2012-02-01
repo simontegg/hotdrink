@@ -77,7 +77,7 @@
     }
   };
 
-  var methods = "{ __method_3 : function(E) {return ((E.eval1(\"relative_width\")*E.eval1(\"initial_width\"))/100);}, __method_4 : function(E) {return ((E.eval1(\"absolute_width\")*100)/E.eval1(\"initial_width\"));}, __method_5 : function(E) {return ((E.eval1(\"relative_height\")*E.eval1(\"initial_height\"))/100);}, __method_6 : function(E) {return ((E.eval1(\"absolute_height\")*100)/E.eval1(\"initial_height\"));}, __method_7 : function(E) {return (E.eval1(\"preserve_ratio\") ? E.eval1(\"relative_height\") : E.last_eval1(\"relative_width\"));}, __method_8 : function(E) {return (E.eval1(\"preserve_ratio\") ? E.eval1(\"relative_width\") : E.last_eval1(\"relative_height\"));}, __method_9 : function(E) {return ({height : E.eval1(\"absolute_height\"),width : E.eval1(\"absolute_width\")});} }";
+  var methods = "{ __method_3 : function(model) {return ((model.get(\"relative_width\")*model.get(\"initial_width\"))/100);}, __method_4 : function(model) {return ((model.get(\"absolute_width\")*100)/model.get(\"initial_width\"));}, __method_5 : function(model) {return ((model.get(\"relative_height\")*model.get(\"initial_height\"))/100);}, __method_6 : function(model) {return ((model.get(\"absolute_height\")*100)/model.get(\"initial_height\"));}, __method_7 : function(model) {return (model.get(\"preserve_ratio\") ? model.get(\"relative_height\") : model.get(\"relative_width\"));}, __method_8 : function(model) {return (model.get(\"preserve_ratio\") ? model.get(\"relative_width\") : model.get(\"relative_height\"));}, __method_9 : function(model) {return ({height : model.get(\"absolute_height\"),width : model.get(\"absolute_width\")});} }";
 
   var resize_image = {
     getModel : function () {

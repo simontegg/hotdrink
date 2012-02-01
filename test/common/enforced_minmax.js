@@ -66,7 +66,7 @@ var __enforced_min = function (value, min_value, max_value) {
     }
   };
 
-  var methods = "{ __method_1 : function(E) {return (__enforced_max(E.last_eval1(\"value\"),E.eval1(\"min\"),E.last_eval1(\"max\")));}, __method_2 : function(E) {return (__enforced_min(E.last_eval1(\"value\"),E.last_eval1(\"min\"),E.eval1(\"max\")));}, __method_3 : function(E) {return ({value:E.eval1(\"value\"),min:E.eval1(\"min\"),max:E.eval1(\"max\")});}, __method_4 : function(E) {return (E.eval1(\"min\")>=0);} }";
+  var methods = "{ __method_1 : function(model) {return (__enforced_max(model.get(\"value\"),model.get(\"min\"),model.get(\"max\")));}, __method_2 : function(model) {return (__enforced_min(model.get(\"value\"),model.get(\"min\"),model.get(\"max\")));}, __method_3 : function(model) {return ({value:model.get(\"value\"),min:model.get(\"min\"),max:model.get(\"max\")});}, __method_4 : function(model) {return (model.get(\"min\")>=0);} }";
 
   var enforced_minmax = {
     getModel : function () {

@@ -44,7 +44,7 @@
     }
   };
 
-  var methods = "{ __method_1 : function(E) {return (((E.eval1(\"a\")==E.eval1(\"b\"))&&(E.eval1(\"b\")==E.eval1(\"c\"))) ? E.eval1(\"a\") : false);}, __method_2 : function(E) {return ([E.eval1(\"all\"),E.eval1(\"all\"),E.eval1(\"all\")]);}, __method_3 : function(E) {return ({a : E.eval1(\"a\"),b : E.eval1(\"b\"),c : E.eval1(\"c\")});} }";
+  var methods = "{ __method_1 : function(model) {return (((model.get(\"a\")==model.get(\"b\"))&&(model.get(\"b\")==model.get(\"c\"))) ? model.get(\"a\") : false);}, __method_2 : function(model) {return ([model.get(\"all\"),model.get(\"all\"),model.get(\"all\")]);}, __method_3 : function(model) {return ({a : model.get(\"a\"),b : model.get(\"b\"),c : model.get(\"c\")});} }";
 
   var grouped_options = {
     getModel : function () {

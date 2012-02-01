@@ -27,7 +27,7 @@
     }
   };
 
-  var methods = "{ __method_1 : function(E) {return (\"Hello, World!\");}, __method_2 : function(E) {return (E.eval1(\"tmp\"));} }";
+  var methods = "{ __method_1 : function(model) {return (\"Hello, World!\");}, __method_2 : function(model) {return (model.get(\"tmp\"));} }";
 
   var hello_world = {
     getModel : function () {
