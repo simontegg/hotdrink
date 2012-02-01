@@ -5,22 +5,22 @@
       file_name : {
         "cellType" : "interface",
         "usedBy" : ["__method_3","__method_4"],
-        "initializer" : "\"\""
+        "initExpr" : "\"\""
       },
       file_type : {
         "cellType" : "interface",
         "usedBy" : ["__method_3"],
-        "initializer" : "\"bmp\""
+        "initExpr" : "\"bmp\""
       },
       compression_ratio : {
         "cellType" : "interface",
         "usedBy" : ["__method_2","__method_3"],
-        "initializer" : "100"
+        "initExpr" : "100"
       },
       image_quality : {
         "cellType" : "interface",
         "usedBy" : ["__method_1"],
-        "initializer" : "100"
+        "initExpr" : "100"
       },
       result : {
         "cellType" : "output",

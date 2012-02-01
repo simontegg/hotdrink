@@ -28,8 +28,7 @@
         radius : P.min({
           cellType : "input",
           usedBy : P.minSet([P.key("m1"), P.key("m3")]),
-          /* TODO: rename to initialExpr to reflect that it is an expression. */
-          initializer : "10"
+          initExpr : "10"
         }),
         diameter : P.min({
           cellType : "interface",
@@ -42,7 +41,7 @@
         pi : P.min({
           cellType : "constant",
           usedBy : P.minSet([P.key("m3")]),
-          initializer : "3.14"
+          initExpr : "3.14"
         })
       }),
       methods : P.exactSet({

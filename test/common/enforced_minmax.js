@@ -20,17 +20,17 @@ var __enforced_min = function (value, min_value, max_value) {
       value : {
         "cellType" : "interface",
         "usedBy" : ["__method_1","__method_2","__method_3"],
-        "initializer" : "50"
+        "initExpr" : "50"
       },
       min : {
         "cellType" : "interface",
         "usedBy" : ["__method_1","__method_2","__method_3","__method_4"],
-        "initializer" : "0"
+        "initExpr" : "0"
       },
       max : {
         "cellType" : "interface",
         "usedBy" : ["__method_1","__method_2","__method_3"],
-        "initializer" : "100"
+        "initExpr" : "100"
       },
       result : {
         "cellType" : "output",

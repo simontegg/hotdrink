@@ -5,7 +5,7 @@
       all : {
         "cellType" : "interface",
         "usedBy" : ["__method_2"],
-        "initializer" : "false"
+        "initExpr" : "false"
       },
       a : {
         "cellType" : "interface",

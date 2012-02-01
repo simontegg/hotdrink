@@ -5,17 +5,17 @@
       initial_height : {
         "cellType" : "input",
         "usedBy" : ["__method_5","__method_6"],
-        "initializer" : "5*300"
+        "initExpr" : "5*300"
       },
       initial_width : {
         "cellType" : "input",
         "usedBy" : ["__method_3","__method_4"],
-        "initializer" : "7*300"
+        "initExpr" : "7*300"
       },
       absolute_height : {
         "cellType" : "interface",
         "usedBy" : ["__method_6","__method_9"],
-        "initializer" : "values.get(\"initial_height\")"
+        "initExpr" : "values.get(\"initial_height\")"
       },
       absolute_width : {
         "cellType" : "interface",
@@ -32,7 +32,7 @@
       preserve_ratio : {
         "cellType" : "interface",
         "usedBy" : ["__method_7","__method_8"],
-        "initializer" : "true"
+        "initExpr" : "true"
       },
       result : {
         "cellType" : "output",
