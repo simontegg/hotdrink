@@ -11,7 +11,7 @@
   });
 
   test("resize_image", function () {
-    expect(9);
+    expect(11);
 
     var model = hottest.resize_image.getModel();
     strictEqual(model.get("initial_width"), 2100,
@@ -34,6 +34,8 @@
     model.update();
     strictEqual(model.get("relative_height"), 105,
       "copy old value in self-loop");
+    strictEqual(model.model.variables["relative_height"].dependsOnSelf, true,
+      "correctly marked dependsOnSelf");
 
     model.set("relative_height", 100);
     model.set("preserve_ratio", true);
@@ -42,6 +44,9 @@
       "preservation of more recently edited value");
     strictEqual(model.get("relative_width"), 100,
       "overwrite less recently edited value");
+    strictEqual(model.model.variables["relative_height"].dependsOnSelf, false,
+      "correctly marked dependsOnSelf");
+
   });
 
   test("enforced_minmax", function () {
