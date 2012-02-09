@@ -34,6 +34,7 @@ SOURCES := \
 	behavior/enablement.js \
 	model.js \
 	controller/model.js \
+	modelFactory.js \
 	controller/factory.js \
 	controller/behavior/value.js \
 	controller/behavior/enablement.js \
