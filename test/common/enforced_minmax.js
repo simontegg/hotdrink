@@ -15,65 +15,30 @@ var __enforced_min = function (value, min_value, max_value) {
 
 (function () {
 
-  var cgraph = {
-    variables : {
-      value : {
-        "cellType" : "interface",
-        "usedBy" : ["__method_1","__method_2","__method_3"],
-        "initExpr" : "50"
-      },
-      min : {
-        "cellType" : "interface",
-        "usedBy" : ["__method_1","__method_2","__method_3","__method_4"],
-        "initExpr" : "0"
-      },
-      max : {
-        "cellType" : "interface",
-        "usedBy" : ["__method_1","__method_2","__method_3"],
-        "initExpr" : "100"
-      },
-      result : {
-        "cellType" : "output",
-        "usedBy" : []
-      },
-      check_min : {
-        "cellType" : "invariant",
-        "usedBy" : []
-      }
-    },
-    methods : {
-      __method_1 : {
-        "inputs" : ["value","min","max"],
-        "outputs" : ["value","max"]
-      },
-      __method_2 : {
-        "inputs" : ["value","min","max"],
-        "outputs" : ["value","min"]
-      },
-      __method_3 : {
-        "inputs" : ["value","min","max"],
-        "outputs" : ["result"]
-      },
-      __method_4 : {
-        "inputs" : ["min"],
-        "outputs" : ["check_min"]
-      }
-    },
-    constraints : {
-      __constraint_1 : { "methods" : ["__method_1","__method_2"] },
-      __constraint_2 : { "methods" : ["__method_3"] },
-      __constraint_3 : { "methods" : ["__method_4"] }
-    }
-  };
-
-  var methods = "{ __method_1 : function(model) {return (__enforced_max(model.get(\"value\"),model.get(\"min\"),model.get(\"max\")));}, __method_2 : function(model) {return (__enforced_min(model.get(\"value\"),model.get(\"min\"),model.get(\"max\")));}, __method_3 : function(model) {return ({value:model.get(\"value\"),min:model.get(\"min\"),max:model.get(\"max\")});}, __method_4 : function(model) {return (model.get(\"min\")>=0);} }";
-
   var enforced_minmax = {
     getModel : function () {
-      return hotdrink.makeModelController({
-        cgraph : cgraph,
-        methods : methods
-      });
+      var model = hotdrink.makeModelFactory();
+
+      model.addInterface("value", "50");
+      model.addInterface("min", "0");
+      model.addInterface("max", "100");
+
+      model.addConstraint(
+        model.addMethod(["value", "max"], function (model) {
+          return __enforced_max(model.get("value"),model.get("min"),model.get("max"));
+        }, ["value", "min", "max"]),
+        model.addMethod(["value", "min"], function (model) {
+          return __enforced_min(model.get("value"),model.get("min"),model.get("max"));
+        }, ["value", "min", "max"])
+      );
+
+      model.addOutput("result", function (model) {
+        return {value:model.get("value"),min:model.get("min"),max:model.get("max")};
+      }, ["value", "min", "max"]);
+
+      model.addInvariant("check_min", "model.get(\"min\")>=0", ["min"]);
+
+      return model.close();
     }
   };
 

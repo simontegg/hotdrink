@@ -1,40 +1,13 @@
 (function () {
 
-  var cgraph = {
-    variables : {
-      tmp : {
-        "cellType" : "logic",
-        "usedBy" : ["__method_2"]
-      },
-      result : {
-        "cellType" : "output",
-        "usedBy" : []
-      }
-    },
-    methods : {
-      __method_1 : {
-        "inputs" : [],
-        "outputs" : ["tmp"]
-      },
-      __method_2 : {
-        "inputs" : ["tmp"],
-        "outputs" : ["result"]
-      }
-    },
-    constraints : {
-      __constraint_1 : { "methods" : ["__method_1"] },
-      __constraint_2 : { "methods" : ["__method_2"] }
-    }
-  };
-
-  var methods = "{ __method_1 : function(model) {return (\"Hello, World!\");}, __method_2 : function(model) {return (model.get(\"tmp\"));} }";
-
   var hello_world = {
     getModel : function () {
-      return hotdrink.makeModelController({
-        cgraph : cgraph,
-        methods : methods
-      });
+      var model = hotdrink.makeModelFactory();
+
+      model.addExpression("tmp", "\"Hello, World!\"");
+      model.addOutput("result", "model.get(\"tmp\")", ["tmp"]);
+
+      return model.close();
     }
   };
 
