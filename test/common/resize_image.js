@@ -13,28 +13,28 @@
     this.preserve_ratio = hd.variable(true);
 
     hd.constraint()
-      .bind("absolute_height", function () {
+      .method("absolute_height", function () {
         return this.initial_height() * this.relative_height() / 100;
       })
-      .bind("relative_height", function () {
+      .method("relative_height", function () {
         return 100 * this.absolute_height() / this.initial_height();
       });
 
     hd.constraint()
-      .bind("absolute_width", function () {
+      .method("absolute_width", function () {
         return this.initial_width() * this.relative_width() / 100;
       })
-      .bind("relative_width", function () {
+      .method("relative_width", function () {
         return 100 * this.absolute_width() / this.initial_width();
       });
 
     hd.constraint()
-      .bind("relative_height", function () {
+      .method("relative_height", function () {
         return this.preserve_ratio()
           ? this.relative_width()
           : this.relative_height();
       })
-      .bind("relative_width", function () {
+      .method("relative_width", function () {
         return this.preserve_ratio()
           ? this.relative_height()
           : this.relative_width();

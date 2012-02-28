@@ -7,10 +7,10 @@
     this.image_quality = hd.variable(100);
 
     hd.constraint()
-      .bind("compression_ratio", function () {
+      .method("compression_ratio", function () {
         return (100 - (4 * (100 - this.image_quality())));
       })
-      .bind("image_quality", function () {
+      .method("image_quality", function () {
         return (100 - ((100 - this.compression_ratio()) / 4));
       });
 

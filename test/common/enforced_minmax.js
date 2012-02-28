@@ -9,12 +9,12 @@ var max = function (a, b) { return (a < b) ? (b) : (a); };
     this.max = hd.variable(100);
 
     hd.constraint()
-      .bind(["value", "max"], function () {
+      .method(["value", "max"], function () {
         var maxNext = max(this.min(), this.max());
         var valueNext = min(max(this.min(), this.value()), maxNext);
         return [valueNext, maxNext];
       })
-      .bind(["value", "min"], function () {
+      .method(["value", "min"], function () {
         var minNext = min(this.min(), this.max());
         var valueNext = min(max(minNext, this.value()), this.max());
         return [valueNext, minNext];

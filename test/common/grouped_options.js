@@ -7,12 +7,12 @@
     this.c = hd.variable();
 
     hd.constraint()
-      .bind("all", function () {
+      .method("all", function () {
         return (this.a() === this.b() && this.b() === this.c())
           ? this.a()
           : false;
       })
-      .bind(["a", "b", "c"], function () {
+      .method(["a", "b", "c"], function () {
         return [this.all(), this.all(), this.all()];
       });
 
