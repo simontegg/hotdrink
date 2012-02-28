@@ -1,69 +1,31 @@
 (function () {
 
-  var cgraph = {
-    variables : {
-      file_name : {
-        "cellType" : "interface",
-        "usedBy" : ["__method_3","__method_4"],
-        "initExpr" : "\"\""
-      },
-      file_type : {
-        "cellType" : "interface",
-        "usedBy" : ["__method_3"],
-        "initExpr" : "\"bmp\""
-      },
-      compression_ratio : {
-        "cellType" : "interface",
-        "usedBy" : ["__method_2","__method_3"],
-        "initExpr" : "100"
-      },
-      image_quality : {
-        "cellType" : "interface",
-        "usedBy" : ["__method_1"],
-        "initExpr" : "100"
-      },
-      result : {
-        "cellType" : "output",
-        "usedBy" : []
-      },
-      check_name : {
-        "cellType" : "invariant",
-        "usedBy" : []
-      }
-    },
-    methods : {
-      __method_1 : {
-        "inputs" : ["image_quality"],
-        "outputs" : ["compression_ratio"]
-      },
-      __method_2 : {
-        "inputs" : ["compression_ratio"],
-        "outputs" : ["image_quality"]
-      },
-      __method_3 : {
-        "inputs" : ["file_type","file_name","compression_ratio"],
-        "outputs" : ["result"]
-      },
-      __method_4 : {
-        "inputs" : ["file_name"],
-        "outputs" : ["check_name"]
-      }
-    },
-    constraints : {
-      __constraint_1 : { "methods" : ["__method_1","__method_2"] },
-      __constraint_2 : { "methods" : ["__method_3"] },
-      __constraint_3 : { "methods" : ["__method_4"] }
-    }
-  };
+  var Model = function () {
+    this.file_name = hd.variable("");
+    this.file_type = hd.variable("bmp");
+    this.compression_ratio = hd.variable(100);
+    this.image_quality = hd.variable(100);
 
-  var methods = "{ __method_1 : function(model) {return (100-(4*(100-model.get(\"image_quality\"))));}, __method_2 : function(model) {return (100-((100-model.get(\"compression_ratio\"))/4));}, __method_3 : function(model) {return ((model.get(\"file_type\")==\"jpeg\") ? {type : model.get(\"file_type\"),name : model.get(\"file_name\"),ratio : model.get(\"compression_ratio\")} : {type : model.get(\"file_type\"),name : model.get(\"file_name\")});}, __method_4 : function(model) {return (model.get(\"file_name\")!=\"\");} }";
+    hd.constraint()
+      .bind("compression_ratio", function () {
+        return (100 - (4 * (100 - this.image_quality())));
+      })
+      .bind("image_quality", function () {
+        return (100 - ((100 - this.compression_ratio()) / 4));
+      });
+
+    hd.invariant(function () { return this.file_name() !== ""; });
+
+    this.result = hd.computed(function () {
+      var r = { type : this.file_type(), name : this.file_name() };
+      if (this.file_type() === "jpeg") r.ratio = this.compression_ratio();
+      return r;
+    });
+  };
 
   var save_image = {
     getModel : function () {
-      return hotdrink.makeModelController({
-        cgraph : cgraph,
-        methods : methods
-      });
+      return hd.model(new Model());
     }
   };
 
