@@ -1,90 +1,54 @@
 (function () {
 
-  var cgraph = {
-    variables : {
-      initial_height : {
-        "cellType" : "input",
-        "usedBy" : ["__method_5","__method_6"],
-        "initExpr" : "5*300"
-      },
-      initial_width : {
-        "cellType" : "input",
-        "usedBy" : ["__method_3","__method_4"],
-        "initExpr" : "7*300"
-      },
-      absolute_height : {
-        "cellType" : "interface",
-        "usedBy" : ["__method_6","__method_9"],
-        "initExpr" : "model.get(\"initial_height\")"
-      },
-      absolute_width : {
-        "cellType" : "interface",
-        "usedBy" : ["__method_4","__method_9"]
-      },
-      relative_height : {
-        "cellType" : "interface",
-        "usedBy" : ["__method_5","__method_7","__method_8"]
-      },
-      relative_width : {
-        "cellType" : "interface",
-        "usedBy" : ["__method_3","__method_7","__method_8"]
-      },
-      preserve_ratio : {
-        "cellType" : "interface",
-        "usedBy" : ["__method_7","__method_8"],
-        "initExpr" : "true"
-      },
-      result : {
-        "cellType" : "output",
-        "usedBy" : []
-      }
-    },
-    methods : {
-      __method_3 : {
-        "inputs" : ["relative_width","initial_width"],
-        "outputs" : ["absolute_width"]
-      },
-      __method_4 : {
-        "inputs" : ["absolute_width","initial_width"],
-        "outputs" : ["relative_width"]
-      },
-      __method_5 : {
-        "inputs" : ["relative_height","initial_height"],
-        "outputs" : ["absolute_height"]
-      },
-      __method_6 : {
-        "inputs" : ["absolute_height","initial_height"],
-        "outputs" : ["relative_height"]
-      },
-      __method_7 : {
-        "inputs" : ["preserve_ratio","relative_height","relative_width"],
-        "outputs" : ["relative_width"]
-      },
-      __method_8 : {
-        "inputs" : ["preserve_ratio","relative_width","relative_height"],
-        "outputs" : ["relative_height"]
-      },
-      __method_9 : {
-        "inputs" : ["absolute_height","absolute_width"],
-        "outputs" : ["result"]
-      }
-    },
-    constraints : {
-      __constraint_3 : { "methods" : ["__method_3","__method_4"] },
-      __constraint_4 : { "methods" : ["__method_5","__method_6"] },
-      __constraint_5 : { "methods" : ["__method_7","__method_8"] },
-      __constraint_6 : { "methods" : ["__method_9"] }
-    }
-  };
+  var Model = function () {
+    this.initial_height = hd.variable(5*300);
+    this.initial_width = hd.variable(7*300);
 
-  var methods = "{ __method_3 : function(model) {return ((model.get(\"relative_width\")*model.get(\"initial_width\"))/100);}, __method_4 : function(model) {return ((model.get(\"absolute_width\")*100)/model.get(\"initial_width\"));}, __method_5 : function(model) {return ((model.get(\"relative_height\")*model.get(\"initial_height\"))/100);}, __method_6 : function(model) {return ((model.get(\"absolute_height\")*100)/model.get(\"initial_height\"));}, __method_7 : function(model) {return (model.get(\"preserve_ratio\") ? model.get(\"relative_height\") : model.get(\"relative_width\"));}, __method_8 : function(model) {return (model.get(\"preserve_ratio\") ? model.get(\"relative_width\") : model.get(\"relative_height\"));}, __method_9 : function(model) {return ({height : model.get(\"absolute_height\"),width : model.get(\"absolute_width\")});} }";
+    this.absolute_height = hd.variable(this.initial_height());
+    this.absolute_width = hd.variable();
+
+    this.relative_height = hd.variable();
+    this.relative_width = hd.variable();
+
+    this.preserve_ratio = hd.variable(true);
+
+    hd.constraint()
+      .bind("absolute_height", function () {
+        return this.initial_height() * this.relative_height() / 100;
+      })
+      .bind("relative_height", function () {
+        return 100 * this.absolute_height() / this.initial_height();
+      });
+
+    hd.constraint()
+      .bind("absolute_width", function () {
+        return this.initial_width() * this.relative_width() / 100;
+      })
+      .bind("relative_width", function () {
+        return 100 * this.absolute_width() / this.initial_width();
+      });
+
+    hd.constraint()
+      .bind("relative_height", function () {
+        return this.preserve_ratio()
+          ? this.relative_width()
+          : this.relative_height();
+      })
+      .bind("relative_width", function () {
+        return this.preserve_ratio()
+          ? this.relative_height()
+          : this.relative_width();
+      });
+
+    this.result = hd.computed(function () {
+      return { height : this.absolute_height(),
+               width : this.absolute_width() };
+    });
+  };
 
   var resize_image = {
     getModel : function () {
-      return hotdrink.makeModelController({
-        cgraph : cgraph,
-        methods : methods
-      });
+      return hd.model(new Model());
     }
   };
 
