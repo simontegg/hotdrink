@@ -11,38 +11,38 @@
 
     var model = hottest.save_image.getModel();
     strictEqual(model.get("file_name"), "",
-      "initialized file_name");
+      "file_name initialized");
     strictEqual(model.get("file_type"), "bmp",
-      "initialized file_type");
+      "file_type initialized");
     strictEqual(getCanBeDisabled(model, "file_name"), false,
-      "initially enabled");
+      "file_name initially enabled");
     strictEqual(getCanBeDisabled(model, "file_type"), false,
-      "initially enabled");
+      "file_type initially enabled");
     strictEqual(getCanBeDisabled(model, "compression_ratio"), true,
-      "initially disabled");
+      "compression_ratio initially disabled");
     strictEqual(getCanBeDisabled(model, "image_quality"), true,
-      "initially disabled");
+      "image_quality initially disabled");
     strictEqual(getCanBeDisabled(model, "result"), true,
-      "initially disabled");
+      "result initially disabled");
 
     model.set("file_type", "jpeg");
     model.update();
     strictEqual(getCanBeDisabled(model, "compression_ratio"), false,
-      "enabled");
+      "compression_ratio enabled");
     strictEqual(getCanBeDisabled(model, "image_quality"), false,
-      "enabled");
+      "image_quality enabled");
 
     model.set("file_name", "name");
     model.update();
     strictEqual(getCanBeDisabled(model, "result"), false,
-      "enabled");
+      "result enabled");
 
     model.set("file_type", "bmp");
     model.update();
     strictEqual(getCanBeDisabled(model, "compression_ratio"), true,
-      "disabled");
+      "compression_ratio disabled");
     strictEqual(getCanBeDisabled(model, "image_quality"), true,
-      "disabled");
+      "image_quality disabled");
   });
 
 }());
