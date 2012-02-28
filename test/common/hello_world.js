@@ -1,8 +1,8 @@
 (function () {
 
   var Model = function () {
-    this.tmp = hd.computed(function () { return "Hello, World!"; });
-    this.result = hd.computed(function () { return this.tmp(); });
+    this.text = hd.computed(function () { return "Hello, World!"; });
+    hd.output(function () { return this.text(); });
   };
 
   var hello_world = {

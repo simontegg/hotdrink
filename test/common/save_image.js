@@ -16,7 +16,7 @@
 
     hd.invariant(function () { return this.file_name() !== ""; });
 
-    this.result = hd.computed(function () {
+    hd.output(function () {
       var r = { type : this.file_type(), name : this.file_name() };
       if (this.file_type() === "jpeg") r.ratio = this.compression_ratio();
       return r;

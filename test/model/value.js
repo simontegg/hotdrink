@@ -6,7 +6,7 @@
     expect(1);
 
     var model = hottest.hello_world.getModel();
-    strictEqual(model.get("tmp"), "Hello, World!",
+    strictEqual(model.get("text"), "Hello, World!",
       "[issue 2] constant method gets executed");
   });
 
