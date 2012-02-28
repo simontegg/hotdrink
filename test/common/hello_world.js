@@ -1,13 +1,13 @@
 (function () {
 
+  var Model = function () {
+    this.tmp = hd.computed(function () { return "Hello, World!"; });
+    this.result = hd.computed(function () { return this.tmp(); });
+  };
+
   var hello_world = {
     getModel : function () {
-      var model = hotdrink.makeModelFactory();
-
-      model.addExpression("tmp", "\"Hello, World!\"");
-      model.addOutput("result", "model.get(\"tmp\")", ["tmp"]);
-
-      return model.close();
+      return hd.model(new Model());
     }
   };
 
