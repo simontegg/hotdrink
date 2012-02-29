@@ -1,6 +1,7 @@
 hotdrink.js
-hotdrink-test.js
+hotdrink-parser.js
 hotdrink-dijit.js
+hotdrink-test.js
 build
 doc
 

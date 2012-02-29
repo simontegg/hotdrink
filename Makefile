@@ -5,7 +5,7 @@ include Makefile.common
 ##################################################
 # targets
 
-.PHONY : all debug release plus syntax doc dijit test
+.PHONY : all debug release plus syntax doc parser dijit test
 
 all :
 	@$(call defer,Makefile.lib)
@@ -25,6 +25,9 @@ syntax :
 doc :
 	@$(call defer,Makefile.lib)
 
+parser :
+	@$(MAKE) -f Makefile.parser
+
 dijit :
 	@$(MAKE) -f Makefile.dijit
 
@@ -40,10 +43,12 @@ clean : clean-obj clean-exe
 
 clean-obj :
 	@$(call defer,Makefile.lib)
+	@$(call defer,Makefile.parser)
 	@$(call defer,Makefile.dijit)
 
 clean-exe :
 	@$(call defer,Makefile.lib)
+	@$(call defer,Makefile.parser)
 	@$(call defer,Makefile.dijit)
 
 clean-test :
@@ -51,4 +56,5 @@ clean-test :
 
 clean-doc :
 	@$(call defer,Makefile.lib)
+	@$(call defer,Makefile.parser)
 
