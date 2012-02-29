@@ -26,34 +26,15 @@ SOURCES := \
 	concept/view/behavior.js \
 	concept/view/builder.js \
 	concept/view/controller.js \
-	graph/cgraph.js \
-	graph/sgraph.js \
-	graph/solver.js \
-	graph/egraph.js \
-	graph/evaluator.js \
-	behavior/enablement.js \
-	model.js \
-	controller/model.js \
-	modelFactory.js \
-	controller/factory.js \
-	controller/behavior/value.js \
-	controller/behavior/enablement.js \
-	controller/view/common.js \
-	controller/view/html.js \
-	controller/view/html/common.js \
-	controller/view/html/row.js \
-	controller/view/html/column.js \
-	controller/view/html/checkbox.js \
-	controller/view/html/checkboxGroup.js \
-	controller/view/html/commandButton.js \
-	controller/view/html/dropdown.js \
-	controller/view/html/number.js \
-	controller/view/html/radioGroup.js \
-	controller/view/html/selectMany.js \
-	controller/view/html/selectOne.js \
-	controller/view/html/text.js \
-	controller/view/html/build.js \
-	controller.js \
+	model/graph/cgraph.js \
+	model/graph/sgraph.js \
+	model/graph/solver.js \
+	model/graph/egraph.js \
+	model/graph/evaluator.js \
+	model/behavior/enablement.js \
+	model/model.js \
+	model/controller.js \
+	model/factory.js \
 	parser/parsec.js \
 	parser/expr_parser.js \
 	parser/model_parser.js \
