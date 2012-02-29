@@ -8,8 +8,24 @@
   <title>Checkboxes | HotDrink Test Suite</title>
   <script type="text/javascript">
     var Model = function () {
-      this.a = hd.variable(true);
-      hd.output(function () { return this.a(); });
+      this.all = hd.variable(false);
+      this.a = hd.variable();
+      this.b = hd.variable();
+      this.c = hd.variable();
+
+      hd.constraint()
+        .method("all", function () {
+          return (this.a() === this.b() && this.b() === this.c())
+            ? this.a()
+            : false;
+        })
+        .method(["a", "b", "c"], function () {
+          return [this.all(), this.all(), this.all()];
+        });
+
+      hd.output(function () {
+        return { a : this.a(), b : this.b(), c : this.c() };
+      });
     };
 
     var model = hd.model(new Model());
@@ -21,7 +37,10 @@
 </head>
 <body>
   <p>
+    <input type="checkbox" id="all" data-bind="all" /><label for="all">all</label>
     <input type="checkbox" id="a" data-bind="a" /><label for="a">a</label>
+    <input type="checkbox" id="b" data-bind="b" /><label for="b">b</label>
+    <input type="checkbox" id="c" data-bind="c" /><label for="c">c</label>
   </p>
 </body>
 </html>
