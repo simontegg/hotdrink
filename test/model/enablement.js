@@ -45,5 +45,41 @@
       "image_quality disabled");
   });
 
+  test("grouped_options", function () {
+    expect(12);
+
+    var model = hottest.grouped_options.getModel();
+    strictEqual(getCanBeDisabled(model, "all"), false,
+      "all initially enabled");
+    strictEqual(getCanBeDisabled(model, "a"), false,
+      "a initially enabled");
+    strictEqual(getCanBeDisabled(model, "b"), false,
+      "b initially enabled");
+    strictEqual(getCanBeDisabled(model, "c"), false,
+      "c initially enabled");
+
+    model.set("all", true);
+    model.update();
+    strictEqual(getCanBeDisabled(model, "all"), false,
+      "all still enabled");
+    strictEqual(getCanBeDisabled(model, "a"), false,
+      "a still enabled");
+    strictEqual(getCanBeDisabled(model, "b"), false,
+      "b still enabled");
+    strictEqual(getCanBeDisabled(model, "c"), false,
+      "c still enabled");
+
+    model.set("b", false);
+    model.update();
+    strictEqual(getCanBeDisabled(model, "all"), false,
+      "all still enabled");
+    strictEqual(getCanBeDisabled(model, "a"), false,
+      "a still enabled");
+    strictEqual(getCanBeDisabled(model, "b"), false,
+      "b still enabled");
+    strictEqual(getCanBeDisabled(model, "c"), false,
+      "c still enabled");
+  });
+
 }());
 
