@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <script type="text/javascript" src="https://raw.github.com/kriskowal/es5-shim/master/es5-shim.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="../hotdrink.js"></script>
+  <title>Checkboxes | HotDrink Test Suite</title>
+  <script type="text/javascript">
+    var Model = function () {
+      this.a = hd.variable(true);
+      hd.output(function () { return this.a(); });
+    };
+
+    var model = hd.model(new Model());
+
+    $(document).ready(function () {
+      hotdrink.bind(model);
+    });
+  </script>
+</head>
+<body>
+  <p>
+    <input type="checkbox" id="a" data-bind="a" /><label for="a">a</label>
+  </p>
+</body>
+</html>
+
