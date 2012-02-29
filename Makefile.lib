@@ -35,6 +35,7 @@ SOURCES := \
 	model/model.js \
 	model/controller.js \
 	model/factory.js \
+	bindings/controller.js \
 	driver.js
 
 HEADERS := \
