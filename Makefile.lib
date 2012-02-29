@@ -35,6 +35,11 @@ SOURCES := \
 	model/model.js \
 	model/controller.js \
 	model/factory.js \
+	bindings/behavior/value.js \
+	bindings/behavior/enablement.js \
+	bindings/html/common.js \
+	bindings/html/checkbox.js \
+	bindings/html/html.js \
 	bindings/controller.js \
 	driver.js
 
