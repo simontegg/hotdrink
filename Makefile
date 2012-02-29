@@ -39,7 +39,7 @@ test :
 
 .PHONY : clean clean-obj clean-exe clean-test clean-doc
 
-clean : clean-obj clean-exe
+clean : clean-obj clean-exe clean-test
 
 clean-obj :
 	@$(call defer,Makefile.lib)
@@ -52,7 +52,7 @@ clean-exe :
 	@$(call defer,Makefile.dijit)
 
 clean-test :
-	@$(call defer,Makefile.test)
+	@$(MAKE) -f Makefile.test clean
 
 clean-doc :
 	@$(call defer,Makefile.lib)
