@@ -38,8 +38,7 @@ SOURCES := \
 	parser/parsec.js \
 	parser/expr_parser.js \
 	parser/model_parser.js \
-	parser/view_parser.js \
-	driver.js
+	parser/view_parser.js
 
 HEADERS := \
   utility/debug.m4.js
