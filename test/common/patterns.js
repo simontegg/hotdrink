@@ -58,7 +58,7 @@
     /* TODO: Check that the keys in keyOrder exist in pattern? */
     if (!keyOrder) {
       /* TODO: Remove this check after we remove Prototype. */
-      if (Object.isArray(pattern)) {
+      if (Array.isArray(pattern)) {
         keyOrder = [];
         for (var i = 0; i < pattern.length; ++i) {
           keyOrder.push(i);
@@ -164,7 +164,7 @@
     MinSet.prototype.compare.call(this, cand, test, keyMap);
 
     /* TODO: Remove this check after we remove Prototype. */
-    if (!Object.isArray(cand)) {
+    if (!Array.isArray(cand)) {
       var clone = Object.clone(cand);
     
       for (var pkey in this.pattern) {

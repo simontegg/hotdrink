@@ -38,6 +38,7 @@ SOURCES := \
 	bindings/behavior/enablement.js \
 	bindings/html/common.js \
 	bindings/html/checkbox.js \
+	bindings/html/text.js \
 	bindings/html/html.js \
 	bindings/controller.js \
 	driver.js
