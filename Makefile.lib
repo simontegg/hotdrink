@@ -16,7 +16,6 @@ MAINPLUS := $(TITLE)-plus.js
 
 SRCDIR := lib
 SOURCES := \
-	utility/prototype-form-ex.js \
 	utility/debug.js \
 	utility/stdlib.js \
 	utility/namespace.js \
