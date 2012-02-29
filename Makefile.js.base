@@ -14,10 +14,9 @@ M4 := m4
 M4FLAGS = -P $(BUILD_FLAGS)
 
 # Change the path to the YUI Compressor as necessary:
-COMPILER := java -jar $(HOME)/local/bin/yuicompressor-2.4.2.jar --type js
-#YUIC := $(COMPILER)
-# If you do not have the YUI Compressor installed:
-YUIC := cat
+YUIC := java -jar $(HOME)/local/bin/yuicompressor-2.4.2.jar --type js
+
+GZIP := gzip
 
 ##################################################
 # self configuration (do not touch)
@@ -47,21 +46,29 @@ debug : BUILD_FLAGS := $(DEBUG_FLAGS)
 debug : $(MAIN)
 
 release : BUILD_FLAGS := $(RELEASE_FLAGS)
-release : $(MAIN)
+release : COMPILER := $(YUIC)
+# If you do not have the YUI Compressor installed:
+#release : COMPILER := cat
+release : $(MAIN).gz
 
 $(MAIN) : $(OBJECTS)
-	cat $^ > /tmp/$@
-	$(YUIC) /tmp/$@ > $@
+	cat $^ > $@
+
+$(MAIN).gz : clean-obj $(OBJECTS)
+	cat $(wordlist 2,$(words $^),$^) > /tmp/$@.raw
+	$(COMPILER) /tmp/$@.raw > /tmp/$@.yuic
+	$(GZIP) -c /tmp/$@.yuic > $@
+	-rm -rf $(OBJDIR)
 
 plus : $(MAINPLUS)
 
 $(MAINPLUS) : $(MAIN)
 	cat $(THIRD_PARTY_SOURCES) $^ > /tmp/$@
-	$(COMPILER) /tmp/$@ > $@
+	$(COMPILER) /tmp/$@ | $(COMPRESSOR) > $@
 
 syntax : $(OBJECTS)
 	cat $^ > /tmp/$@
-	$(COMPILER) /tmp/$@ > /dev/null
+	$(YUIC) /tmp/$@ > /dev/null
 
 doc : clean-doc
 	jsdoc -d=$(DOCDIR) $(SOURCES)
