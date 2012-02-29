@@ -1,4 +1,4 @@
-# Makefile for HotDrink tests.
+# Makefile for the HotDrink parser module.
 
 include Makefile.common
 include Makefile.js
@@ -6,7 +6,7 @@ include Makefile.js
 ##################################################
 # mandatory configuration
 
-TITLE := hotdrink-test
+TITLE := hotdrink-parser
 
 ##################################################
 # optional configuration
@@ -14,21 +14,16 @@ TITLE := hotdrink-test
 MAIN := $(TITLE).js
 MAINPLUS := $(TITLE)-plus.js
 
-SRCDIR := test
+SRCDIR := parser
 SOURCES := \
-  common/patterns.js \
-	test/patterns.js \
-	common/hello_world.js \
-	common/circle.js \
-	common/resize_image.js \
-	common/save_image.js \
-	common/enforced_minmax.js \
-	common/grouped_options.js \
-	model/value.js \
-	model/enablement.js \
-	parser/model.js
+	parsec.js \
+	expr_parser.js \
+	model_parser.js \
+	view_parser.js
 
+# symlink into lib/ for these
 HEADERS := \
+  utility/debug.m4.js
 
 OBJDIR := build
 

@@ -35,10 +35,7 @@ SOURCES := \
 	model/model.js \
 	model/controller.js \
 	model/factory.js \
-	parser/parsec.js \
-	parser/expr_parser.js \
-	parser/model_parser.js \
-	parser/view_parser.js
+	driver.js
 
 HEADERS := \
   utility/debug.m4.js
@@ -46,7 +43,7 @@ HEADERS := \
 OBJDIR := build
 
 THIRD_PARTY_SOURCES := \
-	test/js/prototype.js
+	test/prototype.js
 
 DOCDIR := doc
 
