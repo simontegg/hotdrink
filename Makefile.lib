@@ -27,10 +27,10 @@ SOURCES := \
 	concept/view/builder.js \
 	concept/view/controller.js \
 	model/graph/cgraph.js \
-	model/graph/sgraph.js \
 	model/graph/solver.js \
-	model/graph/egraph.js \
+	model/graph/sgraph.js \
 	model/graph/evaluator.js \
+	model/graph/egraph.js \
 	model/behavior/enablement.js \
 	model/model.js \
 	model/controller.js \
