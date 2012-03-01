@@ -1,99 +1,79 @@
 /**
- * @fileOverview <p>{@link hotdrink.controller.view.dijit.slider}</p>
+ * @fileOverview <p>{@link hotdrink.bindings.dijit.slider}</p>
  * @author John Freeman
  */
 
-//provides("hotdrink.controller.view.dijit.slider");
+//provides("hotdrink.bindings.dijit.slider");
 
 (function () {
 
   dojo.require("dijit.form.Slider");
 
-  var common = hotdrink.controller.view.common;
-  var valueB = hotdrink.controller.behavior.value;
-  var enableB = hotdrink.controller.behavior.enablement;
+  var common = hotdrink.bindings.common;
+  var valueB = hotdrink.bindings.behavior.value;
+  var enableB = hotdrink.bindings.behavior.enablement;
 
   var onChange = function (view, listener) {
-    view.elts.watch("value", listener);
+    view.watch("value", listener);
   };
 
   var read = function (view) {
-    return common.convertNumber(view.elts.get("value"));
+    return common.convertNumber(view.get("value"));
   };
 
   var writeValue = function (view, value) {
-    view.elts.set("value", value);
+    view.set("value", value);
   };
 
   var writeMinimum = function (view, value) {
-    view.elts.set("minimum", value);
+    view.set("minimum", value);
     // Must refresh 'value' so that the slider will move its thumb.
-    view.elts.set("value", view.elts.get("value"));
+    view.set("value", view.get("value"));
   };
 
   var writeMaximum = function (view, value) {
-    view.elts.set("maximum", value);
+    view.set("maximum", value);
     // Must refresh 'value' so that the slider will move its thumb.
-    view.elts.set("value", view.elts.get("value"));
+    view.set("value", view.get("value"));
   };
 
   var enable = function (view) {
-    view.elts.set("disabled", false);
+    view.set("disabled", false);
   };
 
   var disable = function (view) {
-    view.elts.set("disabled", true);
+    view.set("disabled", true);
   };
 
-  var SliderController = Class.create(common.ViewController, {
-    identify : function () {
-      if (!this.elts.get("id")) {
-        this.elts.set("id", common.makeId());
-      }
-      return this.elts.get("id");
-    },
-    bind : function (model, options) {
-      if (typeof options.value === "string") {
-        var v = options.value;
-        valueB.bindRead(this, onChange, read, model, v);
-        valueB.bindWrite(model, v, writeValue, this);
-        enableB.bindEnablement(model, v, enable, disable, this);
-      }
-      if (typeof options.minimum === "string") {
-        var v = options.minimum;
-        valueB.bindWrite(model, v, writeMinimum, this);
-      }
-      if (typeof options.maximum === "string") {
-        var v = options.maximum;
-        valueB.bindWrite(model, v, writeMaximum, this);
-      }
-    }
-  });
+  var bind = function bind(view, model, options) {
+    /* Look up the Dijit controller. */
+    view = dijit.byId($(view).attr("id"));
 
-  var build = function (tree) {
-    LOG("building " + tree.type);
-    var id = (tree.options.id) ? (tree.options.id) : (common.makeId());
-    var dom = {};
-    if (tree.options.label) {
-      dom.label = common.buildLabelBlock(id, tree.options.label);
+    if (typeof options.value === "function") {
+      var v = options.value.target;
+      valueB.bindRead(view, onChange, read, model, v);
+      valueB.bindWrite(model, v, writeValue, view);
+      enableB.bindEnablement(model, v, enable, disable, view);
+    } else {
+      writeValue(view, options.value);
     }
-    var elt = new dijit.form.HorizontalSlider({
-      id : id,
-      value : 5,
-      minimum : 0,
-      maximum : 10,
-      intermediateChanges : true,
-      style : "width:300px;"
-    });
-    dom.widget = elt.get("domNode");
-    tree.view = new SliderController(elt);
-    tree.dom = dom;
+
+    if (typeof options.minimum === "function") {
+      var v = options.minimum.target;
+      valueB.bindWrite(model, v, writeMinimum, view);
+    } else {
+      writeMinimum(view, options.minimum);
+    }
+
+    if (typeof options.maximum === "function") {
+      var v = options.maximum.target;
+      valueB.bindWrite(model, v, writeMaximum, view);
+    } else {
+      writeMaximum(view, options.maximum);
+    }
   };
 
-  namespace.extend("hotdrink.controller.view.dijit.slider", {
-    build : build,
-    Controller : SliderController
-  });
+  namespace.open("hotdrink.bindings.dijit").bindSlider = bind;
 
 }());
 

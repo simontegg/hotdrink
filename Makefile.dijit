@@ -14,10 +14,10 @@ TITLE := hotdrink-dijit
 MAIN := $(TITLE).js
 MAINPLUS := $(TITLE)-plus.js
 
-SRCDIR := lib
+SRCDIR := dijit
 SOURCES := \
-	controller/view/dijit/slider.js \
-	controller/view/dijit/build.js
+	slider.js \
+	dijit.js
 
 HEADERS := \
   utility/debug.m4.js

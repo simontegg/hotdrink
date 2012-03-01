@@ -34,6 +34,7 @@ SOURCES := \
 	model/model.js \
 	model/controller.js \
 	model/factory.js \
+	bindings/common.js \
 	bindings/behavior/value.js \
 	bindings/behavior/enablement.js \
 	bindings/html/common.js \
