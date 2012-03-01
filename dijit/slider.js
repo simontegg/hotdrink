@@ -58,18 +58,18 @@
       writeValue(view, options.value);
     }
 
-    if (typeof options.minimum === "function") {
-      var v = options.minimum.target;
+    if (typeof options.min === "function") {
+      var v = options.min.target;
       valueB.bindWrite(model, v, writeMinimum, view);
     } else {
-      writeMinimum(view, options.minimum);
+      writeMinimum(view, options.min);
     }
 
-    if (typeof options.maximum === "function") {
-      var v = options.maximum.target;
+    if (typeof options.max === "function") {
+      var v = options.max.target;
       valueB.bindWrite(model, v, writeMaximum, view);
     } else {
-      writeMaximum(view, options.maximum);
+      writeMaximum(view, options.max);
     }
   };
 

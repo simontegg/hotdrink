@@ -24,13 +24,13 @@
 
   var ns = hotdrink.bindings.dijit;
 
-  var addBinders = function addBinders(bindController) {
-    bindController.addBinders({
+  var extend = function extend(binders) {
+    Object.extend(binders, {
       "slider" : ns.bindSlider
     });
   };
 
-  ns.addBinders = addBinders;
+  ns.extend = extend;
 
 }());
 
