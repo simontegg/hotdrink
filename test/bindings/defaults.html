@@ -15,6 +15,8 @@
 
       this.num = hd.variable(3.14);
 
+      this.color = hd.variable("color: green");
+
       this.name = hd.variable("World");
       this.hello = hd.computed(function () {
         return "Hello, " + this.name() + "!";
@@ -92,7 +94,8 @@
   <p>
   <label for="name">Who are you?</label>
   <input type="text" id="name" data-bind="text: name" /><br />
-  <span data-bind="label: hello"></span>
+  <input type="text" id="color" data-bind="text: color" /><br />
+  <span data-bind="label: hello, attr: { style: color }"></span>
   </p>
 </body>
 </html>
