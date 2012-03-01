@@ -14,7 +14,7 @@ TITLE := hotdrink-test
 MAIN := $(TITLE).js
 MAINPLUS := $(TITLE)-plus.js
 
-SRCDIR := test
+SRCDIR := test/qunit
 SOURCES := \
   common/patterns.js \
 	test/patterns.js \
