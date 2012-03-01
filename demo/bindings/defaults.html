@@ -10,7 +10,8 @@
     var Model = function () {
       this.cbox = hd.variable(false);
 
-      this.cboxes = hd.variable([]);
+      this.many = hd.variable([]);
+      this.one = hd.variable();
 
       this.name = hd.variable("World");
       this.hello = hd.computed(function () {
@@ -38,16 +39,41 @@
   <label for="cbox">I am checked.</label>
   (<span data-bind="label: cbox"></span>)
   </p>
+
   <p>
-  <input type="checkbox" name="cboxes" value="a" id="a" data-bind="checkboxGroup: cboxes" />
+  <input type="checkbox" name="many" value="a" id="a" data-bind="checkboxGroup: many" />
   <label for="a">a</label>
-  <input type="checkbox" name="cboxes" value="b" id="b" />
+  <input type="checkbox" name="many" value="b" id="b" />
   <label for="b">b</label>
-  <input type="checkbox" name="cboxes" value="c" id="c" />
+  <input type="checkbox" name="many" value="c" id="c" />
   <label for="c">c</label>
   =
-  <span data-bind="label: cboxes"></span>
+  <select id="smany" multiple="true" size="2" data-bind="selectMany: many">
+    <option value="a">a</option>
+    <option value="b">b</option>
+    <option value="c">c</option>
+  </select>
+  =
+  <span data-bind="label: many"></span>
   </p>
+
+  <p>
+  <input type="radio" name="one" value="x" id="x" data-bind="radioGroup: one" />
+  <label for="x">x</label>
+  <input type="radio" name="one" value="y" id="y" />
+  <label for="y">y</label>
+  <input type="radio" name="one" value="z" id="z" />
+  <label for="z">z</label>
+  =
+  <select id="sone" size="2" data-bind="selectOne: one">
+    <option value="x">x</option>
+    <option value="y">y</option>
+    <option value="z">z</option>
+  </select>
+  =
+  <span data-bind="label: one"></span>
+  </p>
+
   <p>
   <label for="name">Who are you?</label>
   <input type="text" id="name" data-bind="text: name" /><br />
