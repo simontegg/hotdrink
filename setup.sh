@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ln -s ../lib/utility parser/utility
+ln -s ../lib/utility dijit/utility
 gmake
 gmake parser
 gmake dijit
