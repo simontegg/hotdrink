@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <script type="text/javascript" src="https://raw.github.com/kriskowal/es5-shim/master/es5-shim.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/hotdrink.js"></script>
+  <title>Default Binders | HotDrink Test Suite</title>
+  <script type="text/javascript">
+    var Model = function () {
+      this.cbox = hd.variable(false);
+
+      this.cboxes = hd.variable([]);
+
+      this.name = hd.variable("World");
+      this.hello = hd.computed(function () {
+        return "Hello, " + this.name() + "!";
+      });
+
+      /* Default output just reads from everything. */
+      hd.output(function () {
+        Object.keys(this).forEach(function (v) {
+          this[v]();
+        }, this);
+      });
+    };
+
+    var model = hd.model(new Model());
+
+    $(document).ready(function () {
+      hotdrink.bind(model);
+    });
+  </script>
+</head>
+<body>
+  <p>
+  <input type="checkbox" name="cbox" id="cbox" data-bind="checkbox: cbox" />
+  <label for="cbox">I am checked.</label>
+  (<span data-bind="label: cbox"></span>)
+  </p>
+  <p>
+  <input type="checkbox" name="cboxes" value="a" id="a" data-bind="checkboxGroup: cboxes" />
+  <label for="a">a</label>
+  <input type="checkbox" name="cboxes" value="b" id="b" />
+  <label for="b">b</label>
+  <input type="checkbox" name="cboxes" value="c" id="c" />
+  <label for="c">c</label>
+  =
+  <span data-bind="label: cboxes"></span>
+  </p>
+  <p>
+  <label for="name">Who are you?</label>
+  <input type="text" id="name" data-bind="text: name" /><br />
+  <span data-bind="label: hello"></span>
+  </p>
+</body>
+</html>
+
