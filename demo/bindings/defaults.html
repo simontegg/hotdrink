@@ -13,6 +13,8 @@
       this.many = hd.variable([]);
       this.one = hd.variable();
 
+      this.num = hd.variable(3.14);
+
       this.name = hd.variable("World");
       this.hello = hd.computed(function () {
         return "Hello, " + this.name() + "!";
@@ -79,6 +81,12 @@
   </select>
   =
   <span data-bind="label: one"></span>
+  </p>
+
+  <p>
+  <input type="text" id="num" data-bind="number: num" />
+  =
+  <span data-bind="label: num"></span>
   </p>
 
   <p>
