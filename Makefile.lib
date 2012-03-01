@@ -39,6 +39,9 @@ SOURCES := \
 	bindings/html/common.js \
 	bindings/html/checkbox.js \
 	bindings/html/checkboxGroup.js \
+	bindings/html/radioGroup.js \
+	bindings/html/selectOne.js \
+	bindings/html/selectMany.js \
 	bindings/html/text.js \
 	bindings/html/html.js \
 	bindings/controller.js \
