@@ -37,5 +37,5 @@ DEFERRED_TARGETS := \
 .PHONY : $(DEFERRED_TARGETS)
 
 $(DEFERRED_TARGETS) :
-	@$(call defer,Makefile.js.base)
+	@$(call defer,$(MAKEDIR)/Makefile.js.base)
 

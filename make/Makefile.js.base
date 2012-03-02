@@ -1,7 +1,7 @@
 # Nothing in me concerns you. You're probably looking for Makefile.js, which
 # provides the public interface to my contents.
 
-include Makefile.common
+include $(MAKEDIR)/Makefile.common
 
 ##################################################
 # optional configuration
@@ -21,16 +21,23 @@ GZIP := gzip
 ##################################################
 # self configuration (do not touch)
 
+$(SOURCES) :
+	@echo $@
+
 # Headers hold m4 macros, so they are dependencies for all objects
-HEADERS := $(addprefix $(SRCDIR)/,$(HEADERS))
 OBJECTS := $(addprefix $(OBJDIR)/,$(SOURCES))
 SOURCES := $(addprefix $(SRCDIR)/,$(SOURCES))
 
-# For some reason, the stem does not work properly in the order-only
-# prerequisite, so this rule had to be moved to second expansion
+#get_obj_path = $(shell echo "$(1)" | sed -e 's|[^/]*.js||')
+get_obj_path = $(1)
+my_dir = "blah"
+
+# To comply with POSIX, apparently, GNU make expands function calls when the
+# rule is read, not when it is matched, so this had to be moved to secondary
+# expansion.
 #$(OBJECTS) : $(OBJDIR)/% : $(HEADERS) $(SRCDIR)/% | $(OBJDIR)/$(dir %)
 
-$(OBJDIR)/% :
+$(sort $(dir $(OBJECTS))) :
 	mkdir -p $@
 
 ##################################################
@@ -85,6 +92,7 @@ clean-obj :
 
 clean-exe :
 	-rm -f $(MAIN)
+	-rm -f $(MAIN).gz
 
 clean-doc :
 	-rm -rf $(DOCDIR)
@@ -96,6 +104,6 @@ clean-doc :
 
 # Have to replace default rule because of separate build directory.
 # Unnecessary if make created the directory when writing a file.
-$(OBJECTS) : $(OBJDIR)/% : $(HEADERS) $(SRCDIR)/% | $$(@D)
+$(OBJECTS) : $(OBJDIR)/% : $(HEADERS) $(SRCDIR)/% | $$(@D)/
 	$(M4) $(M4FLAGS) $^ > $@
 

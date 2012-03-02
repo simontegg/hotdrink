@@ -1,7 +1,7 @@
 # Makefile for the main HotDrink library.
 
-include Makefile.common
-include Makefile.js
+include $(MAKEDIR)/Makefile.common
+include $(MAKEDIR)/Makefile.js
 
 ##################################################
 # mandatory configuration
@@ -52,7 +52,7 @@ SOURCES := \
 	driver.js
 
 HEADERS := \
-  utility/debug.m4.js
+  lib/utility/debug.m4.js
 
 OBJDIR := build
 
