@@ -34,3 +34,5 @@
 
 }());
 
+hotdrink.bindings.dijit.extend(hotdrink.binders);
+
