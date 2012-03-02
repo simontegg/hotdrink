@@ -21,6 +21,15 @@
       this.hello = hd.computed(function () {
         return "Hello, " + this.name() + "!";
       });
+
+      this.ok = hd.command(function () {
+        /* Access the other guys just so they'll be relevant. */
+        ["cbox", "many", "one", "num"].forEach(function (v) {
+          this[v]();
+        }, this);
+        /* The real action. */
+        return hd.fn(alert)(this.hello());
+      });
     };
 
     var model = hd.model(new Model());
@@ -88,7 +97,8 @@
   <label for="name">Who are you?</label>
   <input type="text" id="name" data-bind="text: name" /><br />
   <input type="text" id="color" data-bind="text: color" /><br />
-  <span data-bind="label: hello, attr: { style: color }"></span>
+  <span data-bind="label: hello, attr: { style: color }"></span></br />
+  <button id="ok" data-bind="command: ok">Ok</button>
   </p>
 </body>
 </html>
