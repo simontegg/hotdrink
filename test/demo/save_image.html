@@ -61,7 +61,7 @@
       }, "quality");
       /* Cannot put this in the HTML because it will get discarded. */
       $(quality.domNode).attr("data-bind",
-        "slider: { min: 0, value: image_quality, max: 100 }");
+        "slider: { min: 75, value: image_quality, max: 100 }");
 
       hotdrink.bind(model);
     });
@@ -83,11 +83,13 @@
 
   <p>
   <label for="ratio">Compression ratio:</label>
+  <span data-bind="label: compression_ratio"></span>%
   <div id="ratio"></div>
   </p>
 
   <p>
   <label for="quality">Image quality:</label>
+  <span data-bind="label: image_quality"></span>%
   <div id="quality"></div>
   </p>
 
