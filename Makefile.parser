@@ -21,9 +21,8 @@ SOURCES := \
 	model_parser.js \
 	view_parser.js
 
-# symlink into lib/ for these
 HEADERS := \
-  utility/debug.m4.js
+  lib/utility/debug.m4.js
 
 OBJDIR := build
 
