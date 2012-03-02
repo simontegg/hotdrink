@@ -40,7 +40,7 @@
           : this.relative_width();
       });
 
-    hd.output(function () {
+    this.result = hd.command(function () {
       return { height : this.absolute_height(),
                width : this.absolute_width() };
     });

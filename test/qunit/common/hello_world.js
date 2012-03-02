@@ -2,7 +2,7 @@
 
   var Model = function () {
     this.text = hd.computed(function () { return "Hello, World!"; });
-    hd.output(function () { return this.text(); });
+    this.result = hd.command(function () { return this.text(); });
   };
 
   var hello_world = {

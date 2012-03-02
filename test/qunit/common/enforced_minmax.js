@@ -20,7 +20,7 @@ var max = function (a, b) { return (a < b) ? (b) : (a); };
         return [valueNext, minNext];
       });
 
-    hd.output(function () {
+    this.result = hd.command(function () {
       return { value : this.value(), min : this.min(), max : this.max() };
     });
 

@@ -21,13 +21,6 @@
       this.hello = hd.computed(function () {
         return "Hello, " + this.name() + "!";
       });
-
-      /* Default output just reads from everything. */
-      hd.output(function () {
-        Object.keys(this).forEach(function (v) {
-          this[v]();
-        }, this);
-      });
     };
 
     var model = hd.model(new Model());

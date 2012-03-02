@@ -16,7 +16,7 @@
         return [this.all(), this.all(), this.all()];
       });
 
-    hd.output(function () {
+    this.result = hd.command(function () {
       return { a : this.a(), b : this.b(), c : this.c() };
     });
   };
