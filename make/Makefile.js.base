@@ -1,7 +1,7 @@
 # Nothing in me concerns you. You're probably looking for Makefile.js, which
 # provides the public interface to my contents.
 
-include Makefile.common
+include $(MAKEDIR)/Makefile.common
 
 ##################################################
 # optional configuration
@@ -32,14 +32,10 @@ SOURCES := $(addprefix $(SRCDIR)/,$(SOURCES))
 get_obj_path = $(1)
 my_dir = "blah"
 
-# For some reason, the stem does not work properly in the order-only
-# prerequisite, so this rule had to be moved to second expansion
-$(OBJECTS) : $(OBJDIR)/% : $(HEADERS) $(SRCDIR)/% | % $(dir %) $(call my_dir,%)
-	@echo target = $@
-	@echo output-only = $|
-	@echo raw = $*
-	@echo sed = $(call get_obj_path,$*)
-	$(M4) $(M4FLAGS) $^ > $@
+# To comply with POSIX, apparently, GNU make expands function calls when the
+# rule is read, not when it is matched, so this had to be moved to secondary
+# expansion.
+#$(OBJECTS) : $(OBJDIR)/% : $(HEADERS) $(SRCDIR)/% | $(OBJDIR)/$(dir %)
 
 $(sort $(dir $(OBJECTS))) :
 	mkdir -p $@
@@ -96,6 +92,7 @@ clean-obj :
 
 clean-exe :
 	-rm -f $(MAIN)
+	-rm -f $(MAIN).gz
 
 clean-doc :
 	-rm -rf $(DOCDIR)
@@ -107,6 +104,6 @@ clean-doc :
 
 # Have to replace default rule because of separate build directory.
 # Unnecessary if make created the directory when writing a file.
-#$(OBJECTS) : $(OBJDIR)/% : $(HEADERS) $(SRCDIR)/% | $$(@D)
-	#$(M4) $(M4FLAGS) $^ > $@
+$(OBJECTS) : $(OBJDIR)/% : $(HEADERS) $(SRCDIR)/% | $$(@D)/
+	$(M4) $(M4FLAGS) $^ > $@
 

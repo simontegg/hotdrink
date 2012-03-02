@@ -1,12 +1,12 @@
-# Makefile for the Dijit controllers to extend HotDrink.
+# I am a starting template for a JavaScript library Makefile. Copy me!
 
-include Makefile.common
-include Makefile.js
+include $(MAKEDIR)/Makefile.common
+include $(MAKEDIR)/Makefile.js
 
 ##################################################
 # mandatory configuration
 
-TITLE := hotdrink-dijit
+TITLE := hotdrink
 
 ##################################################
 # optional configuration
@@ -14,17 +14,14 @@ TITLE := hotdrink-dijit
 MAIN := $(TITLE).js
 MAINPLUS := $(TITLE)-plus.js
 
-SRCDIR := dijit
+SRCDIR := lib
 SOURCES := \
-	slider.js \
-	dijit.js
 
 HEADERS := \
-  lib/utility/debug.m4.js
 
 OBJDIR := build
 
-THIRD_PARTY_SOURCES := 
+THIRD_PARTY_SOURCES := \
 
 DOCDIR := doc
 

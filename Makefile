@@ -1,6 +1,8 @@
 # Umbrella Makefile.
 
-include Makefile.common
+MAKEDIR := make
+export MAKEDIR
+include $(MAKEDIR)/Makefile.common
 
 ##################################################
 # targets
@@ -8,31 +10,31 @@ include Makefile.common
 .PHONY : all debug release plus syntax doc parser dijit test
 
 all :
-	@$(call defer,Makefile.lib)
+	@$(call defer,$(MAKEDIR)/Makefile.lib)
 
 debug :
-	@$(call defer,Makefile.lib)
+	@$(call defer,$(MAKEDIR)/Makefile.lib)
 
 release :
-	@$(call defer,Makefile.lib)
+	@$(call defer,$(MAKEDIR)/Makefile.lib)
 
 plus :
-	@$(call defer,Makefile.lib)
+	@$(call defer,$(MAKEDIR)/Makefile.lib)
 
 syntax :
-	@$(call defer,Makefile.lib)
+	@$(call defer,$(MAKEDIR)/Makefile.lib)
 
 doc :
-	@$(call defer,Makefile.lib)
+	@$(call defer,$(MAKEDIR)/Makefile.lib)
 
 parser :
-	@$(MAKE) -f Makefile.parser
+	@$(MAKE) -f $(MAKEDIR)/Makefile.parser
 
 dijit :
-	@$(MAKE) -f Makefile.dijit
+	@$(MAKE) -f $(MAKEDIR)/Makefile.dijit
 
 test :
-	@$(MAKE) -f Makefile.test
+	@$(MAKE) -f $(MAKEDIR)/Makefile.test
 
 ##################################################
 # cleaning
@@ -42,19 +44,19 @@ test :
 clean : clean-obj clean-exe clean-test
 
 clean-obj :
-	@$(call defer,Makefile.lib)
-	@$(call defer,Makefile.parser)
-	@$(call defer,Makefile.dijit)
+	@$(call defer,$(MAKEDIR)/Makefile.lib)
+	@$(call defer,$(MAKEDIR)/Makefile.parser)
+	@$(call defer,$(MAKEDIR)/Makefile.dijit)
 
 clean-exe :
-	@$(call defer,Makefile.lib)
-	@$(call defer,Makefile.parser)
-	@$(call defer,Makefile.dijit)
+	@$(call defer,$(MAKEDIR)/Makefile.lib)
+	@$(call defer,$(MAKEDIR)/Makefile.parser)
+	@$(call defer,$(MAKEDIR)/Makefile.dijit)
 
 clean-test :
-	@$(MAKE) -f Makefile.test clean
+	@$(MAKE) -f $(MAKEDIR)/Makefile.test clean
 
 clean-doc :
-	@$(call defer,Makefile.lib)
-	@$(call defer,Makefile.parser)
+	@$(call defer,$(MAKEDIR)/Makefile.lib)
+	@$(call defer,$(MAKEDIR)/Makefile.parser)
 

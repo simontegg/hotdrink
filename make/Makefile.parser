@@ -1,12 +1,12 @@
-# I am a starting template for a JavaScript library Makefile. Copy me!
+# Makefile for the HotDrink parser module.
 
-include Makefile.common
-include Makefile.js
+include $(MAKEDIR)/Makefile.common
+include $(MAKEDIR)/Makefile.js
 
 ##################################################
 # mandatory configuration
 
-TITLE := hotdrink
+TITLE := hotdrink-parser
 
 ##################################################
 # optional configuration
@@ -14,10 +14,15 @@ TITLE := hotdrink
 MAIN := $(TITLE).js
 MAINPLUS := $(TITLE)-plus.js
 
-SRCDIR := lib
+SRCDIR := parser
 SOURCES := \
+	parsec.js \
+	expr_parser.js \
+	model_parser.js \
+	view_parser.js
 
 HEADERS := \
+  lib/utility/debug.m4.js
 
 OBJDIR := build
 
