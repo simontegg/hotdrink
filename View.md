@@ -1,0 +1,1 @@
+The term 'view' is used throughout the HotDrink documentation to refer to elements in the user interface or their [controllers](ViewControllers.md). Where the distinction is important, it will be noted.

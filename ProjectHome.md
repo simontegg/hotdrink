@@ -1,0 +1,3 @@
+From a simple declarative specification, this library will build and drive a web user interface, providing rich functionality like value propagation, disabling, and scripting with no extra effort. It applies the ideas published by Jaakko Jarvi, et al, under the label "property models."
+
+This material is based upon work supported by the National Science Foundation under Grant No. 0845861. Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation (NSF).
